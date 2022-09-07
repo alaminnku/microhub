@@ -1,3 +1,9 @@
+import Registration from "@components/home/Registration";
+
 export default function HomePage() {
-  return <main className="text-5xl">HomePage</main>;
+  return (
+    <main>
+      <Registration />
+    </main>
+  );
 }

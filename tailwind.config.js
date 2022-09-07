@@ -5,7 +5,14 @@ module.exports = {
   ],
   theme: {
     extend: {
-      colors: {},
+      fontFamily: {
+        roboto: ["DynaPuff", "cursive"],
+      },
+      colors: {
+        "dark-blue": "#172640",
+        "light-blue": "#87a3bb",
+        white: "#ffffff",
+      },
       spacing: {},
       letterSpacing: {},
       lineHeight: {},
