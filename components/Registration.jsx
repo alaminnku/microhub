@@ -4,7 +4,7 @@ import logo from "@public/layout/logo.svg";
 
 export default function Registration() {
   return (
-    <section className="px-10 py-5 flex flex-col bg-dark-blue">
+    <section className="px-10 py-5 flex flex-col">
       <div className="my-10 text-center">
         <div className="mb-4">
           <Image src={logo} />
@@ -47,7 +47,7 @@ export default function Registration() {
         </p>
       </div>
 
-      <button className="rounded-full bg-light-blue text-white self-center px-10 py-2 mb-8">
+      <button className="rounded-full bg-light-blue text-white self-center w-48 h-12 mb-8">
         Register Now
       </button>
 
