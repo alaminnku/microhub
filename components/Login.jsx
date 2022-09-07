@@ -1,8 +1,41 @@
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 import logo from "@public/layout/logo.svg";
 
 export default function Login() {
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+  const [disable, setDisable] = useState(true);
+
+  const { email, password } = formData;
+
+  const hasEmpty = Object.values(formData).some((data) => data === "");
+
+  function handleChange(e) {
+    {
+      !hasEmpty && setDisable(false);
+    }
+
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [e.target.name]: e.target.value,
+    }));
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    console.log(formData);
+
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      email: "",
+      password: "",
+    }));
+  }
   return (
     <section>
       <section className="px-10 py-5 flex flex-col">
@@ -17,16 +50,27 @@ export default function Login() {
           <input
             className="rounded-full mb-3 px-3 py-2 placeholder:text-sm"
             type="email"
+            name="email"
+            value={email}
             placeholder="Email Address"
+            onChange={handleChange}
           />
           <input
             className="rounded-full mb-3 px-3 py-2 placeholder:text-sm"
             type="password"
+            name="password"
+            value={password}
             placeholder="Password"
+            onChange={handleChange}
           />
         </form>
 
-        <button className="rounded-full bg-light-blue text-white self-center w-48 h-12 mb-8">
+        <button
+          className={`rounded-full text-white self-center w-48 h-12 mb-8 ${
+            disable ? "bg-gray-700 text-gray-500" : "bg-light-blue"
+          }`}
+          onClick={handleSubmit}
+        >
           Sign in
         </button>
 
