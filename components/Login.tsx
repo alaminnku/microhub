@@ -1,40 +1,56 @@
+import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
-import logo from "@public/layout/logo.svg";
+import logo from "@public/logo.svg";
+import { IFormData } from "types";
+import React, { ChangeEvent, FormEvent, useState } from "react";
 
 export default function Login() {
-  const [formData, setFormData] = useState({
+  // Initial state
+  const initialState = {
     email: "",
     password: "",
-  });
-  const [disable, setDisable] = useState(true);
+  };
+  // Hooks
+  const [isDisabled, setIsDisabled] = useState<boolean>(true);
+  const [formData, setFormData] = useState<IFormData>(initialState);
 
+  // Destructure data
   const { email, password } = formData;
 
+  // Check for empty fields
   const hasEmpty = Object.values(formData).some((data) => data === "");
 
-  function handleChange(e) {
+  // Handle change
+  function handleChange(e: ChangeEvent<HTMLInputElement>) {
+    // Enable button if no filed is empty
     {
-      !hasEmpty && setDisable(false);
+      !hasEmpty && setIsDisabled(false);
     }
 
-    setFormData((prevFormData) => ({
-      ...prevFormData,
+    // Update state
+    setFormData((currFormData) => ({
+      ...currFormData,
       [e.target.name]: e.target.value,
     }));
   }
 
-  function handleSubmit(e) {
+  // Handle submit
+  async function handleSubmit(e: FormEvent): Promise<void> {
     e.preventDefault();
 
-    console.log(formData);
+    // Sign user in
+    try {
+      const res = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/users/signin`
+      );
 
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      email: "",
-      password: "",
-    }));
+      console.log(res);
+    } catch (err) {
+      console.log(err);
+    }
+
+    setFormData(initialState);
   }
   return (
     <section>
@@ -46,7 +62,7 @@ export default function Login() {
           <p className="text-2xl text-white">Sign in</p>
         </div>
 
-        <form className="flex flex-col mb-8">
+        <form className="flex flex-col mb-8" action="submit">
           <input
             className="rounded-full mb-3 px-3 py-2 placeholder:text-sm"
             type="email"
@@ -66,8 +82,9 @@ export default function Login() {
         </form>
 
         <button
+          type="submit"
           className={`rounded-full text-white self-center w-48 h-12 mb-8 ${
-            disable ? "bg-gray-700 text-gray-500" : "bg-light-blue"
+            isDisabled ? "bg-gray-700 text-gray-500" : "bg-light-blue"
           }`}
           onClick={handleSubmit}
         >

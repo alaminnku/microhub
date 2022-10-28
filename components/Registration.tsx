@@ -1,46 +1,60 @@
 import Image from "next/image";
 import Link from "next/link";
-import logo from "@public/layout/logo.svg";
-import { useState } from "react";
+import axios from "axios";
+import { IFormData } from "types";
+import logo from "@public/logo.svg";
+import { ChangeEvent, FormEvent, useState } from "react";
 
 export default function Registration() {
-  const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
+  // Initial state
+  const initialState = {
+    first_name: "",
+    last_name: "",
     email: "",
     password: "",
-    retypePassword: "",
-  });
-  const [disable, setDisable] = useState(true);
+    passwordConfirm: "",
+  };
+  // Hooks
+  const [isDisabled, setIsDisabled] = useState<boolean>(true);
+  const [formData, setFormData] = useState<IFormData>(initialState);
 
-  const { firstName, lastName, email, password, retypePassword } = formData;
+  // Destructure data
+  const { first_name, last_name, email, password, passwordConfirm } = formData;
 
+  // Check for empty fields
   const hasEmpty = Object.values(formData).some((data) => data === "");
 
-  function handleChange(e) {
+  // Handle change
+  function handleChange(e: ChangeEvent<HTMLInputElement>) {
+    // Enable button if no filed is empty
     {
-      !hasEmpty && setDisable(false);
+      !hasEmpty && setIsDisabled(false);
     }
 
-    setFormData((prevFormData) => ({
-      ...prevFormData,
+    // Update state
+    setFormData((currFormData) => ({
+      ...currFormData,
       [e.target.name]: e.target.value,
     }));
   }
 
-  function handleSubmit(e) {
+  // Handle submit
+  async function handleSubmit(e: FormEvent) {
     e.preventDefault();
 
-    console.log(formData);
+    try {
+      const res = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/users/signup/client`,
+        { formData },
+        { withCredentials: true }
+      );
 
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      firstName: "",
-      lastName: "",
-      email: "",
-      password: "",
-      retypePassword: "",
-    }));
+      console.log(res);
+    } catch (err) {
+      console.log(err);
+    }
+
+    setFormData(initialState);
   }
 
   return (
@@ -52,20 +66,20 @@ export default function Registration() {
         <p className="text-2xl text-white">Create an Account</p>
       </div>
 
-      <form className="flex flex-col mb-2">
+      <form action="submit" className="flex flex-col mb-2">
         <input
           className="rounded-full mb-3 px-3 py-2 placeholder:text-sm"
           type="text"
-          name="firstName"
-          value={firstName}
+          name="first_name"
+          value={first_name}
           placeholder="First Name"
           onChange={handleChange}
         />
         <input
           className="rounded-full mb-3 px-3 py-2 placeholder:text-sm"
           type="text"
-          name="lastName"
-          value={lastName}
+          name="last_name"
+          value={last_name}
           placeholder="Last Name"
           onChange={handleChange}
         />
@@ -88,8 +102,8 @@ export default function Registration() {
         <input
           className="rounded-full mb-3 px-3 py-2 placeholder:text-sm"
           type="password"
-          name="retypePassword"
-          value={retypePassword}
+          name="passwordConfirm"
+          value={passwordConfirm}
           placeholder="Retype Password"
           onChange={handleChange}
         />
@@ -103,8 +117,9 @@ export default function Registration() {
       </div>
 
       <button
+        type="submit"
         className={`rounded-full text-white self-center w-48 h-12 mb-8 ${
-          disable ? "bg-gray-700 text-gray-500" : "bg-light-blue"
+          isDisabled ? "bg-gray-700 text-gray-500" : "bg-light-blue"
         }`}
         onClick={handleSubmit}
       >

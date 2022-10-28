@@ -1,5 +1,3 @@
-import Registration from "@components/Registration";
-
 export default function HomePage() {
   return (
     <main className="bg-dark-blue min-h-screen flex items-center">
