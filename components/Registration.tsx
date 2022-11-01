@@ -45,8 +45,12 @@ export default function Registration() {
     try {
       const res = await axios.post(
         `${process.env.NEXT_PUBLIC_API_URL}/users/signup/client`,
-        { formData },
-        { withCredentials: true }
+        formData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
       );
 
       console.log(res);
