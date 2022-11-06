@@ -1,8 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
-import axios from "axios";
 import { IFormData } from "types";
 import logo from "@public/logo.svg";
+import { axiosInstance } from "@utils/index";
 import { ChangeEvent, FormEvent, useState } from "react";
 
 export default function Registration() {
@@ -43,15 +43,7 @@ export default function Registration() {
     e.preventDefault();
 
     try {
-      const res = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}/users/signup/client`,
-        formData,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const res = await axiosInstance.post("/users/signup/client", formData);
 
       console.log(res);
     } catch (err) {
