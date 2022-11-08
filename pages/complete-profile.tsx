@@ -1,3 +1,4 @@
+import SubmitButton from "@components/layout/SubmitButton";
 import { useUser } from "@context/User";
 import { axiosInstance } from "@utils/index";
 import { ChangeEvent, useState } from "react";
@@ -59,10 +60,7 @@ export default function CompleteProfilePage() {
           className="mb-6"
         />
 
-        <input
-          type="submit"
-          className="bg-sky-600 text-white text-lg py-2 cursor-pointer"
-        />
+        <SubmitButton />
       </form>
     </main>
   );

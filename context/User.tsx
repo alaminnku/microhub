@@ -15,8 +15,6 @@ export default function UserProvider({ children }: IContextProviderProps) {
   const router = useRouter();
   const [user, setUser] = useState<IUser | null>(null);
 
-  console.log(user);
-
   // Fetch user on app reload
   useEffect(() => {
     async function getUser() {
