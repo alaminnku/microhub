@@ -1,14 +1,21 @@
-import SubmitButton from "@components/layout/SubmitButton";
 import { useUser } from "@context/User";
+import { useRouter } from "next/router";
 import { axiosInstance } from "@utils/index";
-import { ChangeEvent, useState } from "react";
-import { IFormData } from "types";
+import { ChangeEvent, useEffect, useState } from "react";
+import SubmitButton from "@components/layout/SubmitButton";
 
 export default function CompleteProfilePage() {
-  const { setUser } = useUser();
+  const { user, setUser } = useUser();
+  const router = useRouter();
   const [age, setAge] = useState<number>();
   const [photo, setPhoto] = useState<File>();
   const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    if (!user?.age) {
+      router.push("/workout-and-nutrition-goals");
+    }
+  });
 
   function handleChangeFile(e: ChangeEvent<HTMLInputElement>) {
     if (e.target.files) {
@@ -37,7 +44,7 @@ export default function CompleteProfilePage() {
   }
 
   return (
-    <main className="px-5 py-4 border">
+    <main className="px-5 py-4">
       <h2 className="mb-3 text-xl font-bold">Complete your profile</h2>
 
       <form onSubmit={handleSubmit} className="flex flex-col">

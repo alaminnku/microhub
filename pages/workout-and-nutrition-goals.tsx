@@ -1,5 +1,5 @@
 import SubmitButton from "@components/layout/SubmitButton";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import { IFormData } from "types";
 
 export default function WorkoutAndNutritionGoalsPage() {
@@ -7,6 +7,7 @@ export default function WorkoutAndNutritionGoalsPage() {
     body_fat: 0,
     sex: "",
     weight: 0,
+    age: 0,
     wrist: 0,
     waist: 0,
     hip: 0,
@@ -16,8 +17,17 @@ export default function WorkoutAndNutritionGoalsPage() {
 
   const [formData, setFormData] = useState<IFormData>(initialState);
 
-  const { body_fat, sex, weight, wrist, waist, hip, forearm, activity_level } =
-    formData;
+  const {
+    body_fat,
+    sex,
+    age,
+    weight,
+    wrist,
+    waist,
+    hip,
+    forearm,
+    activity_level,
+  } = formData;
 
   function handleChange(e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
     // Id and value
@@ -30,13 +40,25 @@ export default function WorkoutAndNutritionGoalsPage() {
     }));
   }
 
-  async function handleSubmit() {}
+  async function handleSubmit(e: FormEvent) {
+    e.preventDefault();
+
+    try {
+      console.log(formData);
+    } catch (err) {
+      console.log(err);
+    } finally {
+      // Remove loader
+    }
+  }
 
   return (
-    <main className="px-5 py-4 border">
-      <h2 className="mb-3 text-xl font-bold">Workout and nutrition goals</h2>
+    <main className="px-5 py-4">
+      <p className="mb-3 text-xl font-semibold">
+        Help us learn about your workout and nutrition goals
+      </p>
       <form onSubmit={handleSubmit} className="flex flex-col">
-        <label htmlFor="body_fat" className={labelStyle}>
+        {/* <label htmlFor="body_fat" className={labelStyle}>
           Your body fat
         </label>
         <input
@@ -45,10 +67,21 @@ export default function WorkoutAndNutritionGoalsPage() {
           value={body_fat}
           onChange={handleChange}
           className={inputStyle}
+        /> */}
+
+        <label htmlFor="age" className={labelStyle}>
+          What's your age?
+        </label>
+        <input
+          type="number"
+          id="age"
+          value={age}
+          onChange={handleChange}
+          className={inputStyle}
         />
 
         <label htmlFor="sex" className={labelStyle}>
-          Your sex
+          What's your gender?
         </label>
         <select
           id="sex"
@@ -56,8 +89,8 @@ export default function WorkoutAndNutritionGoalsPage() {
           onChange={handleChange}
           className={selectStyle}
         >
-          <option hidden aria-hidden value="Please select your sex">
-            Please select your sex
+          <option hidden aria-hidden value="Please select one">
+            Please select one
           </option>
           <option value="male">Male</option>
           <option value="female">Female</option>
@@ -65,7 +98,7 @@ export default function WorkoutAndNutritionGoalsPage() {
         </select>
 
         <label htmlFor="weight" className={labelStyle}>
-          Your weight
+          What's your weight?
         </label>
         <input
           type="number"
@@ -76,7 +109,7 @@ export default function WorkoutAndNutritionGoalsPage() {
         />
 
         <label htmlFor="wrist" className={labelStyle}>
-          Wrist measurement
+          What's your wrist circumference?
         </label>
         <input
           type="number"
@@ -87,7 +120,7 @@ export default function WorkoutAndNutritionGoalsPage() {
         />
 
         <label htmlFor="waist" className={labelStyle}>
-          Waist measurement
+          What's your waist circumference?
         </label>
         <input
           type="number"
@@ -98,7 +131,7 @@ export default function WorkoutAndNutritionGoalsPage() {
         />
 
         <label htmlFor="hip" className={labelStyle}>
-          Hip measurement
+          What's your hip circumference?
         </label>
         <input
           type="number"
@@ -109,7 +142,7 @@ export default function WorkoutAndNutritionGoalsPage() {
         />
 
         <label htmlFor="forearm" className={labelStyle}>
-          Forearm measurement
+          What's your forearm circumference?
         </label>
         <input
           type="number"
@@ -120,7 +153,7 @@ export default function WorkoutAndNutritionGoalsPage() {
         />
 
         <label htmlFor="activity_level" className={labelStyle}>
-          Your activity level
+          What's your activity level?
         </label>
         <select
           id="activity_level"
@@ -128,8 +161,8 @@ export default function WorkoutAndNutritionGoalsPage() {
           onChange={handleChange}
           className={selectStyle}
         >
-          <option hidden aria-hidden value="Please select your activity level">
-            Please select your activity level
+          <option hidden aria-hidden value="Please select one">
+            Please select one
           </option>
           <option value="light">Light (1-3 days/week)</option>
           <option value="moderate">Moderate (3-5 days/week)</option>
