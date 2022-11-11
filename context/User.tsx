@@ -36,6 +36,7 @@ export default function UserProvider({ children }: IContextProviderProps) {
     getUser();
   }, [router.isReady]);
 
+  console.log(user);
   return (
     <UserContext.Provider value={{ user, setUser }}>
       {children}

@@ -11,9 +11,10 @@ export default function CompleteProfilePage() {
   const [photo, setPhoto] = useState<File>();
   const [isLoading, setIsLoading] = useState(false);
 
+  // Check user details and push to the details page
   useEffect(() => {
-    if (!user?.age) {
-      router.push("/workout-and-nutrition-goals");
+    if (!user?.consumer) {
+      router.push("/add-details");
     }
   });
 
