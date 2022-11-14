@@ -151,7 +151,7 @@ export default function AddDetailsPage() {
           <option hidden aria-hidden value="Please select one">
             Please select one
           </option>
-          <option value="sendentary">Sendentary</option>
+          <option value="sedentary">Sedentary</option>
           <option value="lightly active">Lightly active</option>
           <option value="moderate active">Moderate active</option>
           <option value="very active">Very active</option>
@@ -175,9 +175,9 @@ export default function AddDetailsPage() {
           <option value="vegan">Vegan</option>
           <option value="halal">Halal</option>
           <option value="kosher">Kosher</option>
-          <option value="standart">Standart</option>
+          <option value="standard">Standard</option>
           <option value="vegetarian">Vegetarian</option>
-          <option value="polltraian">Polltraian</option>
+          <option value="pollotarian">Pollotarian</option>
           <option value="gluten free">Gluten free</option>
           <option value="pescetarian">Pescetarian</option>
           <option value="lacto vegetarian">Lacto vegetarian</option>
