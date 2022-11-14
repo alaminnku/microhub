@@ -151,12 +151,11 @@ export default function AddDetailsPage() {
           <option hidden aria-hidden value="Please select one">
             Please select one
           </option>
-          <option value="light">Light (1-3 days/week)</option>
-          <option value="moderate">Moderate (3-5 days/week)</option>
-          <option value="very_active">Very active (6-7 days/week)</option>
-          <option value="extremely_active">
-            Extremely active (Several times per day)
-          </option>
+          <option value="sendentary">Sendentary</option>
+          <option value="lightly active">Lightly active</option>
+          <option value="moderate active">Moderate active</option>
+          <option value="very active">Very active</option>
+          <option value="extremely active">Extremely active</option>
         </select>
 
         <label htmlFor="preferences" className={labelStyle}>
@@ -171,7 +170,17 @@ export default function AddDetailsPage() {
           <option hidden aria-hidden value="Please select one">
             Please select one
           </option>
+          <option value="meat">Meat</option>
+          <option value="diet">Diet</option>
+          <option value="vegan">Vegan</option>
           <option value="halal">Halal</option>
+          <option value="kosher">Kosher</option>
+          <option value="standart">Standart</option>
+          <option value="vegetarian">Vegetarian</option>
+          <option value="polltraian">Polltraian</option>
+          <option value="gluten free">Gluten free</option>
+          <option value="pescetarian">Pescetarian</option>
+          <option value="lacto vegetarian">Lacto vegetarian</option>
         </select>
 
         <label htmlFor="weight" className={labelStyle}>

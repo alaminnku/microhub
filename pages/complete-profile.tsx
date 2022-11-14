@@ -32,8 +32,6 @@ export default function CompleteProfilePage() {
       // Make request to the backend
       const response = await axiosInstance.post("/user/update", { age, photo });
 
-      console.log(response);
-
       // Update user
       setUser(response.data.data.user);
     } catch (err) {
