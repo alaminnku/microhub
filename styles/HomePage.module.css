@@ -1,0 +1,8 @@
+.home_page {
+  min-height: 100vh;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--section_padding);
+}

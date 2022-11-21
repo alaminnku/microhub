@@ -2,7 +2,7 @@ import { useUser } from "@context/User";
 import { useRouter } from "next/router";
 import { axiosInstance } from "@utils/index";
 import { ChangeEvent, useEffect, useState } from "react";
-import SubmitButton from "@components/layout/SubmitButton";
+import SubmitButton from "@components/SubmitButton";
 
 export default function CompleteProfilePage() {
   const { user, setUser } = useUser();
@@ -43,11 +43,11 @@ export default function CompleteProfilePage() {
   }
 
   return (
-    <main className="px-5 py-4">
-      <h2 className="mb-3 text-xl font-bold">Complete your profile</h2>
+    <main className="">
+      <h2 className="">Complete your profile</h2>
 
-      <form onSubmit={handleSubmit} className="flex flex-col">
-        <label htmlFor="age" className="mb-3">
+      <form onSubmit={handleSubmit} className="">
+        <label htmlFor="age" className="">
           Add your age
         </label>
         <input
@@ -56,15 +56,10 @@ export default function CompleteProfilePage() {
             setAge(+e.target.value)
           }
           id="age"
-          className="px-2 py-2 border border-gray-500 rounded mb-6"
+          className=""
         />
 
-        <input
-          type="file"
-          id="file"
-          onChange={handleChangeFile}
-          className="mb-6"
-        />
+        <input type="file" id="file" onChange={handleChangeFile} className="" />
 
         <SubmitButton />
       </form>

@@ -2,7 +2,7 @@ import { IConsumerDetails } from "types";
 import { axiosInstance } from "@utils/index";
 import { useUser } from "@context/User";
 import { useRouter } from "next/router";
-import SubmitButton from "@components/layout/SubmitButton";
+import SubmitButton from "@components/SubmitButton";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 
 export default function AddDetailsPage() {
@@ -73,6 +73,8 @@ export default function AddDetailsPage() {
 
     try {
       const response = await axiosInstance.post("/consumers", data);
+
+      console.log(response);
 
       setUser((currUser) => {
         if (currUser) {

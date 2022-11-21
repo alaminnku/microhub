@@ -54,18 +54,18 @@ export default function RegistrationPage() {
   }
 
   return (
-    <main className="bg-dark-blue min-h-screen">
-      <section className="px-10 py-5 flex flex-col">
-        <div className="my-10 text-center">
-          <div className="mb-4">
+    <main className="">
+      <section className="">
+        <div className="">
+          <div className="">
             <Image src={logo} />
           </div>
-          <p className="text-2xl text-white">Create an Account</p>
+          <p className="">Create an Account</p>
         </div>
 
-        <form action="submit" className="flex flex-col mb-2">
+        <form action="submit" className="">
           <input
-            className="rounded-full mb-3 px-3 py-2 placeholder:text-sm"
+            className=""
             type="text"
             name="first_name"
             value={first_name}
@@ -73,7 +73,7 @@ export default function RegistrationPage() {
             onChange={handleChange}
           />
           <input
-            className="rounded-full mb-3 px-3 py-2 placeholder:text-sm"
+            className=""
             type="text"
             name="last_name"
             value={last_name}
@@ -81,7 +81,7 @@ export default function RegistrationPage() {
             onChange={handleChange}
           />
           <input
-            className="rounded-full mb-3 px-3 py-2 placeholder:text-sm"
+            className=""
             type="email"
             name="email"
             value={email}
@@ -89,7 +89,7 @@ export default function RegistrationPage() {
             onChange={handleChange}
           />
           <input
-            className="rounded-full mb-3 px-3 py-2 placeholder:text-sm"
+            className=""
             type="password"
             name="password"
             value={password}
@@ -97,7 +97,7 @@ export default function RegistrationPage() {
             onChange={handleChange}
           />
           <input
-            className="rounded-full mb-3 px-3 py-2 placeholder:text-sm"
+            className=""
             type="password"
             name="passwordConfirm"
             value={passwordConfirm}
@@ -106,24 +106,16 @@ export default function RegistrationPage() {
           />
         </form>
 
-        <div className="flex items-start mb-8">
-          <input type="checkbox" className="mr-2 mt-1 w-5 h-5" />
-          <p className="text-white">
-            By signing up I agree to the Terms & Conditions
-          </p>
+        <div className="">
+          <input type="checkbox" className="" />
+          <p className="">By signing up I agree to the Terms & Conditions</p>
         </div>
 
-        <button
-          type="submit"
-          className={`rounded-full text-white self-center w-48 h-12 mb-8 ${
-            isDisabled ? "bg-gray-700 text-gray-500" : "bg-light-blue"
-          }`}
-          onClick={handleSubmit}
-        >
+        <button type="submit" className="" onClick={handleSubmit}>
           Register Now
         </button>
 
-        <p className="text-white self-center mb-2">
+        <p className="">
           Have an account?{" "}
           <Link href="/login">
             <a className="text-light-blue">Sign in</a>

@@ -65,17 +65,17 @@ export default function LoginPage() {
     }
   }
   return (
-    <section className="px-10 py-5 flex flex-col">
-      <div className="my-10 text-center">
-        <div className="mb-4">
+    <section className="">
+      <div className="">
+        <div className="">
           <Image src={logo} />
         </div>
-        <p className="text-2xl text-white">Sign in</p>
+        <p className="">Sign in</p>
       </div>
 
-      <form className="flex flex-col mb-8" action="submit">
+      <form className="" action="submit">
         <input
-          className="rounded-full mb-3 px-3 py-2 placeholder:text-sm"
+          className=""
           type="email"
           name="email"
           value={email}
@@ -83,7 +83,7 @@ export default function LoginPage() {
           onChange={handleChange}
         />
         <input
-          className="rounded-full mb-3 px-3 py-2 placeholder:text-sm"
+          className=""
           type="password"
           name="password"
           value={password}
@@ -92,20 +92,14 @@ export default function LoginPage() {
         />
       </form>
 
-      <button
-        type="submit"
-        className={`rounded-full text-white self-center w-48 h-12 mb-8 ${
-          isDisabled ? "bg-gray-700 text-gray-500" : "bg-light-blue"
-        }`}
-        onClick={handleSubmit}
-      >
+      <button type="submit" className="" onClick={handleSubmit}>
         Sign in
       </button>
 
-      <p className="text-white self-center mb-2">
+      <p className="">
         Don't have an account?{" "}
         <Link href="/register">
-          <a className="text-light-blue">Sign up</a>
+          <a className="">Sign up</a>
         </Link>
       </p>
     </section>

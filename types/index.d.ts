@@ -60,3 +60,13 @@ export interface IUserContext {
   user: IUser | null;
   setUser: Dispatch<SetStateAction<IUser | null>>;
 }
+
+export interface IMobileMenuProps {
+  isOpen: boolean;
+  setIsOpen: Dispatch<SetStateAction<boolean>>;
+}
+
+export interface IMobileNavProps {
+  isOpen: boolean;
+  setIsOpen: Dispatch<SetStateAction<boolean>>;
+}
