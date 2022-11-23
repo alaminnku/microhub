@@ -2,8 +2,9 @@ import { useUser } from "@context/User";
 import { axiosInstance } from "@utils/index";
 import Image from "next/image";
 import Link from "next/link";
-import logo from "@public/logo.svg";
+import logo from "@public/logo-white.svg";
 import { useRouter } from "next/router";
+import styles from "@styles/Login.module.css";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { IFormData } from "types";
 
@@ -21,7 +22,7 @@ export default function LoginPage() {
   const [formData, setFormData] = useState<IFormData>(initialState);
 
   useEffect(() => {
-    if (!user?.consumer) {
+    if (user && !user?.consumer) {
       router.push("/complete-profile");
     }
   }, [user]);
@@ -65,43 +66,41 @@ export default function LoginPage() {
     }
   }
   return (
-    <section className="">
-      <div className="">
-        <div className="">
+    <main className={styles.login}>
+      <section>
+        <div className={styles.logo}>
           <Image src={logo} />
         </div>
-        <p className="">Sign in</p>
-      </div>
+        <p className={styles.title}>Sign in</p>
 
-      <form className="" action="submit">
-        <input
-          className=""
-          type="email"
-          name="email"
-          value={email}
-          placeholder="Email Address"
-          onChange={handleChange}
-        />
-        <input
-          className=""
-          type="password"
-          name="password"
-          value={password}
-          placeholder="Password"
-          onChange={handleChange}
-        />
-      </form>
+        <form className={styles.form} action="submit">
+          <input
+            type="email"
+            name="email"
+            value={email}
+            placeholder="Email Address"
+            onChange={handleChange}
+          />
+          <input
+            type="password"
+            name="password"
+            value={password}
+            placeholder="Password"
+            onChange={handleChange}
+          />
+        </form>
 
-      <button type="submit" className="" onClick={handleSubmit}>
-        Sign in
-      </button>
+        <button type="submit" className={styles.button} onClick={handleSubmit}>
+          Sign in
+        </button>
 
-      <p className="">
-        Don't have an account?{" "}
-        <Link href="/register">
-          <a className="">Sign up</a>
-        </Link>
-      </p>
-    </section>
+        <p className={styles.register}>
+          Don't have an account?{" "}
+          <Link href="/register">
+            <a className="">Sign up</a>
+          </Link>
+        </p>
+      </section>
+    </main>
   );
 }

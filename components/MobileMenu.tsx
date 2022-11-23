@@ -2,7 +2,6 @@ import Link from "next/link";
 import { useEffect } from "react";
 import { MdLogout } from "react-icons/md";
 import { useUser } from "@context/User";
-import { IoLogIn } from "react-icons/io5";
 import { IMobileMenuProps } from "types";
 import { FaUserAlt } from "react-icons/fa";
 import styles from "@styles/MobileMenu.module.css";
@@ -26,7 +25,7 @@ export default function MobileMenu({ isOpen, setIsOpen }: IMobileMenuProps) {
     // Sign a user out
     try {
       // Make request to backend
-      await axiosInstance.post(`/users/logout`, {});
+      await axiosInstance.get(`/users/logout`);
 
       // Update user
       setUser(null);
@@ -49,7 +48,7 @@ export default function MobileMenu({ isOpen, setIsOpen }: IMobileMenuProps) {
           </Link>
         </li>
 
-        <li>
+        <li onClick={handleSignOut}>
           <span>
             <MdLogout /> Sign out
           </span>

@@ -11,6 +11,8 @@ body {
 :root {
   --black: #000;
   --white: #fff;
+  --blue: #132642;
+  --light_blue: #81a3be;
   --almost_white: #fafafa;
   --border_color: #eaeaea;
   --section_padding: 1.5rem;

@@ -1,9 +1,11 @@
 import Link from "next/link";
 import { IFormData } from "types";
 import Image from "next/image";
-import logo from "@public/logo.svg";
+import logo from "@public/logo-white.svg";
 import { axiosInstance } from "@utils/index";
+import styles from "@styles/Register.module.css";
 import { ChangeEvent, FormEvent, useState } from "react";
+import SubmitButton from "@components/SubmitButton";
 
 export default function RegistrationPage() {
   // Initial state
@@ -54,16 +56,14 @@ export default function RegistrationPage() {
   }
 
   return (
-    <main className="">
-      <section className="">
-        <div className="">
-          <div className="">
-            <Image src={logo} />
-          </div>
-          <p className="">Create an Account</p>
+    <main className={styles.register}>
+      <section>
+        <div className={styles.logo}>
+          <Image src={logo} priority />
         </div>
+        <p className={styles.title}>Create an Account</p>
 
-        <form action="submit" className="">
+        <form action="submit" className={styles.form}>
           <input
             className=""
             type="text"
@@ -106,16 +106,16 @@ export default function RegistrationPage() {
           />
         </form>
 
-        <div className="">
+        <div className={styles.agreement}>
           <input type="checkbox" className="" />
           <p className="">By signing up I agree to the Terms & Conditions</p>
         </div>
 
-        <button type="submit" className="" onClick={handleSubmit}>
+        <button type="submit" className={styles.button} onClick={handleSubmit}>
           Register Now
         </button>
 
-        <p className="">
+        <p className={styles.login}>
           Have an account?{" "}
           <Link href="/login">
             <a className="text-light-blue">Sign in</a>

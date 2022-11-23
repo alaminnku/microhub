@@ -1,0 +1,59 @@
+.login {
+  min-height: 100vh;
+  text-align: center;
+  background: var(--blue);
+  padding: var(--section_padding);
+}
+
+.login section {
+  max-width: 90%;
+  margin: 0 auto;
+  margin-top: 3rem;
+}
+
+.login p {
+  color: var(--white);
+}
+
+.logo,
+.title {
+  margin-bottom: 1rem;
+}
+
+.title {
+  font-size: 24px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form input {
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border-radius: 2rem;
+}
+
+.form input:last-child {
+  margin-bottom: 0rem;
+}
+
+.button {
+  width: 10rem;
+  height: 2.5rem;
+  margin: 2.5rem 0rem;
+  border-radius: 2rem;
+  border: none;
+  cursor: pointer;
+  color: var(--white);
+  background: var(--light_blue);
+}
+
+.register {
+  font-size: 0.9rem;
+}
+
+.register a {
+  color: var(--light_blue);
+}
