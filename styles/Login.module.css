@@ -6,8 +6,6 @@
 }
 
 .login section {
-  max-width: 90%;
-  margin: 0 auto;
   margin-top: 3rem;
 }
 
@@ -30,7 +28,7 @@
 }
 
 .form input {
-  padding: 0.75rem;
+  padding: 14px;
   margin-bottom: 1rem;
   border-radius: 2rem;
 }
@@ -40,18 +38,15 @@
 }
 
 .button {
-  width: 10rem;
-  height: 2.5rem;
+  width: 190px;
+  height: 48px;
   margin: 2.5rem 0rem;
   border-radius: 2rem;
   border: none;
+  font-size: 1rem;
   cursor: pointer;
   color: var(--white);
   background: var(--light_blue);
-}
-
-.register {
-  font-size: 0.9rem;
 }
 
 .register a {

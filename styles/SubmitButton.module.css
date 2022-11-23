@@ -1,0 +1,6 @@
+.submit_button {
+  font-size: 1rem;
+  cursor: pointer;
+  color: var(--white);
+  background: var(--light_blue);
+}

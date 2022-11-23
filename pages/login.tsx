@@ -22,10 +22,10 @@ export default function LoginPage() {
   const [formData, setFormData] = useState<IFormData>(initialState);
 
   useEffect(() => {
-    if (user && !user?.consumer) {
-      router.push("/complete-profile");
+    if (user && !user?.consumer && router.isReady) {
+      router.push("/add-details");
     }
-  }, [user]);
+  }, [user, router.isReady]);
 
   // Destructure data
   const { email, password } = formData;

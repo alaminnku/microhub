@@ -2,10 +2,11 @@ import Link from "next/link";
 import { IFormData } from "types";
 import Image from "next/image";
 import logo from "@public/logo-white.svg";
+import { useUser } from "@context/User";
+import { useRouter } from "next/router";
 import { axiosInstance } from "@utils/index";
 import styles from "@styles/Register.module.css";
-import { ChangeEvent, FormEvent, useState } from "react";
-import SubmitButton from "@components/SubmitButton";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 
 export default function RegistrationPage() {
   // Initial state
@@ -17,8 +18,17 @@ export default function RegistrationPage() {
     passwordConfirm: "",
   };
   // Hooks
+  const router = useRouter();
+  const { user, setUser } = useUser();
   const [isDisabled, setIsDisabled] = useState<boolean>(true);
   const [formData, setFormData] = useState<IFormData>(initialState);
+
+  // Check user
+  useEffect(() => {
+    if (user && !user?.consumer && router.isReady) {
+      router.push("/add-details");
+    }
+  }, [user, router.isReady]);
 
   // Destructure data
   const { first_name, last_name, email, password, passwordConfirm } = formData;
@@ -44,10 +54,15 @@ export default function RegistrationPage() {
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
 
+    // Register user
     try {
       const res = await axiosInstance.post("/users/signup/client", formData);
 
-      console.log(res);
+      // Update state
+      setUser(res.data.data.user);
+
+      // Push to add details page
+      router.push("/add-details");
     } catch (err) {
       console.log(err);
     }

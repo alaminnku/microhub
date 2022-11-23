@@ -1,13 +1,10 @@
 .register {
-  min-height: 100vh;
   text-align: center;
   background: var(--blue);
   padding: var(--section_padding);
 }
 
 .register section {
-  max-width: 90%;
-  margin: 0 auto;
   margin-top: 3rem;
 }
 
@@ -30,7 +27,7 @@
 }
 
 .form input {
-  padding: 0.75rem;
+  padding: 14px;
   margin-bottom: 1rem;
   border-radius: 2rem;
 }
@@ -41,28 +38,24 @@
 }
 
 .agreement input {
-  margin-top: 0.35rem;
+  margin-top: 0.5rem;
   margin-right: 0.5rem;
 }
 
 .agreement p {
   text-align: left;
-  font-size: 0.9rem;
 }
 
 .button {
-  width: 10rem;
-  height: 2.5rem;
+  width: 190px;
+  height: 48px;
   margin: 2.5rem 0rem;
   border-radius: 2rem;
   border: none;
+  font-size: 1rem;
   cursor: pointer;
   color: var(--white);
   background: var(--light_blue);
-}
-
-.login {
-  font-size: 0.9rem;
 }
 
 .login a {
