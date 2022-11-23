@@ -9,7 +9,10 @@ import { currentYear, axiosInstance } from "@utils/index";
 
 export default function MobileMenu({ isOpen, setIsOpen }: IMobileMenuProps) {
   // Hooks
-  const { setUser } = useUser();
+  const { user, setUser } = useUser();
+
+  // Close mobile menu
+  const closeMobileMenu = () => setIsOpen(false);
 
   // Disable body scroll if MobileMenu is open
   useEffect(() => {
@@ -40,7 +43,7 @@ export default function MobileMenu({ isOpen, setIsOpen }: IMobileMenuProps) {
   return (
     <div className={`${styles.mobile_menu} ${isOpen && styles.open}`}>
       <ul className={styles.nav_items}>
-        <li>
+        <li onClick={closeMobileMenu}>
           <Link href="/register">
             <a>
               <FaUserAlt /> Create account
@@ -48,7 +51,7 @@ export default function MobileMenu({ isOpen, setIsOpen }: IMobileMenuProps) {
           </Link>
         </li>
 
-        <li onClick={handleSignOut}>
+        <li onClick={handleSignOut} className={!user ? styles.hide : ""}>
           <span>
             <MdLogout /> Sign out
           </span>
