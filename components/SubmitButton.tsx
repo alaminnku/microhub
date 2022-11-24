@@ -1,5 +1,5 @@
 import { ISubmitButtonProps } from "types";
-import PulseLoader from "react-spinners/PulseLoader";
+import ButtonLoader from "./ButtonLoader";
 import styles from "@styles/SubmitButton.module.css";
 
 export default function SubmitButton({
@@ -13,7 +13,7 @@ export default function SubmitButton({
       onClick={handleClick}
       className={styles.submit_button}
     >
-      {isLoading ? <PulseLoader size={12} color="#fff" margin={5} /> : text}
+      {isLoading ? <ButtonLoader /> : text}
     </button>
   );
 }

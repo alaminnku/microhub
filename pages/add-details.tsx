@@ -3,10 +3,10 @@ import { axiosInstance } from "@utils/index";
 import { useUser } from "@context/User";
 import { useRouter } from "next/router";
 import logo from "@public/logo-white.svg";
-import SubmitButton from "@components/SubmitButton";
 import styles from "@styles/AddDetails.module.css";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import Image from "next/image";
+import ButtonLoader from "@components/ButtonLoader";
 
 export default function AddDetailsPage() {
   // Initial state
@@ -24,6 +24,7 @@ export default function AddDetailsPage() {
   // Hooks
   const router = useRouter();
   const { user, setUser } = useUser();
+  const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState<IConsumerDetails>(initialState);
 
   // Check user details
@@ -77,6 +78,8 @@ export default function AddDetailsPage() {
 
     // Add consumer data
     try {
+      setIsLoading(true);
+
       const response = await axiosInstance.post("/consumers", data);
 
       // Update user
@@ -96,7 +99,8 @@ export default function AddDetailsPage() {
     } catch (err) {
       console.log(err);
     } finally {
-      // Remove loader
+      setIsLoading(false);
+      setFormData(initialState);
     }
   }
 
@@ -214,7 +218,11 @@ export default function AddDetailsPage() {
           onChange={handleChange}
         />
 
-        <input type="submit" className={styles.submit_button} />
+        <button className={styles.submit_button}>
+          {isLoading ? <ButtonLoader /> : "Submit"}
+        </button>
+
+        {/* <input type="submit" className={styles.submit_button} /> */}
       </form>
     </main>
   );

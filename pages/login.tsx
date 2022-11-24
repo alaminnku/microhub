@@ -33,9 +33,6 @@ export default function LoginPage() {
   // Destructure data
   const { email, password } = formData;
 
-  // Check for empty fields
-  const hasEmpty = Object.values(formData).some((data) => data === "");
-
   // Handle change
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     // Update state

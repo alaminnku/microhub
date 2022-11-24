@@ -46,8 +46,12 @@
 }
 
 .submit_button {
-  margin-top: 1rem;
+  width: 100%;
+  height: 48px;
+  border-radius: 6px;
+  border: none;
   font-size: 1rem;
+  cursor: pointer;
   color: var(--white);
   background: var(--light_blue);
 }

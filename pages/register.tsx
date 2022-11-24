@@ -34,9 +34,6 @@ export default function RegistrationPage() {
   // Destructure data
   const { first_name, last_name, email, password, passwordConfirm } = formData;
 
-  // Check for empty fields
-  const hasEmpty = Object.values(formData).some((data) => data === "");
-
   // Handle change
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     // Update state
