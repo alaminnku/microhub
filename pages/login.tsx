@@ -8,6 +8,8 @@ import styles from "@styles/Login.module.css";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { IFormData } from "types";
 
+import SubmitButton from "@components/SubmitButton";
+
 export default function LoginPage() {
   // Initial state
   const initialState = {
@@ -18,9 +20,10 @@ export default function LoginPage() {
   const router = useRouter();
   const { user } = useUser();
   const { setUser } = useUser();
-  const [isDisabled, setIsDisabled] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState<IFormData>(initialState);
 
+  // Check user
   useEffect(() => {
     if (user && !user?.consumer && router.isReady) {
       router.push("/add-details");
@@ -35,11 +38,6 @@ export default function LoginPage() {
 
   // Handle change
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
-    // Enable button if no filed is empty
-    {
-      !hasEmpty && setIsDisabled(false);
-    }
-
     // Update state
     setFormData((currFormData) => ({
       ...currFormData,
@@ -53,16 +51,18 @@ export default function LoginPage() {
 
     // Sign user in
     try {
+      setIsLoading(true);
+
       // Make request to the backend
       const response = await axiosInstance.post("/users/signin", formData);
 
       // Update state
       setUser(response.data.data.user);
-
-      // Clear the form
-      setFormData(initialState);
     } catch (err) {
       console.log(err);
+    } finally {
+      setIsLoading(false);
+      setFormData(initialState);
     }
   }
   return (
@@ -73,7 +73,7 @@ export default function LoginPage() {
         </div>
         <p className={styles.title}>Sign in</p>
 
-        <form className={styles.form} action="submit">
+        <form className={styles.form}>
           <input
             type="email"
             name="email"
@@ -90,9 +90,11 @@ export default function LoginPage() {
           />
         </form>
 
-        <button type="submit" className={styles.button} onClick={handleSubmit}>
-          Sign in
-        </button>
+        <SubmitButton
+          text="Sign in"
+          isLoading={isLoading}
+          handleClick={handleSubmit}
+        />
 
         <p className={styles.register}>
           Don't have an account?{" "}

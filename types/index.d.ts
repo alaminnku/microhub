@@ -69,3 +69,9 @@ interface IBooleanStateProps {
 export interface IMobileMenuProps extends IBooleanStateProps {}
 
 export interface IMobileNavProps extends IBooleanStateProps {}
+
+export interface ISubmitButtonProps {
+  text: string;
+  isLoading: boolean;
+  handleClick: (e: FormEvent<Element>) => Promise<void>;
+}

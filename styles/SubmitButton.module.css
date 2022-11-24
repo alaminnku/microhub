@@ -1,4 +1,9 @@
 .submit_button {
+  width: 190px;
+  height: 48px;
+  margin: 2.5rem 0rem;
+  border-radius: 2rem;
+  border: none;
   font-size: 1rem;
   cursor: pointer;
   color: var(--white);

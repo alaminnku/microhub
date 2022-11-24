@@ -43,7 +43,7 @@ export default function MobileMenu({ isOpen, setIsOpen }: IMobileMenuProps) {
   return (
     <div className={`${styles.mobile_menu} ${isOpen && styles.open}`}>
       <ul className={styles.nav_items}>
-        <li onClick={closeMobileMenu}>
+        <li onClick={closeMobileMenu} className={user ? styles.hide : ""}>
           <Link href="/register">
             <a>
               <FaUserAlt /> Create account

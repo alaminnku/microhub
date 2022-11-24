@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 import { axiosInstance } from "@utils/index";
 import styles from "@styles/Register.module.css";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import SubmitButton from "@components/SubmitButton";
 
 export default function RegistrationPage() {
   // Initial state
@@ -20,7 +21,7 @@ export default function RegistrationPage() {
   // Hooks
   const router = useRouter();
   const { user, setUser } = useUser();
-  const [isDisabled, setIsDisabled] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState<IFormData>(initialState);
 
   // Check user
@@ -38,11 +39,6 @@ export default function RegistrationPage() {
 
   // Handle change
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
-    // Enable button if no filed is empty
-    {
-      !hasEmpty && setIsDisabled(false);
-    }
-
     // Update state
     setFormData((currFormData) => ({
       ...currFormData,
@@ -56,6 +52,8 @@ export default function RegistrationPage() {
 
     // Register user
     try {
+      setIsLoading(true);
+
       const res = await axiosInstance.post("/users/signup/client", formData);
 
       // Update state
@@ -65,9 +63,10 @@ export default function RegistrationPage() {
       router.push("/add-details");
     } catch (err) {
       console.log(err);
+    } finally {
+      setIsLoading(false);
+      setFormData(initialState);
     }
-
-    setFormData(initialState);
   }
 
   return (
@@ -126,9 +125,11 @@ export default function RegistrationPage() {
           <p className="">By signing up I agree to the Terms & Conditions</p>
         </div>
 
-        <button type="submit" className={styles.button} onClick={handleSubmit}>
-          Register Now
-        </button>
+        <SubmitButton
+          text="Register Now"
+          isLoading={isLoading}
+          handleClick={handleSubmit}
+        />
 
         <p className={styles.login}>
           Have an account?{" "}

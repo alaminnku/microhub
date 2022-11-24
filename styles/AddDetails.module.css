@@ -45,6 +45,9 @@
   border: 1px solid var(--border_color);
 }
 
-.form input[type="submit"] {
+.submit_button {
   margin-top: 1rem;
+  font-size: 1rem;
+  color: var(--white);
+  background: var(--light_blue);
 }

@@ -162,9 +162,9 @@ export default function AddDetailsPage() {
             Please select one
           </option>
           <option value="sedentary">Sedentary</option>
-          <option value="lightly_active">Lightly active</option>
-          <option value="moderate_active">Moderate active</option>
-          <option value="very_active">Very active</option>
+          <option value="lightly active">Lightly active</option>
+          <option value="moderate active">Moderate active</option>
+          <option value="very active">Very active</option>
           <option value="extremely active">Extremely active</option>
         </select>
 
@@ -181,9 +181,9 @@ export default function AddDetailsPage() {
           <option value="standard">Standard</option>
           <option value="vegetarian">Vegetarian</option>
           <option value="pollotarian">Pollotarian</option>
-          <option value="gluten_free">Gluten free</option>
+          <option value="gluten free">Gluten free</option>
           <option value="pescetarian">Pescetarian</option>
-          <option value="lacto_vegetarian">Lacto vegetarian</option>
+          <option value="lacto vegetarian">Lacto vegetarian</option>
         </select>
 
         <label htmlFor="weight">Foods you love (comma separated)</label>
@@ -214,7 +214,7 @@ export default function AddDetailsPage() {
           onChange={handleChange}
         />
 
-        <SubmitButton />
+        <input type="submit" className={styles.submit_button} />
       </form>
     </main>
   );
