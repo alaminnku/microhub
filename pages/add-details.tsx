@@ -79,8 +79,10 @@ export default function AddDetailsPage() {
     // Add consumer data
     try {
       setIsLoading(true);
-
+      console.log(data);
       const response = await axiosInstance.post("/consumers", data);
+
+      console.log(response.data.data);
 
       // Update user
       setUser((currUser) => {
@@ -100,7 +102,7 @@ export default function AddDetailsPage() {
       console.log(err);
     } finally {
       setIsLoading(false);
-      setFormData(initialState);
+      // setFormData(initialState);
     }
   }
 
@@ -125,6 +127,7 @@ export default function AddDetailsPage() {
       <form onSubmit={handleSubmit} className={styles.form}>
         <label htmlFor="name">Name</label>
         <input
+          id="name"
           type="text"
           value={`${user?.first_name} ${user?.last_name}`}
           readOnly
@@ -148,7 +151,7 @@ export default function AddDetailsPage() {
           onChange={handleChange}
         />
 
-        <label htmlFor="weight">How tall are you (cm)?</label>
+        <label htmlFor="height">How tall are you (cm)?</label>
         <input
           type="number"
           id="height"
@@ -190,7 +193,7 @@ export default function AddDetailsPage() {
           <option value="lacto vegetarian">Lacto vegetarian</option>
         </select>
 
-        <label htmlFor="weight">Foods you love (comma separated)</label>
+        <label htmlFor="favorite_foods">Foods you love (comma separated)</label>
         <input
           type="text"
           id="favorite_foods"
@@ -198,7 +201,7 @@ export default function AddDetailsPage() {
           onChange={handleChange}
         />
 
-        <label htmlFor="weight">
+        <label htmlFor="least_favorite_foods">
           Foods you don't like so much (comma separated)
         </label>
         <input
@@ -208,7 +211,7 @@ export default function AddDetailsPage() {
           onChange={handleChange}
         />
 
-        <label htmlFor="weight">
+        <label htmlFor="allergies">
           Foods you are allergic to (comma separated)
         </label>
         <input
