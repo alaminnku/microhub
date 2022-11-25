@@ -105,7 +105,7 @@ export default function AddDetailsPage() {
   }
 
   return (
-    <main className={styles.add_details}>
+    <main>
       <div className={styles.top}>
         <div className={styles.logo}>
           <Image src={logo} priority />
