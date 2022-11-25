@@ -10,6 +10,8 @@ export default function HomePage() {
   useEffect(() => {
     if (user && !user?.consumer && router.isReady) {
       router.push("/add-details");
+    } else if (user?.consumer && router.isReady) {
+      router.push("/profile");
     }
   }, [user, router.isReady]);
 

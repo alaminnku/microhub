@@ -29,12 +29,12 @@ export default function AddDetailsPage() {
 
   // Check user details
   useEffect(() => {
-    if (!user) {
+    if (!user && router.isReady) {
       router.push("/login");
     } else if (user?.consumer) {
       router.push("/profile");
     }
-  });
+  }, [user, router.isReady]);
 
   // Destructure form data
   const {
@@ -79,10 +79,8 @@ export default function AddDetailsPage() {
     // Add consumer data
     try {
       setIsLoading(true);
-      console.log(data);
-      const response = await axiosInstance.post("/consumers", data);
 
-      console.log(response.data.data);
+      const response = await axiosInstance.post("/consumers", data);
 
       // Update user
       setUser((currUser) => {
@@ -102,7 +100,7 @@ export default function AddDetailsPage() {
       console.log(err);
     } finally {
       setIsLoading(false);
-      // setFormData(initialState);
+      setFormData(initialState);
     }
   }
 

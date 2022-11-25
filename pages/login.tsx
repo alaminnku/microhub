@@ -25,8 +25,10 @@ export default function LoginPage() {
 
   // Check user
   useEffect(() => {
-    if (user && !user?.consumer && router.isReady) {
+    if (user && !user.consumer && router.isReady) {
       router.push("/add-details");
+    } else if (user?.consumer && router.isReady) {
+      router.push("/profile");
     }
   }, [user, router.isReady]);
 
