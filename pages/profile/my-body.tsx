@@ -18,12 +18,12 @@ export default function MyBodyPage() {
   }, [user, router.isReady]);
 
   return (
-    <main className={styles.my_body}>
+    <main>
       {user && (
         <>
           <BackButton url="/profile" />
 
-          <section>
+          <section className={styles.my_body}>
             <h2>My Body</h2>
 
             <div className={styles.details}>

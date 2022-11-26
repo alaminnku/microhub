@@ -1,0 +1,49 @@
+.foods {
+  padding: var(--section_padding);
+  padding-top: 1.5rem;
+}
+
+.details {
+  margin-top: 1rem;
+}
+
+.preferences {
+  font-weight: 500;
+  font-size: 18px;
+  margin-bottom: 1rem;
+}
+
+.preferences span {
+  text-transform: capitalize;
+}
+
+.item {
+  margin-bottom: 1rem;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  background: var(--border_color);
+}
+
+.item p:first-child {
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 0.75rem;
+}
+
+.values {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.item .values p {
+  font-weight: 500;
+  padding: 3px 16px;
+  margin-right: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--gray);
+  border-radius: 2rem;
+  margin-bottom: 0.5rem;
+  text-transform: capitalize;
+  background: var(--almost_white);
+}
