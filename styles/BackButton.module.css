@@ -1,0 +1,14 @@
+.back_button {
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  border-radius: 0.5rem;
+  margin-top: 1rem;
+  margin-left: 1rem;
+  color: var(--blue);
+}
+
+.back_button svg {
+  rotate: 180deg;
+  font-size: 26px;
+}

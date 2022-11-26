@@ -4,8 +4,12 @@ import profileImage from "@public/profile.png";
 import logo from "@public/logo-white.svg";
 import { useUser } from "@context/User";
 import { useEffect } from "react";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { IoIosBody } from "react-icons/io";
+import { GiMeal } from "react-icons/gi";
+import { GrTarget } from "react-icons/gr";
+import { MdKeyboardArrowRight } from "react-icons/md";
 
 export default function ProfilePage() {
   const router = useRouter();
@@ -21,7 +25,7 @@ export default function ProfilePage() {
   return (
     <main>
       {user && (
-        <>
+        <section>
           <div className={styles.top}>
             <div className={styles.logo}>
               <Image src={logo} priority />
@@ -40,6 +44,50 @@ export default function ProfilePage() {
           </div>
 
           <div className={styles.details}>
+            <Link href="/profile/my-body">
+              <a className={styles.my_body}>
+                <div className={styles.icon_and_text}>
+                  <div className={styles.first_icon}>
+                    <IoIosBody />
+                  </div>
+                  <p>My body</p>
+                </div>
+                <div className={styles.last_icon}>
+                  <MdKeyboardArrowRight />
+                </div>
+              </a>
+            </Link>
+
+            <Link href="/profile/foods">
+              <a className={styles.foods}>
+                <div className={styles.icon_and_text}>
+                  <div className={styles.first_icon}>
+                    <GiMeal />
+                  </div>
+                  <p>Foods</p>
+                </div>
+                <div className={styles.last_icon}>
+                  <MdKeyboardArrowRight />
+                </div>
+              </a>
+            </Link>
+
+            <Link href="/profile/goals">
+              <a className={styles.goals}>
+                <div className={styles.icon_and_text}>
+                  <div className={styles.first_icon}>
+                    <GrTarget />
+                  </div>
+                  <p>Goals</p>
+                </div>
+                <div className={styles.last_icon}>
+                  <MdKeyboardArrowRight />
+                </div>
+              </a>
+            </Link>
+          </div>
+
+          {/* <div className={styles.details}>
             <p className={styles.title}>Your summary</p>
             <div className={styles.item}>
               <IoIosBody />
@@ -82,8 +130,8 @@ export default function ProfilePage() {
               <p>Activity level</p>
               <p>{user.consumer?.activity_level}</p>
             </div>
-          </div>
-        </>
+          </div> */}
+        </section>
       )}
     </main>
   );

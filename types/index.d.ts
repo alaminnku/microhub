@@ -75,3 +75,7 @@ export interface ISubmitButtonProps {
   isLoading: boolean;
   handleClick: (e: FormEvent<Element>) => Promise<void>;
 }
+
+export interface IBackButton {
+  url: string;
+}

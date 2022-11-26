@@ -8,3 +8,5 @@ export const axiosInstance = axios.create({
 
 // Current year
 export const currentYear = new Date().getFullYear();
+
+export const formatNumber = (number: number) => +number.toFixed(2);

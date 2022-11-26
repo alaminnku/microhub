@@ -1,0 +1,67 @@
+.my_body section {
+  padding: var(--section_padding);
+  padding-top: 1.5rem;
+}
+
+.details {
+  margin-top: 1.5rem;
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 8rem;
+  border-radius: 0.5rem;
+}
+
+.weight {
+  background: #9ab959;
+}
+
+.height {
+  background: #f4b896;
+}
+
+.bmi {
+  background: #f5dbb2;
+}
+
+.tdee {
+  background: #9ab959;
+}
+
+.lbm {
+  background: #74c69d;
+}
+
+.bf {
+  background: #b4c7d6;
+}
+
+.bfp {
+  background: #f4b896;
+}
+
+.body_frame {
+  background: #74c69d;
+}
+
+.body_frame p:first-child {
+  text-transform: capitalize;
+}
+
+.item p {
+  font-size: 22px;
+  color: var(--blue);
+}
+
+.item p span,
+.item p:last-child {
+  font-size: 0.875rem;
+  color: var(--gray);
+}

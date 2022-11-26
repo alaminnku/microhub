@@ -11,11 +11,12 @@ body {
 :root {
   --black: #000;
   --white: #fff;
+  --gray: #666;
+  --light_gray: #cccccc;
   --blue: #132642;
   --border_color: #e7e9ec;
   --light_blue: #81a3be;
   --almost_white: #fafafa;
-  --border_color: #eaeaea;
   --section_padding: 2.5rem;
 }
 
