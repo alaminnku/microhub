@@ -35,8 +35,8 @@ export default function FoodsPage() {
               <div className={styles.item}>
                 <p>Favorite foods</p>
                 <div className={styles.values}>
-                  {user?.consumer?.favorite_foods.map((food) => (
-                    <p>{food}</p>
+                  {user?.consumer?.favorite_foods.map((food, index) => (
+                    <p key={index}>{food}</p>
                   ))}
                 </div>
               </div>
@@ -44,8 +44,8 @@ export default function FoodsPage() {
               <div className={styles.item}>
                 <p>Allergies</p>
                 <div className={styles.values}>
-                  {user?.consumer?.allergies.map((food) => (
-                    <p>{food}</p>
+                  {user?.consumer?.allergies.map((food, index) => (
+                    <p key={index}>{food}</p>
                   ))}
                 </div>
               </div>
@@ -53,8 +53,8 @@ export default function FoodsPage() {
               <div className={styles.item}>
                 <p>Least favorite foods</p>
                 <div className={styles.values}>
-                  {user?.consumer?.least_favorite_foods.map((food) => (
-                    <p>{food}</p>
+                  {user?.consumer?.least_favorite_foods.map((food, index) => (
+                    <p key={index}>{food}</p>
                   ))}
                 </div>
               </div>

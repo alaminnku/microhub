@@ -27,61 +27,61 @@ export default function MyBodyPage() {
             <h2>My Body</h2>
 
             <div className={styles.details}>
-              <div className={`${styles.item} ${styles.weight}`}>
+              <div className={styles.item}>
                 <p>
-                  {user?.consumer?.weight} <span>KG</span>
+                  {user?.consumer?.weight} <span>kg</span>
                 </p>
                 <p>Weight</p>
               </div>
 
-              <div className={`${styles.item} ${styles.height}`}>
+              <div className={styles.item}>
                 <p>
-                  {user?.consumer?.height} <span>CM</span>
+                  {user?.consumer?.height} <span>cm</span>
                 </p>
                 <p>Height</p>
               </div>
 
-              <div className={`${styles.item} ${styles.bmi}`}>
+              <div className={styles.item}>
                 <p>
-                  {user?.consumer?.bmi} <span>BMI</span>
+                  {user?.consumer?.bmi} <span>bmi</span>
                 </p>
                 <p>Body mass index</p>
               </div>
 
-              <div className={`${styles.item} ${styles.tdee}`}>
+              <div className={styles.item}>
                 <p>
-                  {user?.consumer?.tdee} <span>TDEE</span>
+                  {user?.consumer?.tdee} <span>tdee</span>
                 </p>
                 <p>TDEE</p>
               </div>
 
-              <div className={`${styles.item} ${styles.lbm}`}>
+              <div className={styles.item}>
                 <p>
                   {formatNumber(user?.consumer?.body_fat.LEAN_BODY_MASS!)}{" "}
-                  <span>LBM</span>
+                  <span>lbm</span>
                 </p>
                 <p>Lean body mass</p>
               </div>
 
-              <div className={`${styles.item} ${styles.bf}`}>
+              <div className={styles.item}>
                 <p>
                   {formatNumber(user?.consumer?.body_fat.BODY_FAT!)}{" "}
-                  <span>BF</span>
+                  <span>bf</span>
                 </p>
                 <p>Body fat</p>
               </div>
 
-              <div className={`${styles.item} ${styles.bfp}`}>
+              <div className={styles.item}>
                 <p>
                   {formatNumber(user?.consumer?.body_fat.BODY_FAT_PCT!)}{" "}
-                  <span>BFPCT</span>
+                  <span>bfpct</span>
                 </p>
                 <p>Body fat PCT</p>
               </div>
 
               <div className={`${styles.item} ${styles.body_frame}`}>
                 <p>
-                  {user?.consumer?.body_frame} <span>BF</span>
+                  {user?.consumer?.body_frame} <span>bf</span>
                 </p>
                 <p>Body frame</p>
               </div>

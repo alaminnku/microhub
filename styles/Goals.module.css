@@ -1,10 +1,40 @@
-.my_body {
+.goals {
   padding: var(--section_padding);
   padding-top: 1.5rem;
 }
 
 .details {
-  margin-top: 1.5rem;
+  margin-top: 1rem;
+}
+
+.weight_target {
+  font-size: 18px;
+  margin-bottom: 1rem;
+}
+
+.weight {
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.weight p {
+  font-size: 24px;
+  font-weight: 500;
+}
+
+.weight p span {
+  font-size: 0.8rem;
+  color: var(--gray);
+}
+
+.weight svg {
+  font-size: 2rem;
+  color: var(--light_gray);
+}
+
+.items {
   display: grid;
   gap: 1.5rem;
   grid-template-columns: repeat(2, 1fr);
@@ -22,10 +52,6 @@
 
 .body_frame p:first-child {
   text-transform: capitalize;
-}
-
-.body_frame p span {
-  text-transform: lowercase;
 }
 
 .item p {
