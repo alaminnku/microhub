@@ -222,8 +222,6 @@ export default function AddDetailsPage() {
         <button className={styles.submit_button}>
           {isLoading ? <ButtonLoader /> : "Submit"}
         </button>
-
-        {/* <input type="submit" className={styles.submit_button} /> */}
       </form>
     </main>
   );

@@ -79,3 +79,9 @@ export interface ISubmitButtonProps {
 export interface IBackButton {
   url: string;
 }
+
+export interface IQuestionnaireData {
+  [key: string]: {
+    [key: string]: string;
+  };
+}

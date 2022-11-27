@@ -16,8 +16,6 @@ export default function FoodsPage() {
     }
   }, [user, router.isReady]);
 
-  console.log(user?.consumer);
-
   return (
     <main>
       {user && (

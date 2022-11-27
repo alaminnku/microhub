@@ -21,7 +21,6 @@ export default function ProfilePage() {
     }
   }, [user, router.isReady]);
 
-  console.log(user?.consumer);
   return (
     <main>
       {user && (

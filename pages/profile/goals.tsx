@@ -18,8 +18,6 @@ export default function GoalsPage() {
     }
   }, [user, router.isReady]);
 
-  console.log(user?.consumer);
-
   return (
     <main>
       {user && (
