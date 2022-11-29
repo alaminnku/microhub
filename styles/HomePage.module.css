@@ -1,8 +1,128 @@
 .home_page {
-  min-height: 100vh;
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  padding: var(--section_padding);
+}
+
+.top {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: var(--section_padding);
+}
+
+.left_arrow,
+.right_arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 100%;
+  background: var(--almost_white);
+}
+
+.left_arrow {
+  rotate: 180deg;
+}
+
+.top p {
+  font-weight: 600;
+  margin: 0rem 2rem;
+}
+
+.macros {
+  display: flex;
+  justify-content: space-between;
+  margin: 1.5rem 0rem;
+  padding: 1rem 0rem;
+  border-top: 1px solid var(--border_color);
+  border-bottom: 1px solid var(--border_color);
+}
+
+.chart_and_details {
+  display: flex;
+  align-items: center;
+}
+
+.chart_and_details svg {
+  font-size: 3rem;
+  margin-right: 1.5rem;
+}
+
+.chart_and_details p {
+  font-size: 11.5px;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.chart_and_details span {
+  color: var(--light_gray);
+  font-size: 11.5px;
+}
+
+.breakfast,
+.lunch,
+.dinner {
+  padding-bottom: 1rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border_color);
+}
+
+.header {
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header p {
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.header span {
+  font-size: 14px;
+  color: var(--light_gray);
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.item input {
+  width: 5%;
+  height: 5%;
+}
+
+.image {
+  width: 20%;
+}
+
+.image img {
+  border-radius: 0.5rem;
+}
+
+.item p {
+  width: 65%;
+  font-size: 14px;
+}
+
+.home_page button {
+  padding: 1rem 2rem;
+  border: none;
+  background: var(--light_white);
+  border-radius: 2rem;
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+  margin: 3rem 0rem;
+  align-self: center;
+}
+
+.home_page button svg {
+  margin-right: 0.5rem;
 }

@@ -51,6 +51,14 @@ export default function MobileMenu({ isOpen, setIsOpen }: IMobileMenuProps) {
           </Link>
         </li>
 
+        <li onClick={closeMobileMenu} className={!user ? styles.hide : ""}>
+          <Link href="/profile">
+            <a>
+              <FaUserAlt /> Profile
+            </a>
+          </Link>
+        </li>
+
         <li onClick={handleSignOut} className={!user ? styles.hide : ""}>
           <span>
             <MdLogout /> Sign out

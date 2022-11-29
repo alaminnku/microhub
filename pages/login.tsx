@@ -28,7 +28,7 @@ export default function LoginPage() {
     if (user && !user.consumer && router.isReady) {
       router.push("/add-details");
     } else if (user?.consumer && router.isReady) {
-      router.push("/profile");
+      router.push("/");
     }
   }, [user, router.isReady]);
 
