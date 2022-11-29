@@ -1,0 +1,109 @@
+.top {
+  position: relative;
+}
+
+.back_button {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 0.5rem;
+  left: 0.5rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  background: var(--blue);
+  border-radius: 100%;
+}
+
+.back_button svg {
+  color: var(--almost_white);
+  rotate: 180deg;
+  font-size: 1.5rem;
+}
+
+.content {
+  padding: var(--section_padding);
+  padding-top: 1.5rem;
+}
+
+.header p {
+  font-size: 24px;
+  font-weight: 500;
+}
+
+.header span {
+  font-size: 14px;
+  color: var(--light_gray);
+}
+
+.ingredients_top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ingredients_top p {
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.ingredients_top select {
+  padding: 10px 16px;
+  border-radius: 0.5rem;
+  font-size: 16px;
+  border: 1px solid var(--border_color);
+}
+
+.ingredients_content {
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+}
+
+.ingredients_content p {
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ingredients_content p:last-child {
+  margin-bottom: 0rem;
+}
+
+.preparation p:first-child {
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+.preparation p:last-child {
+  font-size: 14px;
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 3rem 0rem;
+}
+
+.buttons button {
+  border: none;
+  width: 48%;
+  height: 2.5rem;
+  border-radius: 2rem;
+  font-size: 16px;
+}
+
+.buttons button:first-child {
+  background: var(--light_white);
+}
+
+.buttons button:last-child {
+  background: var(--blue);
+  color: var(--almost_white);
+}

@@ -7,6 +7,8 @@ import { BsPieChartFill } from "react-icons/bs";
 import { AiOutlinePlus } from "react-icons/ai";
 import { TfiReload } from "react-icons/tfi";
 import Image from "next/image";
+import Link from "next/link";
+import Macros from "@components/Macros";
 
 export default function HomePage() {
   const router = useRouter();
@@ -32,18 +34,7 @@ export default function HomePage() {
         </div>
       </div>
 
-      <div className={styles.macros}>
-        <div className={styles.chart_and_details}>
-          <BsPieChartFill />
-
-          <div>
-            <p>Total macros</p>
-            <span>1849 Calories</span>
-          </div>
-        </div>
-
-        <AiOutlinePlus />
-      </div>
+      <Macros text="Total Macros" calories={1849} />
 
       <div className={styles.breakfast}>
         <div className={styles.header}>
@@ -56,28 +47,36 @@ export default function HomePage() {
 
         <div className={styles.item}>
           <input type="checkbox" />
-          <div className={styles.image}>
-            <Image
-              src="/food-placeholder.jpg"
-              width={1}
-              height={1}
-              layout="responsive"
-            />
-          </div>
-          <p>Chia Pudding with Fresh Fruit & Yoghurt</p>
+          <Link href="/menu-item">
+            <a>
+              <div className={styles.image}>
+                <Image
+                  src="/food-placeholder.jpg"
+                  width={1}
+                  height={1}
+                  layout="responsive"
+                />
+              </div>
+              <p>Chia Pudding with Fresh Fruit & Yoghurt</p>
+            </a>
+          </Link>
         </div>
 
         <div className={styles.item}>
           <input type="checkbox" />
-          <div className={styles.image}>
-            <Image
-              src="/food-placeholder.jpg"
-              width={1}
-              height={1}
-              layout="responsive"
-            />
-          </div>
-          <p>Fresh Orange Juice</p>
+          <Link href="/menu-item">
+            <a>
+              <div className={styles.image}>
+                <Image
+                  src="/food-placeholder.jpg"
+                  width={1}
+                  height={1}
+                  layout="responsive"
+                />
+              </div>
+              <p>Fresh Orange Juice</p>
+            </a>
+          </Link>
         </div>
       </div>
 
@@ -92,15 +91,19 @@ export default function HomePage() {
 
         <div className={styles.item}>
           <input type="checkbox" />
-          <div className={styles.image}>
-            <Image
-              src="/food-placeholder.jpg"
-              width={1}
-              height={1}
-              layout="responsive"
-            />
-          </div>
-          <p>White Bean & Veggie Salad</p>
+          <Link href="/menu-item">
+            <a>
+              <div className={styles.image}>
+                <Image
+                  src="/food-placeholder.jpg"
+                  width={1}
+                  height={1}
+                  layout="responsive"
+                />
+              </div>
+              <p>White Bean & Veggie Salad</p>
+            </a>
+          </Link>
         </div>
       </div>
 
@@ -115,28 +118,36 @@ export default function HomePage() {
 
         <div className={styles.item}>
           <input type="checkbox" />
-          <div className={styles.image}>
-            <Image
-              src="/food-placeholder.jpg"
-              width={1}
-              height={1}
-              layout="responsive"
-            />
-          </div>
-          <p>Poached Chicken & Quinoa Salad</p>
+          <Link href="/menu-item">
+            <a>
+              <div className={styles.image}>
+                <Image
+                  src="/food-placeholder.jpg"
+                  width={1}
+                  height={1}
+                  layout="responsive"
+                />
+              </div>
+              <p>Poached Chicken & Quinoa Salad</p>
+            </a>
+          </Link>
         </div>
 
         <div className={styles.item}>
           <input type="checkbox" />
-          <div className={styles.image}>
-            <Image
-              src="/food-placeholder.jpg"
-              width={1}
-              height={1}
-              layout="responsive"
-            />
-          </div>
-          <p>Mediterranean Salad</p>
+          <Link href="/menu-item">
+            <a>
+              <div className={styles.image}>
+                <Image
+                  src="/food-placeholder.jpg"
+                  width={1}
+                  height={1}
+                  layout="responsive"
+                />
+              </div>
+              <p>Mediterranean Salad</p>
+            </a>
+          </Link>
         </div>
       </div>
 
@@ -151,28 +162,36 @@ export default function HomePage() {
 
         <div className={styles.item}>
           <input type="checkbox" />
-          <div className={styles.image}>
-            <Image
-              src="/food-placeholder.jpg"
-              width={1}
-              height={1}
-              layout="responsive"
-            />
-          </div>
-          <p>Green Smoothie</p>
+          <Link href="/menu-item">
+            <a>
+              <div className={styles.image}>
+                <Image
+                  src="/food-placeholder.jpg"
+                  width={1}
+                  height={1}
+                  layout="responsive"
+                />
+              </div>
+              <p>Green Smoothie</p>
+            </a>
+          </Link>
         </div>
 
         <div className={styles.item}>
           <input type="checkbox" />
-          <div className={styles.image}>
-            <Image
-              src="/food-placeholder.jpg"
-              width="60"
-              height="60"
-              layout="responsive"
-            />
-          </div>
-          <p>Banana</p>
+          <Link href="/menu-item">
+            <a>
+              <div className={styles.image}>
+                <Image
+                  src="/food-placeholder.jpg"
+                  width="60"
+                  height="60"
+                  layout="responsive"
+                />
+              </div>
+              <p>Banana</p>
+            </a>
+          </Link>
         </div>
       </div>
 
