@@ -8,7 +8,7 @@
   align-items: center;
   justify-content: center;
   top: 0.5rem;
-  left: 0.5rem;
+  right: 0.5rem;
   width: 2.5rem;
   height: 2.5rem;
   background: var(--blue);
@@ -67,6 +67,10 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.ingredients_content p a {
+  color: var(--blue);
 }
 
 .ingredients_content p:last-child {

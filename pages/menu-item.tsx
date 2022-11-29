@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { MdKeyboardArrowRight } from "react-icons/md";
+import { IoCloseOutline } from "react-icons/io5";
 import { TfiReload } from "react-icons/tfi";
 
 export default function MenuItemPage() {
@@ -22,7 +22,7 @@ export default function MenuItemPage() {
 
         <Link href="/">
           <a className={styles.back_button}>
-            <MdKeyboardArrowRight />
+            <IoCloseOutline />
           </a>
         </Link>
       </div>
@@ -48,7 +48,12 @@ export default function MenuItemPage() {
           <div>
             <p>20g Chia seeds</p>
             <p>
-              1/2 Cup Almost Milk <TfiReload />
+              1/2 Cup Almost Milk{" "}
+              <Link href="/swap-ingredient">
+                <a>
+                  <TfiReload />
+                </a>
+              </Link>
             </p>
             <p>50g Fresh Mango</p>
             <p>3 tbs Low Fat Greek Yoghurt</p>

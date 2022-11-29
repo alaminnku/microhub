@@ -1,0 +1,135 @@
+.swap_ingredient {
+  padding: 1rem 1.5rem;
+}
+
+.top {
+  padding-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border_color);
+}
+
+.close_icon {
+  font-size: 1.5rem;
+  color: var(--blue);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+}
+
+.header svg {
+  margin-right: 1rem;
+}
+
+.header p {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.ingredient {
+  margin-top: 1rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--border_color);
+}
+
+.ingredient_header {
+  margin-bottom: 1.25rem;
+}
+
+.ingredient_header p {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.ingredient_header span {
+  font-size: 11.5px;
+  color: var(--light_gray);
+}
+
+.ingredient_details {
+  padding: 0rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.border {
+  display: block;
+  width: 1px;
+  height: 2.5rem;
+  background: var(--border_color);
+}
+
+.protein p,
+.fats p,
+.carbs p {
+  font-weight: 600;
+}
+
+.protein p {
+  color: #b4c7d6;
+}
+
+.fats p {
+  color: #f4b896;
+}
+
+.carbs p {
+  color: #f5dbb2;
+}
+
+.protein span,
+.fats span,
+.carbs span {
+  font-size: 12px;
+}
+
+.swap_for {
+  margin-top: 1rem;
+}
+
+.title {
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.swap_for_ingredient {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.swap_for_ingredient input {
+  width: 18px;
+  height: 18px;
+}
+
+.swap_for_ingredient input {
+  margin-right: 0.5rem;
+}
+
+.buttons {
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.buttons a {
+  width: 48%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--blue);
+  border-radius: 2rem;
+}
+
+.buttons a:last-child {
+  height: 2.5rem;
+  color: var(--almost_white);
+  background: var(--blue);
+}
