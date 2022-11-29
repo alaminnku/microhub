@@ -28,7 +28,18 @@
   height: 2rem;
   border-radius: 100%;
   margin-right: 1rem;
+}
+
+.carbs {
   border: 1px solid #f5dbb2;
+}
+
+.protein {
+  border: 1px solid #b4c7d6;
+}
+
+.fat {
+  border: 1px solid #f4b896;
 }
 
 .substitute svg {

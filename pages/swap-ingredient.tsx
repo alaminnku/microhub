@@ -9,7 +9,7 @@ export default function SwapIngredientPage() {
       <div className={styles.top}>
         <div className={styles.header}>
           <TfiReload />
-          <p>Swap Ingredient</p>
+          <h2>Swap Ingredient</h2>
         </div>
 
         <Link href="/menu-item">

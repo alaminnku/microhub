@@ -8,8 +8,10 @@ export default function SubstitutesPage() {
 
       <div className={styles.substitute}>
         <p>
-          <span className={styles.circle}></span> Carbohydrate options
+          <span className={`${styles.circle} ${styles.carbs}`}></span>{" "}
+          Carbohydrate options
         </p>
+
         <AiOutlineMinus />
       </div>
 
@@ -60,14 +62,15 @@ export default function SubstitutesPage() {
 
       <div className={styles.substitute}>
         <p>
-          <span className={styles.circle}></span> Protein options
+          <span className={`${styles.circle} ${styles.protein}`}></span> Protein
+          options
         </p>
         <AiOutlinePlus />
       </div>
 
       <div className={styles.substitute}>
         <p>
-          <span className={styles.circle}></span> Fat options
+          <span className={`${styles.circle} ${styles.fat}`}></span> Fat options
         </p>
 
         <AiOutlinePlus />
