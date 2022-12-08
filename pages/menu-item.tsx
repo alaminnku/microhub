@@ -10,6 +10,17 @@ import { TfiReload } from "react-icons/tfi";
 export default function MenuItemPage() {
   const router = useRouter();
 
+  const ingredients = [
+    "20g Chia seeds",
+    "1/2 Cup Almost Milk",
+    "50g Fresh Mango",
+    "3 tbs Low Fat Greek Yoghurt",
+  ];
+
+  function handleClickIngredient(index: number) {
+    console.log(index);
+  }
+
   return (
     <main>
       <div className={styles.top}>
@@ -46,7 +57,10 @@ export default function MenuItemPage() {
 
         <div className={styles.ingredients_content}>
           <div>
-            <p>20g Chia seeds</p>
+            {ingredients.map((ingredient, index) => (
+              <p onClick={() => handleClickIngredient(index)}>{ingredient}</p>
+            ))}
+            {/* <p>20g Chia seeds</p>
             <p>
               1/2 Cup Almost Milk{" "}
               <Link href="/swap-ingredient">
@@ -56,7 +70,7 @@ export default function MenuItemPage() {
               </Link>
             </p>
             <p>50g Fresh Mango</p>
-            <p>3 tbs Low Fat Greek Yoghurt</p>
+            <p>3 tbs Low Fat Greek Yoghurt</p> */}
           </div>
         </div>
 

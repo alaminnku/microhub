@@ -1,18 +1,30 @@
 import { useUser } from "@context/User";
 import styles from "@styles/HomePage.module.css";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { MdKeyboardArrowRight } from "react-icons/md";
-import { BsPieChartFill } from "react-icons/bs";
 import { AiOutlinePlus } from "react-icons/ai";
 import { TfiReload } from "react-icons/tfi";
 import Image from "next/image";
 import Link from "next/link";
 import Macros from "@components/Macros";
+import { axiosInstance } from "@utils/index";
+
+interface INutritionist {
+  id: number;
+  first_name: string;
+  last_name: string;
+  email: string;
+  createdAt: string;
+  photo: string;
+  linkToken: string;
+  status: number;
+}
 
 export default function HomePage() {
   const router = useRouter();
   const { user } = useUser();
+  const [nutritionist, setNutritionist] = useState<INutritionist>();
 
   useEffect(() => {
     if (user && !user?.consumer && router.isReady) {
@@ -22,8 +34,56 @@ export default function HomePage() {
     }
   }, [user, router.isReady]);
 
+  useEffect(() => {
+    async function checkInviteFromNutritionist() {
+      // Get nutritionist invitation
+      try {
+        const response = await axiosInstance.get(
+          "/consumers/trainers/request "
+        );
+
+        setNutritionist(response.data.data.nutritionists[0]);
+      } catch (err) {
+        console.log(err);
+      }
+
+      // Get assigned nutritionist
+      // try {
+      //   const response = await axiosInstance.get("/consumers/trainer");
+
+      //   console.log(response.data);
+      // } catch (err) {
+      //   console.log(err);
+      // }
+    }
+
+    if (router.isReady) checkInviteFromNutritionist();
+  }, [router.isReady]);
+
+  async function handleInvite(status: number) {
+    try {
+      const response = await axiosInstance.post("/consumers/trainer/accept", {
+        status,
+        nutritionistId: nutritionist?.id,
+      });
+
+      console.log(response.data);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   return (
     <main className={styles.home_page}>
+      {nutritionist && (
+        <div className={styles.invitation}>
+          <p>You've got an invite from a nutritionist</p>
+          <div className={styles.buttons}>
+            <button onClick={() => handleInvite(1)}>Confirm</button>
+            <button onClick={() => handleInvite(-1)}>Reject</button>
+          </div>
+        </div>
+      )}
       <div className={styles.top}>
         <div className={styles.left_arrow}>
           <MdKeyboardArrowRight />
@@ -195,7 +255,7 @@ export default function HomePage() {
         </div>
       </div>
 
-      <button>
+      <button className={styles.add_item}>
         <AiOutlinePlus /> Add Item
       </button>
     </main>

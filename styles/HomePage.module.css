@@ -4,6 +4,38 @@
   padding: var(--section_padding);
 }
 
+.invitation {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.invitation p {
+  margin-bottom: 1rem;
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.buttons button {
+  border: none;
+  width: 7rem;
+  height: 2rem;
+  border-radius: 2rem;
+  color: var(--almost_white);
+}
+
+.buttons button:first-child {
+  margin-right: 1rem;
+  background: var(--blue);
+}
+
+.buttons button:last-child {
+  background: #ce7b4c;
+}
+
 .top {
   display: flex;
   align-items: center;
@@ -89,7 +121,7 @@
   font-size: 14px;
 }
 
-.home_page button {
+.add_item {
   padding: 1rem 2rem;
   border: none;
   background: var(--light_white);
@@ -101,6 +133,6 @@
   align-self: center;
 }
 
-.home_page button svg {
+.add_item svg {
   margin-right: 0.5rem;
 }
