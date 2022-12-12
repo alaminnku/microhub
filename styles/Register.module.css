@@ -11,6 +11,7 @@
 
 .register p {
   color: var(--white);
+  text-align: center;
 }
 
 .logo,
