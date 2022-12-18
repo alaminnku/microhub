@@ -14,6 +14,7 @@ export default function UserProvider({ children }: IContextProviderProps) {
   // Hooks
   const router = useRouter();
   const [user, setUser] = useState<IUser | null>(null);
+  const [isUserLoading, setIsUserLoading] = useState(true);
 
   // Fetch user on app reload
   useEffect(() => {
@@ -30,6 +31,9 @@ export default function UserProvider({ children }: IContextProviderProps) {
         setUser(response.data.data.user);
       } catch (err) {
         console.log(err);
+      } finally {
+        // Remove the loader
+        setIsUserLoading(false);
       }
     }
 
@@ -37,7 +41,7 @@ export default function UserProvider({ children }: IContextProviderProps) {
   }, [router.isReady]);
 
   return (
-    <UserContext.Provider value={{ user, setUser }}>
+    <UserContext.Provider value={{ isUserLoading, user, setUser }}>
       {children}
     </UserContext.Provider>
   );

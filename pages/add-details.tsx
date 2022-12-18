@@ -11,6 +11,10 @@ import ButtonLoader from "@components/ButtonLoader";
 export default function AddDetailsPage() {
   // Initial state
   const initialState = {
+    waist: 0,
+    hip: 0,
+    forearm: 0,
+    wrist: 0,
     gender: "",
     weight: 0,
     height: 0,
@@ -23,21 +27,25 @@ export default function AddDetailsPage() {
 
   // Hooks
   const router = useRouter();
-  const { user, setUser } = useUser();
+  const { isUserLoading, user, setUser } = useUser();
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState<IConsumerDetails>(initialState);
 
   // Check user details
   useEffect(() => {
-    if (!user && router.isReady) {
+    if (!user && !isUserLoading) {
       router.push("/login");
     } else if (user?.consumer) {
-      router.push("/profile");
+      router.push("/questionnaire");
     }
-  }, [user, router.isReady]);
+  }, [user, isUserLoading]);
 
   // Destructure form data
   const {
+    waist,
+    hip,
+    forearm,
+    wrist,
     gender,
     weight,
     height,
@@ -56,7 +64,15 @@ export default function AddDetailsPage() {
 
     setFormData((currFormData) => ({
       ...currFormData,
-      [id]: id === "weight" || id === "height" ? +value : value,
+      [id]:
+        id === "waist" ||
+        id === "hip" ||
+        id === "forearm" ||
+        id === "wrist" ||
+        id === "weight" ||
+        id === "height"
+          ? +value
+          : value,
     }));
   }
 
@@ -95,7 +111,7 @@ export default function AddDetailsPage() {
       });
 
       // Push to the profile page
-      router.push("/profile");
+      router.push("/questionnaire");
     } catch (err) {
       console.log(err);
     } finally {
@@ -106,123 +122,174 @@ export default function AddDetailsPage() {
 
   return (
     <main>
-      <div className={styles.top}>
-        <div className={styles.logo}>
-          <Image src={logo} priority />
-        </div>
-      </div>
+      {isUserLoading && <h2>Loading...</h2>}
+      {!isUserLoading && user && (
+        <>
+          <section className={styles.top}>
+            <div className={styles.logo}>
+              <Image src={logo} priority />
+            </div>
+          </section>
 
-      <div className={styles.content}>
-        <p className={styles.title}>Welcome to MicroHub!</p>
-        <p className={styles.description}>
-          We're excited to help you kick start your journey to better nutrition.
-          Help us get to know you and your goals by answering our questionnaire.
-          Please be as honest as possible as it will help us to serve you
-          better.
-        </p>
-      </div>
+          <section>
+            <div className={styles.content}>
+              <p className={styles.title}>Welcome to MicroHub!</p>
+              <p className={styles.description}>
+                We're excited to help you kick start your journey to better
+                nutrition. Help us get to know you and your goals by answering
+                our questionnaire. Please be as honest as possible as it will
+                help us to serve you better.
+              </p>
+            </div>
 
-      <form onSubmit={handleSubmit} className={styles.form}>
-        <label htmlFor="name">Name</label>
-        <input
-          id="name"
-          type="text"
-          value={`${user?.first_name} ${user?.last_name}`}
-          readOnly
-        />
+            <form onSubmit={handleSubmit} className={styles.form}>
+              <label htmlFor="name">Name</label>
+              <input
+                id="name"
+                type="text"
+                value={`${user?.first_name} ${user?.last_name}`}
+                readOnly
+              />
 
-        <label htmlFor="gender">What's your gender?</label>
-        <select id="gender" value={gender} onChange={handleChange}>
-          <option hidden aria-hidden value="Please select one">
-            Please select one
-          </option>
-          <option value="male">Male</option>
-          <option value="female">Female</option>
-          <option value="other">Other</option>
-        </select>
+              <label htmlFor="gender">What's your gender?</label>
+              <select id="gender" value={gender} onChange={handleChange}>
+                <option hidden aria-hidden value="Please select one">
+                  Please select one
+                </option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+              </select>
 
-        <label htmlFor="weight">What's your weight (kg)?</label>
-        <input
-          type="number"
-          id="weight"
-          value={weight}
-          onChange={handleChange}
-        />
+              <label htmlFor="weight">What's your weight (kg)?</label>
+              <input
+                type="number"
+                id="weight"
+                value={weight}
+                onChange={handleChange}
+              />
 
-        <label htmlFor="height">How tall are you (cm)?</label>
-        <input
-          type="number"
-          id="height"
-          value={height}
-          onChange={handleChange}
-        />
+              <label htmlFor="height">How tall are you (cm)?</label>
+              <input
+                type="number"
+                id="height"
+                value={height}
+                onChange={handleChange}
+              />
 
-        <label htmlFor="activity_level">How active are you?</label>
-        <select
-          id="activity_level"
-          value={activity_level}
-          onChange={handleChange}
-        >
-          <option hidden aria-hidden value="Please select one">
-            Please select one
-          </option>
-          <option value="sedentary">Sedentary</option>
-          <option value="lightly active">Lightly active</option>
-          <option value="moderate active">Moderate active</option>
-          <option value="very active">Very active</option>
-          <option value="extremely active">Extremely active</option>
-        </select>
+              <label htmlFor="waist">
+                What is your waist measurement (cm)?
+              </label>
+              <input
+                type="number"
+                id="waist"
+                value={waist}
+                onChange={handleChange}
+              />
 
-        <label htmlFor="preferences">Foods preferences</label>
-        <select id="preferences" value={preferences} onChange={handleChange}>
-          <option hidden aria-hidden value="Please select one">
-            Please select one
-          </option>
-          <option value="meat">Meat</option>
-          <option value="diet">Diet</option>
-          <option value="vegan">Vegan</option>
-          <option value="halal">Halal</option>
-          <option value="kosher">Kosher</option>
-          <option value="standard">Standard</option>
-          <option value="vegetarian">Vegetarian</option>
-          <option value="pollotarian">Pollotarian</option>
-          <option value="gluten free">Gluten free</option>
-          <option value="pescetarian">Pescetarian</option>
-          <option value="lacto vegetarian">Lacto vegetarian</option>
-        </select>
+              <label htmlFor="hip">What is your hip measurement (cm)?</label>
+              <input
+                type="number"
+                id="hip"
+                value={hip}
+                onChange={handleChange}
+              />
 
-        <label htmlFor="favorite_foods">Foods you love (comma separated)</label>
-        <input
-          type="text"
-          id="favorite_foods"
-          value={favorite_foods}
-          onChange={handleChange}
-        />
+              <label htmlFor="forearm">
+                What is your forearm measurement (cm)?
+              </label>
+              <input
+                type="number"
+                id="forearm"
+                value={forearm}
+                onChange={handleChange}
+              />
 
-        <label htmlFor="least_favorite_foods">
-          Foods you don't like so much (comma separated)
-        </label>
-        <input
-          type="text"
-          id="least_favorite_foods"
-          value={least_favorite_foods}
-          onChange={handleChange}
-        />
+              <label htmlFor="wrist">
+                What is your wrist measurement (cm)?
+              </label>
+              <input
+                type="number"
+                id="wrist"
+                value={wrist}
+                onChange={handleChange}
+              />
 
-        <label htmlFor="allergies">
-          Foods you are allergic to (comma separated)
-        </label>
-        <input
-          type="text"
-          id="allergies"
-          value={allergies}
-          onChange={handleChange}
-        />
+              <label htmlFor="activity_level">How active are you?</label>
+              <select
+                id="activity_level"
+                value={activity_level}
+                onChange={handleChange}
+              >
+                <option hidden aria-hidden value="Please select one">
+                  Please select one
+                </option>
+                <option value="sedentary">Sedentary</option>
+                <option value="lightly active">Lightly active</option>
+                <option value="moderate active">Moderate active</option>
+                <option value="very active">Very active</option>
+                <option value="extremely active">Extremely active</option>
+              </select>
 
-        <button className={styles.submit_button}>
-          {isLoading ? <ButtonLoader /> : "Submit"}
-        </button>
-      </form>
+              <label htmlFor="preferences">Foods preferences</label>
+              <select
+                id="preferences"
+                value={preferences}
+                onChange={handleChange}
+              >
+                <option hidden aria-hidden value="Please select one">
+                  Please select one
+                </option>
+                <option value="meat">Meat</option>
+                <option value="diet">Diet</option>
+                <option value="vegan">Vegan</option>
+                <option value="halal">Halal</option>
+                <option value="kosher">Kosher</option>
+                <option value="standard">Standard</option>
+                <option value="vegetarian">Vegetarian</option>
+                <option value="pollotarian">Pollotarian</option>
+                <option value="gluten free">Gluten free</option>
+                <option value="pescetarian">Pescetarian</option>
+                <option value="lacto vegetarian">Lacto vegetarian</option>
+              </select>
+
+              <label htmlFor="favorite_foods">
+                Foods you love (comma separated)
+              </label>
+              <input
+                type="text"
+                id="favorite_foods"
+                value={favorite_foods}
+                onChange={handleChange}
+              />
+
+              <label htmlFor="least_favorite_foods">
+                Foods you don't like so much (comma separated)
+              </label>
+              <input
+                type="text"
+                id="least_favorite_foods"
+                value={least_favorite_foods}
+                onChange={handleChange}
+              />
+
+              <label htmlFor="allergies">
+                Foods you are allergic to (comma separated)
+              </label>
+              <input
+                type="text"
+                id="allergies"
+                value={allergies}
+                onChange={handleChange}
+              />
+
+              <button className={styles.submit_button}>
+                {isLoading ? <ButtonLoader /> : "Submit"}
+              </button>
+            </form>
+          </section>
+        </>
+      )}
     </main>
   );
 }

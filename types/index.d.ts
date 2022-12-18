@@ -8,6 +8,12 @@ export interface IContextProviderProps {
   children: ReactNode;
 }
 
+export interface IQuestionnaireData {
+  [key: string]: {
+    [key: string]: string;
+  };
+}
+
 export interface IUser {
   id: number;
   email: string;
@@ -31,6 +37,30 @@ export interface IUser {
       daily_carbs: number;
       daily_fat: number;
       daily_protein: number;
+    };
+    questionnaire: {
+      consumerId: number;
+      createdAt: string;
+      date: string;
+      date_of_birth: string;
+      email: string;
+      height: number;
+      home_phone_number: string;
+      id: number;
+      lowest_height: number;
+      lowest_weight: number;
+      name: string;
+      questionnaire_options: {
+        id: number;
+        question: string;
+        answer: string;
+        questionnairyId: number;
+        details: string;
+        additional_question: string;
+        additional_answer: string;
+      };
+      weight: number;
+      work_phone_number: string;
     };
     favorite_foods: string[];
     gender: string;
@@ -57,6 +87,7 @@ export interface IConsumerDetails {
 }
 
 export interface IUserContext {
+  isUserLoading: boolean;
   user: IUser | null;
   setUser: Dispatch<SetStateAction<IUser | null>>;
 }
@@ -78,10 +109,4 @@ export interface ISubmitButtonProps {
 
 export interface IBackButton {
   url: string;
-}
-
-export interface IQuestionnaireData {
-  [key: string]: {
-    [key: string]: string;
-  };
 }

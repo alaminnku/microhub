@@ -23,16 +23,16 @@ interface INutritionist {
 
 export default function HomePage() {
   const router = useRouter();
-  const { user } = useUser();
+  const { isUserLoading, user } = useUser();
   const [nutritionist, setNutritionist] = useState<INutritionist>();
 
   useEffect(() => {
-    if (user && !user?.consumer && router.isReady) {
-      router.push("/add-details");
-    } else if (!user) {
+    if (!isUserLoading && !user) {
       router.push("/login");
+    } else if (user && !user.consumer) {
+      router.push("/add-details");
     }
-  }, [user, router.isReady]);
+  }, [user, isUserLoading]);
 
   useEffect(() => {
     async function checkInviteFromNutritionist() {

@@ -13,17 +13,20 @@ import { MdKeyboardArrowRight } from "react-icons/md";
 
 export default function ProfilePage() {
   const router = useRouter();
-  const { user } = useUser();
+  const { isUserLoading, user } = useUser();
 
   useEffect(() => {
-    if (!user && router.isReady) {
+    if (!isUserLoading && !user) {
       router.push("/login");
+    } else if (Object.keys(user?.questionnaire).length === 0) {
+      router.push("/questionnaire");
     }
-  }, [user, router.isReady]);
+  }, [user, isUserLoading]);
 
   return (
     <main>
-      {user && (
+      {isUserLoading && <h2>Loading...</h2>}
+      {!isUserLoading && user && (
         <section>
           <div className={styles.top}>
             <div className={styles.logo}>
