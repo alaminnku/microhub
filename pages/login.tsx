@@ -18,16 +18,14 @@ export default function LoginPage() {
   };
   // Hooks
   const router = useRouter();
-  const { user } = useUser();
+  const { isUserLoading, user } = useUser();
   const { setUser } = useUser();
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState<IFormData>(initialState);
 
   // Check user
   useEffect(() => {
-    if (user && !user.consumer && router.isReady) {
-      router.push("/add-details");
-    } else if (user?.consumer && router.isReady) {
+    if (user && router.isReady) {
       router.push("/");
     }
   }, [user, router.isReady]);
@@ -57,6 +55,8 @@ export default function LoginPage() {
 
       // Update state
       setUser(response.data.data.user);
+
+      router.push("/");
     } catch (err) {
       console.log(err);
     } finally {
@@ -66,42 +66,48 @@ export default function LoginPage() {
   }
   return (
     <main className={styles.login}>
-      <section>
-        <div className={styles.logo}>
-          <Image src={logo} />
-        </div>
-        <p className={styles.title}>Sign in</p>
+      {isUserLoading && <h2>Loading....</h2>}
 
-        <form className={styles.form}>
-          <input
-            type="email"
-            name="email"
-            value={email}
-            placeholder="Email Address"
-            onChange={handleChange}
-          />
-          <input
-            type="password"
-            name="password"
-            value={password}
-            placeholder="Password"
-            onChange={handleChange}
-          />
-        </form>
+      {!isUserLoading && !user && (
+        <>
+          <section>
+            <div className={styles.logo}>
+              <Image src={logo} />
+            </div>
+            <p className={styles.title}>Sign in</p>
 
-        <SubmitButton
-          text="Sign in"
-          isLoading={isLoading}
-          handleClick={handleSubmit}
-        />
+            <form className={styles.form}>
+              <input
+                type="email"
+                name="email"
+                value={email}
+                placeholder="Email Address"
+                onChange={handleChange}
+              />
+              <input
+                type="password"
+                name="password"
+                value={password}
+                placeholder="Password"
+                onChange={handleChange}
+              />
+            </form>
 
-        <p className={styles.register}>
-          Don't have an account?{" "}
-          <Link href="/register">
-            <a className="">Sign up</a>
-          </Link>
-        </p>
-      </section>
+            <SubmitButton
+              text="Sign in"
+              isLoading={isLoading}
+              handleClick={handleSubmit}
+            />
+
+            <p className={styles.register}>
+              Don't have an account?{" "}
+              <Link href="/register">
+                <a className="">Sign up</a>
+              </Link>
+            </p>
+          </section>
+        </>
+      )}
     </main>
   );
 }

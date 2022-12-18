@@ -63,12 +63,12 @@ export default function QuestionnairePage() {
 
   // Check user
   useEffect(() => {
-    if (!isUserLoading && !user) {
+    if (!isUserLoading && !user && router.isReady) {
       router.push("/login");
-    } else if (!isUserLoading && user?.questionnaire) {
+    } else if (user?.questionnaire && router.isReady) {
       router.push("/profile");
     }
-  }, [isUserLoading, user]);
+  }, [isUserLoading, user, router.isReady]);
 
   // Handle question data change
   function handleChangeQuestion(
@@ -160,7 +160,8 @@ export default function QuestionnairePage() {
   return (
     <main>
       {isUserLoading && <h2>Loading...</h2>}
-      {!isUserLoading && user && (
+
+      {!isUserLoading && !user?.questionnaire && (
         <>
           <section className={styles.top}>
             <div className={styles.logo}>

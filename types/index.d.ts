@@ -14,6 +14,17 @@ export interface IQuestionnaireData {
   };
 }
 
+export interface INutritionist {
+  id: number;
+  first_name: string;
+  last_name: string;
+  email: string;
+  createdAt: string;
+  photo: string;
+  linkToken: string;
+  status: number;
+}
+
 export interface IUser {
   id: number;
   email: string;
@@ -21,6 +32,7 @@ export interface IUser {
   last_name: string;
   photo: string;
   createdAt: string;
+  requested_nutritionists: INutritionist[];
   questionnaire: {
     consumerId: number;
     createdAt: string;
@@ -41,7 +53,7 @@ export interface IUser {
       details: string;
       additional_question: string;
       additional_answer: string;
-    };
+    }[];
     weight: number;
     work_phone_number: string;
   };

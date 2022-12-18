@@ -33,12 +33,12 @@ export default function AddDetailsPage() {
 
   // Check user details
   useEffect(() => {
-    if (!user && !isUserLoading) {
+    if (!user && !isUserLoading && router.isReady) {
       router.push("/login");
-    } else if (user?.consumer) {
+    } else if (user?.consumer && router.isReady) {
       router.push("/questionnaire");
     }
-  }, [user, isUserLoading]);
+  }, [user, isUserLoading, router.isReady]);
 
   // Destructure form data
   const {
@@ -123,7 +123,8 @@ export default function AddDetailsPage() {
   return (
     <main>
       {isUserLoading && <h2>Loading...</h2>}
-      {!isUserLoading && user && (
+
+      {!isUserLoading && !user?.consumer && (
         <>
           <section className={styles.top}>
             <div className={styles.logo}>
