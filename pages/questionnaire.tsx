@@ -61,17 +61,18 @@ export default function QuestionnairePage() {
     lowest_height,
   } = formData;
 
-  // useEffect(() => {
-  //   if (!isUserLoading && !user) {
-  //     router.push("/login");
-  //   } else if (!isUserLoading && user?.questionnaire) {
-  //     router.push("/profile");
-  //   }
-  // }, [isUserLoading, user]);
+  // Check user
+  useEffect(() => {
+    if (!isUserLoading && !user) {
+      router.push("/login");
+    } else if (!isUserLoading && user?.questionnaire) {
+      router.push("/profile");
+    }
+  }, [isUserLoading, user]);
 
   // Handle question data change
   function handleChangeQuestion(
-    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
+    e: ChangeEvent<HTMLSelectElement | HTMLTextAreaElement>
   ) {
     setQuestionsData({
       ...questionData,
@@ -83,9 +84,7 @@ export default function QuestionnairePage() {
   }
 
   // Handle form data change
-  function handleChangeForm(
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) {
+  function handleChangeForm(e: ChangeEvent<HTMLInputElement>) {
     const id = e.target.id;
     const value = e.target.value;
 
@@ -233,7 +232,6 @@ export default function QuestionnairePage() {
               </label>
               <textarea
                 rows={8}
-                type="text"
                 id="question_1"
                 value={question_1.answer}
                 onChange={handleChangeQuestion}
@@ -245,7 +243,6 @@ export default function QuestionnairePage() {
               </label>
               <textarea
                 rows={8}
-                type="text"
                 id="question_2"
                 value={question_2.answer}
                 onChange={handleChangeQuestion}
@@ -256,7 +253,6 @@ export default function QuestionnairePage() {
               </label>
               <textarea
                 rows={8}
-                type="text"
                 id="question_3"
                 value={question_3.answer}
                 onChange={handleChangeQuestion}
@@ -280,7 +276,6 @@ export default function QuestionnairePage() {
               <label htmlFor="question_5">If so, by how much and why?</label>
               <textarea
                 rows={8}
-                type="text"
                 id="question_5"
                 value={question_5.answer}
                 onChange={handleChangeQuestion}
@@ -307,7 +302,6 @@ export default function QuestionnairePage() {
               </label>
               <textarea
                 rows={8}
-                type="text"
                 id="question_7"
                 value={question_7.answer}
                 onChange={handleChangeQuestion}

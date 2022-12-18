@@ -21,6 +21,30 @@ export interface IUser {
   last_name: string;
   photo: string;
   createdAt: string;
+  questionnaire: {
+    consumerId: number;
+    createdAt: string;
+    date: string;
+    date_of_birth: string;
+    email: string;
+    height: number;
+    home_phone_number: string;
+    id: number;
+    lowest_height: number;
+    lowest_weight: number;
+    name: string;
+    questionnaire_options: {
+      id: number;
+      question: string;
+      answer: string;
+      questionnairyId: number;
+      details: string;
+      additional_question: string;
+      additional_answer: string;
+    };
+    weight: number;
+    work_phone_number: string;
+  };
   consumer?: {
     activity_level: string;
     allergies: string[];
@@ -38,30 +62,6 @@ export interface IUser {
       daily_fat: number;
       daily_protein: number;
     };
-    questionnaire: {
-      consumerId: number;
-      createdAt: string;
-      date: string;
-      date_of_birth: string;
-      email: string;
-      height: number;
-      home_phone_number: string;
-      id: number;
-      lowest_height: number;
-      lowest_weight: number;
-      name: string;
-      questionnaire_options: {
-        id: number;
-        question: string;
-        answer: string;
-        questionnairyId: number;
-        details: string;
-        additional_question: string;
-        additional_answer: string;
-      };
-      weight: number;
-      work_phone_number: string;
-    };
     favorite_foods: string[];
     gender: string;
     healthy_weight: number;
@@ -76,6 +76,10 @@ export interface IUser {
 }
 
 export interface IConsumerDetails {
+  waist: number;
+  hip: number;
+  forearm: number;
+  wrist: number;
   gender: string;
   weight: number;
   height: number;

@@ -15,10 +15,15 @@ export default function ProfilePage() {
   const router = useRouter();
   const { isUserLoading, user } = useUser();
 
+  // Check user
   useEffect(() => {
     if (!isUserLoading && !user) {
       router.push("/login");
-    } else if (Object.keys(user?.questionnaire).length === 0) {
+    } else if (
+      !isUserLoading &&
+      user &&
+      Object.keys(user?.questionnaire).length === 0
+    ) {
       router.push("/questionnaire");
     }
   }, [user, isUserLoading]);
