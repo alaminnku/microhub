@@ -1,18 +1,19 @@
 import { useUser } from "@context/User";
 import styles from "@styles/HomePage.module.css";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { MdKeyboardArrowRight } from "react-icons/md";
 import { AiOutlinePlus } from "react-icons/ai";
 import { TfiReload } from "react-icons/tfi";
 import Image from "next/image";
 import Link from "next/link";
+import { IUser } from "types";
 import Macros from "@components/Macros";
 import { axiosInstance } from "@utils/index";
 
 export default function HomePage() {
   const router = useRouter();
-  const { isUserLoading, user } = useUser();
+  const { isUserLoading, user, setUser } = useUser();
 
   // Check user
   useEffect(() => {
@@ -38,7 +39,18 @@ export default function HomePage() {
           nutritionistId: user.requested_nutritionists[0].id,
         });
 
-        console.log(response.data);
+        // Update user
+        setUser((currState) => {
+          if (currState) {
+            // Destructure user data
+            const { requested_nutritionists, ...rest } = currState;
+
+            // Return all but requested nutritionist
+            return rest as IUser;
+          } else {
+            return null;
+          }
+        });
       } catch (err) {
         console.log(err);
       }
@@ -51,9 +63,13 @@ export default function HomePage() {
 
       {!isUserLoading && user && (
         <>
-          {user?.requested_nutritionists && (
+          {user?.requested_nutritionists?.length > 0 && (
             <div className={styles.invitation}>
-              <p>You've got an invite from a nutritionist</p>
+              <p>
+                You've got an invite from{" "}
+                {user.requested_nutritionists[0].first_name}{" "}
+                {user.requested_nutritionists[0].last_name}
+              </p>
               <div className={styles.buttons}>
                 <button onClick={() => handleInvite(1)}>Confirm</button>
                 <button onClick={() => handleInvite(-1)}>Reject</button>
