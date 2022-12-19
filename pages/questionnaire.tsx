@@ -146,7 +146,17 @@ export default function QuestionnairePage() {
         data
       );
 
-      console.log(response.data);
+      // Update user
+      setUser((currState) => {
+        if (currState) {
+          return {
+            ...currState,
+            questionnaire: response.data.data.questionnaire,
+          };
+        } else {
+          return null;
+        }
+      });
 
       router.push("/profile");
     } catch (err) {

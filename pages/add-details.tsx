@@ -33,9 +33,9 @@ export default function AddDetailsPage() {
 
   // Check user details
   useEffect(() => {
-    if (!user && !isUserLoading && router.isReady) {
+    if (!isUserLoading && !user && router.isReady) {
       router.push("/login");
-    } else if (user?.consumer && router.isReady) {
+    } else if (!isUserLoading && !user?.questionnaire && router.isReady) {
       router.push("/questionnaire");
     }
   }, [user, isUserLoading, router.isReady]);

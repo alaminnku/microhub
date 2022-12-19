@@ -20,18 +20,20 @@ export default function RegistrationPage() {
   };
   // Hooks
   const router = useRouter();
-  const { user, setUser } = useUser();
+  const { isUserLoading, user, setUser } = useUser();
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState<IFormData>(initialState);
 
   // Check user
   useEffect(() => {
-    if (user && !user?.consumer && router.isReady) {
+    if (!isUserLoading && !user?.consumer && router.isReady) {
       router.push("/add-details");
-    } else if (user?.consumer && router.isReady) {
+    } else if (!isUserLoading && !user?.questionnaire && router.isReady) {
+      router.push("/questionnaire");
+    } else if (user?.consumer && user.questionnaire && router.isReady) {
       router.push("/profile");
     }
-  }, [user, router.isReady]);
+  }, [isUserLoading, user, router.isReady]);
 
   // Destructure data
   const { first_name, last_name, email, password, passwordConfirm } = formData;
