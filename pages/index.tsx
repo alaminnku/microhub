@@ -1,7 +1,7 @@
 import { useUser } from "@context/User";
 import styles from "@styles/HomePage.module.css";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { MdKeyboardArrowRight } from "react-icons/md";
 import { AiOutlinePlus } from "react-icons/ai";
 import { TfiReload } from "react-icons/tfi";

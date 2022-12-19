@@ -1,21 +1,23 @@
+import { IContextProviderProps, IDataContext } from "types";
 import { axiosInstance } from "@utils/index";
 import { useRouter } from "next/router";
+import { useUser } from "@context/User";
 import { createContext, useContext, useEffect, useState } from "react";
-import { IContextProviderProps, IUser, IUserContext } from "types";
 
 // Create context
-const DataContext = createContext({});
+const DataContext = createContext({} as IDataContext);
 
 // Create hook
-export const useUser = () => useContext(DataContext);
+export const useData = () => useContext(DataContext);
 
 // Provider function
 export default function DataProvider({ children }: IContextProviderProps) {
   // Hooks
   const router = useRouter();
+  const { user } = useUser();
   const [program, setProgram] = useState({
     isLoading: true,
-    data: null,
+    data: [],
   });
 
   // Fetch user on app reload
@@ -38,12 +40,13 @@ export default function DataProvider({ children }: IContextProviderProps) {
       }
     }
 
-    getData();
-  }, [router.isReady]);
+    // Only call this function if there is an user
+    if (user) {
+      getData();
+    }
+  }, [user, router.isReady]);
 
   return (
-    <DataContext.Provider value={{ program, setProgram }}>
-      {children}
-    </DataContext.Provider>
+    <DataContext.Provider value={{ program }}>{children}</DataContext.Provider>
   );
 }

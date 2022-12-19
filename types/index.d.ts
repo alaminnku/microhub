@@ -102,10 +102,19 @@ export interface IConsumerDetails {
   least_favorite_foods: string;
 }
 
+export interface IProgram {
+  data: any[];
+  isLoading: boolean;
+}
+
 export interface IUserContext {
   isUserLoading: boolean;
   user: IUser | null;
   setUser: Dispatch<SetStateAction<IUser | null>>;
+}
+
+export interface IDataContext {
+  program: IProgram;
 }
 
 interface IBooleanStateProps {
