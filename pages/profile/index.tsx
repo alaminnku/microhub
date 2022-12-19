@@ -19,11 +19,7 @@ export default function ProfilePage() {
   useEffect(() => {
     if (!isUserLoading && !user && router.isReady) {
       router.push("/login");
-    } else if (
-      user &&
-      router.isReady &&
-      Object.keys(user?.questionnaire).length === 0
-    ) {
+    } else if (router.isReady && !user?.questionnaire) {
       router.push("/questionnaire");
     }
   }, [user, isUserLoading, router.isReady]);
@@ -31,6 +27,7 @@ export default function ProfilePage() {
   return (
     <main>
       {isUserLoading && <h2>Loading...</h2>}
+
       {!isUserLoading && user && (
         <section>
           <div className={styles.top}>
