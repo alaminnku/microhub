@@ -57,6 +57,8 @@ export default function HomePage() {
     }
   }
 
+  // console.log(user);
+
   return (
     <main className={styles.home_page}>
       {isUserLoading && <h2>Loading...</h2>}
