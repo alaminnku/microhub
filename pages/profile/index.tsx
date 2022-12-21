@@ -19,7 +19,9 @@ export default function ProfilePage() {
   useEffect(() => {
     if (!isUserLoading && !user && router.isReady) {
       router.push("/login");
-    } else if (router.isReady && !user?.questionnaire) {
+    } else if (router.isReady && user && !user?.consumer) {
+      router.push("/add-details");
+    } else if (router.isReady && user && !user?.questionnaire) {
       router.push("/questionnaire");
     }
   }, [user, isUserLoading, router.isReady]);
