@@ -26,9 +26,9 @@ export default function RegistrationPage() {
 
   // Check user
   useEffect(() => {
-    if (!isUserLoading && !user?.consumer && router.isReady) {
+    if (user && !user?.consumer && router.isReady) {
       router.push("/add-details");
-    } else if (!isUserLoading && !user?.questionnaire && router.isReady) {
+    } else if (user && !user?.questionnaire && router.isReady) {
       router.push("/questionnaire");
     } else if (user?.consumer && user.questionnaire && router.isReady) {
       router.push("/profile");
