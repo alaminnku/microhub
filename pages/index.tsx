@@ -19,7 +19,7 @@ export default function HomePage() {
   useEffect(() => {
     if (!isUserLoading && !user && router.isReady) {
       router.push("/login");
-    } else if (!isUserLoading && !user?.consumer && router.isReady) {
+    } else if (user && !user?.consumer && router.isReady) {
       router.push("/add-details");
     }
   }, [user, isUserLoading, router.isReady]);
