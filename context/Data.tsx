@@ -22,7 +22,7 @@ export default function DataProvider({ children }: IContextProviderProps) {
 
   // Fetch user on app reload
   useEffect(() => {
-    async function getData() {
+    async function getPrograms() {
       try {
         // Make request to the backend
         const response = await axiosInstance.get("/consumers/programs");
@@ -41,8 +41,8 @@ export default function DataProvider({ children }: IContextProviderProps) {
     }
 
     // Only call this function if there is an user
-    if (user) {
-      getData();
+    if (user?.requested_nutritionists) {
+      getPrograms();
     }
   }, [user, router.isReady]);
 
