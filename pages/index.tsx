@@ -92,6 +92,8 @@ export default function HomePage() {
     }
   }
 
+  console.log(user?.program);
+
   return (
     <main className={styles.home_page}>
       {isUserLoading && <h2>Loading...</h2>}
@@ -113,12 +115,20 @@ export default function HomePage() {
           )}
 
           <section className={styles.top}>
-            <div className={styles.left_arrow} onClick={previousDay}>
+            <div
+              className={`${styles.left_arrow} ${
+                currentDay === 0 && styles.disabled
+              }`}
+              onClick={previousDay}
+            >
               <MdKeyboardArrowRight />
             </div>
             <p>{user.program.mealplan_foods[currentDay].day}</p>
             <div
-              className={styles.right_arrow}
+              className={`${styles.right_arrow} ${
+                user.program.mealplan_foods.length - 1 === currentDay &&
+                styles.disabled
+              }`}
               onClick={() => nextDay(user.program.mealplan_foods.length)}
             >
               <MdKeyboardArrowRight />
@@ -137,8 +147,8 @@ export default function HomePage() {
           {groupMeals(
             user.program.mealplan_foods[currentDay].meals,
             "breakfast"
-          ).map((meal) => (
-            <section className={styles.breakfast}>
+          ).map((meal, index) => (
+            <section className={styles.breakfast} key={index}>
               <div className={styles.header}>
                 <div>
                   <p>Breakfast</p>
@@ -176,8 +186,8 @@ export default function HomePage() {
           {groupMeals(
             user.program.mealplan_foods[currentDay].meals,
             "lunch"
-          ).map((meal) => (
-            <section className={styles.lunch}>
+          ).map((meal, index) => (
+            <section className={styles.lunch} key={index}>
               <div className={styles.header}>
                 <div>
                   <p>Lunch</p>
@@ -215,8 +225,8 @@ export default function HomePage() {
           {groupMeals(
             user.program.mealplan_foods[currentDay].meals,
             "dinner"
-          ).map((meal) => (
-            <section className={styles.dinner}>
+          ).map((meal, index) => (
+            <section className={styles.dinner} key={index}>
               <div className={styles.header}>
                 <div>
                   <p>Dinner</p>
@@ -254,8 +264,8 @@ export default function HomePage() {
           {groupMeals(
             user.program.mealplan_foods[currentDay].meals,
             "snacks"
-          ).map((meal) => (
-            <section className={styles.snacks}>
+          ).map((meal, index) => (
+            <section className={styles.snacks} key={index}>
               <div className={styles.header}>
                 <div>
                   <p>Snacks</p>
