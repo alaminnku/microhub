@@ -1,18 +1,19 @@
 import { useUser } from "@context/User";
 import styles from "@styles/HomePage.module.css";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { MdKeyboardArrowRight } from "react-icons/md";
 import { AiOutlinePlus } from "react-icons/ai";
 import { TfiReload } from "react-icons/tfi";
 import Image from "next/image";
 import Link from "next/link";
-import { IUser } from "types";
+import { IMeal, IUser } from "types";
 import Macros from "@components/Macros";
 import { axiosInstance } from "@utils/index";
 
 export default function HomePage() {
   const router = useRouter();
+  const [currentDay, setCurrentDay] = useState(0);
   const { isUserLoading, user, setUser } = useUser();
 
   // Check user
@@ -57,7 +58,39 @@ export default function HomePage() {
     }
   }
 
-  // console.log(user);
+  // console.log(user?.program.mealplan_foods.length);
+
+  // Groups meals by course
+  const groupMeals = (meals: IMeal[], groupBy: string) =>
+    meals.filter((meal) => meal.course === groupBy);
+
+  // Calculate total calories of each group
+  const groupTotalCalories = (meals: IMeal[], groupBy: string) =>
+    meals
+      .filter((meal) => meal.course === groupBy)
+      .reduce((acc, curr) => acc + curr.cals, 0);
+
+  // Go to the next day
+  function nextDay(mealPlansLength: number) {
+    if (currentDay < mealPlansLength - 1) {
+      setCurrentDay((currState) => currState + 1);
+      console.log("first");
+    } else {
+      setCurrentDay((currState) => currState);
+      console.log("hello");
+    }
+  }
+
+  // Go to the previous day
+  function previousDay() {
+    if (currentDay > 0) {
+      setCurrentDay((currState) => currState - 1);
+      console.log("first");
+    } else {
+      setCurrentDay((currState) => currState);
+      console.log("hello");
+    }
+  }
 
   return (
     <main className={styles.home_page}>
@@ -80,175 +113,181 @@ export default function HomePage() {
           )}
 
           <section className={styles.top}>
-            <div className={styles.left_arrow}>
+            <div className={styles.left_arrow} onClick={previousDay}>
               <MdKeyboardArrowRight />
             </div>
-            <p>Today</p>
-            <div className={styles.right_arrow}>
+            <p>{user.program.mealplan_foods[currentDay].day}</p>
+            <div
+              className={styles.right_arrow}
+              onClick={() => nextDay(user.program.mealplan_foods.length)}
+            >
               <MdKeyboardArrowRight />
             </div>
           </section>
 
-          <Macros text="Total Macros" calories={1849} />
+          <Macros
+            text="Total Macros"
+            calories={user.program.mealplan_foods[currentDay].meals.reduce(
+              (acc, curr) => acc + curr.cals,
+              0
+            )}
+          />
 
-          <section className={styles.breakfast}>
-            <div className={styles.header}>
-              <div>
-                <p>Breakfast</p>
-                <span>452 Calories</span>
+          {/* Breakfast */}
+          {groupMeals(
+            user.program.mealplan_foods[currentDay].meals,
+            "breakfast"
+          ).map((meal) => (
+            <section className={styles.breakfast}>
+              <div className={styles.header}>
+                <div>
+                  <p>Breakfast</p>
+                  <span>
+                    {groupTotalCalories(
+                      user.program.mealplan_foods[currentDay].meals,
+                      "breakfast"
+                    )}{" "}
+                    Calories
+                  </span>
+                </div>
+                <TfiReload />
               </div>
-              <TfiReload />
-            </div>
 
-            <div className={styles.item}>
-              <input type="checkbox" />
-              <Link href="/menu-item">
-                <a>
-                  <div className={styles.image}>
-                    <Image
-                      src="/food-placeholder.jpg"
-                      width={1}
-                      height={1}
-                      layout="responsive"
-                    />
-                  </div>
-                  <p>Chia Pudding with Fresh Fruit & Yoghurt</p>
-                </a>
-              </Link>
-            </div>
-
-            <div className={styles.item}>
-              <input type="checkbox" />
-              <Link href="/menu-item">
-                <a>
-                  <div className={styles.image}>
-                    <Image
-                      src="/food-placeholder.jpg"
-                      width={1}
-                      height={1}
-                      layout="responsive"
-                    />
-                  </div>
-                  <p>Fresh Orange Juice</p>
-                </a>
-              </Link>
-            </div>
-          </section>
-
-          <section className={styles.lunch}>
-            <div className={styles.header}>
-              <div>
-                <p>Lunch</p>
-                <span>452 Calories</span>
+              <div className={styles.item}>
+                <input type="checkbox" />
+                <Link href="/menu-item">
+                  <a>
+                    <div className={styles.image}>
+                      <Image
+                        src="/food-placeholder.jpg"
+                        width={1}
+                        height={1}
+                        layout="responsive"
+                      />
+                    </div>
+                    <p>{meal.title}</p>
+                  </a>
+                </Link>
               </div>
-              <TfiReload />
-            </div>
+            </section>
+          ))}
 
-            <div className={styles.item}>
-              <input type="checkbox" />
-              <Link href="/menu-item">
-                <a>
-                  <div className={styles.image}>
-                    <Image
-                      src="/food-placeholder.jpg"
-                      width={1}
-                      height={1}
-                      layout="responsive"
-                    />
-                  </div>
-                  <p>White Bean & Veggie Salad</p>
-                </a>
-              </Link>
-            </div>
-          </section>
-
-          <section className={styles.dinner}>
-            <div className={styles.header}>
-              <div>
-                <p>Dinner</p>
-                <span>452 Calories</span>
+          {/* Lunch */}
+          {groupMeals(
+            user.program.mealplan_foods[currentDay].meals,
+            "lunch"
+          ).map((meal) => (
+            <section className={styles.lunch}>
+              <div className={styles.header}>
+                <div>
+                  <p>Lunch</p>
+                  <span>
+                    {groupTotalCalories(
+                      user.program.mealplan_foods[currentDay].meals,
+                      "lunch"
+                    )}{" "}
+                    Calories
+                  </span>
+                </div>
+                <TfiReload />
               </div>
-              <TfiReload />
-            </div>
 
-            <div className={styles.item}>
-              <input type="checkbox" />
-              <Link href="/menu-item">
-                <a>
-                  <div className={styles.image}>
-                    <Image
-                      src="/food-placeholder.jpg"
-                      width={1}
-                      height={1}
-                      layout="responsive"
-                    />
-                  </div>
-                  <p>Poached Chicken & Quinoa Salad</p>
-                </a>
-              </Link>
-            </div>
-
-            <div className={styles.item}>
-              <input type="checkbox" />
-              <Link href="/menu-item">
-                <a>
-                  <div className={styles.image}>
-                    <Image
-                      src="/food-placeholder.jpg"
-                      width={1}
-                      height={1}
-                      layout="responsive"
-                    />
-                  </div>
-                  <p>Mediterranean Salad</p>
-                </a>
-              </Link>
-            </div>
-          </section>
-
-          <section className={styles.snacks}>
-            <div className={styles.header}>
-              <div>
-                <p>Snacks</p>
-                <span>452 Calories</span>
+              <div className={styles.item}>
+                <input type="checkbox" />
+                <Link href="/menu-item">
+                  <a>
+                    <div className={styles.image}>
+                      <Image
+                        src="/food-placeholder.jpg"
+                        width={1}
+                        height={1}
+                        layout="responsive"
+                      />
+                    </div>
+                    <p>{meal.title}</p>
+                  </a>
+                </Link>
               </div>
-              <TfiReload />
-            </div>
+            </section>
+          ))}
 
-            <div className={styles.item}>
-              <input type="checkbox" />
-              <Link href="/menu-item">
-                <a>
-                  <div className={styles.image}>
-                    <Image
-                      src="/food-placeholder.jpg"
-                      width={1}
-                      height={1}
-                      layout="responsive"
-                    />
-                  </div>
-                  <p>Green Smoothie</p>
-                </a>
-              </Link>
-            </div>
+          {/* Dinner */}
+          {groupMeals(
+            user.program.mealplan_foods[currentDay].meals,
+            "dinner"
+          ).map((meal) => (
+            <section className={styles.dinner}>
+              <div className={styles.header}>
+                <div>
+                  <p>Dinner</p>
+                  <span>
+                    {groupTotalCalories(
+                      user.program.mealplan_foods[currentDay].meals,
+                      "dinner"
+                    )}{" "}
+                    Calories
+                  </span>
+                </div>
+                <TfiReload />
+              </div>
 
-            <div className={styles.item}>
-              <input type="checkbox" />
-              <Link href="/menu-item">
-                <a>
-                  <div className={styles.image}>
-                    <Image
-                      src="/food-placeholder.jpg"
-                      width="60"
-                      height="60"
-                      layout="responsive"
-                    />
-                  </div>
-                  <p>Banana</p>
-                </a>
-              </Link>
-            </div>
-          </section>
+              <div className={styles.item}>
+                <input type="checkbox" />
+                <Link href="/menu-item">
+                  <a>
+                    <div className={styles.image}>
+                      <Image
+                        src="/food-placeholder.jpg"
+                        width={1}
+                        height={1}
+                        layout="responsive"
+                      />
+                    </div>
+                    <p>{meal.title}</p>
+                  </a>
+                </Link>
+              </div>
+            </section>
+          ))}
+
+          {/* Snacks */}
+          {groupMeals(
+            user.program.mealplan_foods[currentDay].meals,
+            "snacks"
+          ).map((meal) => (
+            <section className={styles.snacks}>
+              <div className={styles.header}>
+                <div>
+                  <p>Snacks</p>
+                  <span>
+                    {groupTotalCalories(
+                      user.program.mealplan_foods[currentDay].meals,
+                      "snacks"
+                    )}{" "}
+                    Calories
+                  </span>
+                </div>
+                <TfiReload />
+              </div>
+
+              <div className={styles.item}>
+                <input type="checkbox" />
+                <Link href="/menu-item">
+                  <a>
+                    <div className={styles.image}>
+                      <Image
+                        src="/food-placeholder.jpg"
+                        width={1}
+                        height={1}
+                        layout="responsive"
+                      />
+                    </div>
+                    <p>{meal.title}</p>
+                  </a>
+                </Link>
+              </div>
+            </section>
+          ))}
 
           <button className={styles.add_item}>
             <AiOutlinePlus /> Add Item

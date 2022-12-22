@@ -25,6 +25,48 @@ export interface INutritionist {
   status: number;
 }
 
+export interface IMeal {
+  cals: number;
+  carbs: number;
+  course: string;
+  createdAt: string;
+  fats: number;
+  food_id: string;
+  id: number;
+  image_url: string;
+  mealplanFoodId: number;
+  protein: number;
+  quantity: number;
+  serving: string;
+  title: string;
+}
+
+export interface IMealPlan {
+  createdAt: string;
+  day: string;
+  id: number;
+  meals: IMeal[];
+  programId: number;
+  week: number;
+}
+
+export interface IProgram {
+  cals: number;
+  carbs: number;
+  consumer_programs: { consumerId: number; programId: number };
+  createdAt: string;
+  description: string;
+  fats: number;
+  id: number;
+  mealplan_foods: IMealPlan[];
+  name: string;
+  nutritionistId: number;
+  preference: string;
+  protein: number;
+  total_recipes: number;
+  weeks: number;
+}
+
 export interface IUser {
   id: number;
   email: string;
@@ -85,6 +127,7 @@ export interface IUser {
     userId: number;
     weight: number;
   };
+  program: IProgram;
 }
 
 export interface IConsumerDetails {
@@ -102,19 +145,10 @@ export interface IConsumerDetails {
   least_favorite_foods: string;
 }
 
-export interface IProgram {
-  data: any[];
-  isLoading: boolean;
-}
-
 export interface IUserContext {
   isUserLoading: boolean;
   user: IUser | null;
   setUser: Dispatch<SetStateAction<IUser | null>>;
-}
-
-export interface IDataContext {
-  program: IProgram;
 }
 
 interface IBooleanStateProps {
