@@ -32,6 +32,8 @@ export default function MealPage() {
     "3 tbs Low Fat Greek Yoghurt",
   ];
 
+  console.log(meal);
+
   return (
     <main>
       {isUserLoading && <h2>Loading...</h2>}
@@ -59,7 +61,13 @@ export default function MealPage() {
               <span>10 mins prep. 0 mins cook</span>
             </div>
 
-            <Macros text="Macros" calories={meal.cals} />
+            <Macros
+              text="Macros"
+              calories={meal.cals}
+              carbs={meal.carbs}
+              fat={meal.fats}
+              protein={meal.protein}
+            />
 
             <div className={styles.ingredients_top}>
               <p>Ingredients</p>
