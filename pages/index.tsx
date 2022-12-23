@@ -7,7 +7,7 @@ import { AiOutlinePlus } from "react-icons/ai";
 import { IMeal, IUser } from "types";
 import Macros from "@components/Macros";
 import { axiosInstance } from "@utils/index";
-import MealPlanItem from "./MealPlanItem";
+import MealPlanItem from "@components/MealPlanItem";
 import MealPlanSectionHeader from "@components/MealPlanSectionHeader";
 
 export default function HomePage() {
