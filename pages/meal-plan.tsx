@@ -53,7 +53,7 @@ export default function MealPlanPage() {
           </p>
         </div>
 
-        <Macros text="Daily macros" calories={1850} />
+        {/* <Macros text="Daily macros" calories={1850} /> */}
 
         <div className={styles.buttons}>
           <Link href="/meal-plan/see-details">

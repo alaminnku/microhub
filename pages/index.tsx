@@ -83,6 +83,9 @@ export default function HomePage() {
     }
   }
 
+  const calculateMacro = (meals: IMeal[], unit: string) =>
+    meals.reduce((acc, curr) => acc + curr[unit as keyof object], 0);
+
   return (
     <main className={styles.home_page}>
       {isUserLoading && <h2>Loading...</h2>}
@@ -128,9 +131,21 @@ export default function HomePage() {
 
           <Macros
             text="Total Macros"
-            calories={user.program.mealplan_foods[currentDay].meals.reduce(
-              (acc, curr) => acc + curr.cals,
-              0
+            calories={calculateMacro(
+              user?.program.mealplan_foods[currentDay].meals,
+              "cals"
+            )}
+            carbs={calculateMacro(
+              user?.program.mealplan_foods[currentDay].meals,
+              "carbs"
+            )}
+            fat={calculateMacro(
+              user?.program.mealplan_foods[currentDay].meals,
+              "fats"
+            )}
+            protein={calculateMacro(
+              user?.program.mealplan_foods[currentDay].meals,
+              "protein"
             )}
           />
 
