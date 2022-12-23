@@ -1,9 +1,33 @@
+import { useUser } from "@context/User";
 import styles from "@styles/SwapIngredient.module.css";
 import Link from "next/link";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 import { IoCloseOutline } from "react-icons/io5";
 import { TfiReload } from "react-icons/tfi";
+import { IMeal } from "types";
 
 export default function SwapIngredientPage() {
+  const router = useRouter();
+  const { isUserLoading, user } = useUser();
+  const [meal, setMeal] = useState<IMeal>();
+
+  useEffect(() => {
+    if (!isUserLoading && !user && router.isReady) {
+      router.push("/login");
+    } else if (user && router.isReady) {
+      setMeal(
+        user.program?.mealplan_foods
+          ?.find((mealPlan) => mealPlan.id === +router.query.planId!)
+          ?.meals.find((meal) => meal.id === +router.query.mealId!)
+      );
+    }
+  }, [isUserLoading, user, router.isReady]);
+
+  function handleSwapIngredient() {
+    console.log("hello");
+  }
+
   return (
     <main className={styles.swap_ingredient}>
       <div className={styles.top}>
@@ -12,7 +36,7 @@ export default function SwapIngredientPage() {
           <h2>Swap Ingredient</h2>
         </div>
 
-        <Link href="/menu-item">
+        <Link href={`/${router.query.planId}/${router.query.mealId}`}>
           <a>
             <IoCloseOutline className={styles.close_icon} />
           </a>
@@ -49,19 +73,19 @@ export default function SwapIngredientPage() {
         <div className={styles.swap_for}>
           <p className={styles.title}>Swap for</p>
           <div className={styles.swap_for_ingredient}>
-            <input type="radio" />
+            <input type="radio" name="swapForIngredient" />
             <p>Soy Milk</p>
           </div>
           <div className={styles.swap_for_ingredient}>
-            <input type="radio" />
+            <input type="radio" name="swapForIngredient" />
             <p>Oat Milk</p>
           </div>
           <div className={styles.swap_for_ingredient}>
-            <input type="radio" />
+            <input type="radio" name="swapForIngredient" />
             <p>Full Cream Milk</p>
           </div>
           <div className={styles.swap_for_ingredient}>
-            <input type="radio" />
+            <input type="radio" name="swapForIngredient" />
             <p>Coconut Milk</p>
           </div>
         </div>
@@ -89,13 +113,11 @@ export default function SwapIngredientPage() {
       </div>
 
       <div className={styles.buttons}>
-        <Link href="/menu-item">
+        <Link href={`/${router.query.planId}/${router.query.mealId}`}>
           <a>Cancel</a>
         </Link>
 
-        <Link href="/menu-item">
-          <a>Swap</a>
-        </Link>
+        <button onClick={handleSwapIngredient}>Swap</button>
       </div>
     </main>
   );

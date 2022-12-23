@@ -32,8 +32,6 @@ export default function MealPage() {
     "3 tbs Low Fat Greek Yoghurt",
   ];
 
-  console.log(meal);
-
   return (
     <main>
       {isUserLoading && <h2>Loading...</h2>}

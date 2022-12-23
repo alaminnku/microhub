@@ -119,17 +119,19 @@
   justify-content: space-between;
 }
 
-.buttons a {
+.buttons a,
+.buttons button {
   width: 48%;
   display: flex;
+  height: 2.5rem;
   align-items: center;
   justify-content: center;
   color: var(--blue);
   border-radius: 2rem;
 }
 
-.buttons a:last-child {
-  height: 2.5rem;
-  color: var(--almost_white);
+.buttons button {
+  border: none;
   background: var(--blue);
+  color: var(--almost_white);
 }
