@@ -4,14 +4,11 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { MdKeyboardArrowRight } from "react-icons/md";
 import { AiOutlinePlus } from "react-icons/ai";
-import { TfiReload } from "react-icons/tfi";
-import Image from "next/image";
-import Link from "next/link";
 import { IMeal, IUser } from "types";
 import Macros from "@components/Macros";
 import { axiosInstance } from "@utils/index";
-import MealPlanSectionHeader from "@components/MealPlanSectionHeader";
 import MealPlanItem from "./MealPlanItem";
+import MealPlanSectionHeader from "@components/MealPlanSectionHeader";
 
 export default function HomePage() {
   const router = useRouter();
@@ -37,7 +34,7 @@ export default function HomePage() {
       // Accept or reject invitation only when
       // the client has submitted the questionnaire
       try {
-        const response = await axiosInstance.post("/consumers/trainer/accept", {
+        await axiosInstance.post("/consumers/trainer/accept", {
           status,
           nutritionistId: user.requested_nutritionists[0].id,
         });
@@ -60,17 +57,9 @@ export default function HomePage() {
     }
   }
 
-  // console.log(user?.program.mealplan_foods.length);
-
   // Groups meals by course
   const groupMeals = (meals: IMeal[], groupBy: string) =>
     meals.filter((meal) => meal.course === groupBy);
-
-  // Calculate total calories of each group
-  const groupTotalCalories = (meals: IMeal[], groupBy: string) =>
-    meals
-      .filter((meal) => meal.course === groupBy)
-      .reduce((acc, curr) => acc + curr.cals, 0);
 
   // Go to the next day
   function nextDay(mealPlansLength: number) {
@@ -92,27 +81,6 @@ export default function HomePage() {
       setCurrentDay((currState) => currState);
       console.log("hello");
     }
-  }
-
-  function mealItem(planId: number, meal: IMeal) {
-    return (
-      <div className={styles.item}>
-        <input type="checkbox" />
-        <Link href={`/${planId}/${meal.id}`}>
-          <a>
-            <div className={styles.image}>
-              <Image
-                src="/food-placeholder.jpg"
-                width={1}
-                height={1}
-                layout="responsive"
-              />
-            </div>
-            <p>{meal.title}</p>
-          </a>
-        </Link>
-      </div>
-    );
   }
 
   return (

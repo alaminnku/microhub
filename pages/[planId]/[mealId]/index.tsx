@@ -1,15 +1,14 @@
 import Macros from "@components/Macros";
 import { useUser } from "@context/User";
-import styles from "@styles/MenuItem.module.css";
+import { IMeal } from "types";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { IoCloseOutline } from "react-icons/io5";
-import { TfiReload } from "react-icons/tfi";
-import { IMeal } from "types";
+import styles from "@styles/Meal.module.css";
 
-export default function MenuItemPage() {
+export default function MealPage() {
   const router = useRouter();
   const { isUserLoading, user } = useUser();
   const [meal, setMeal] = useState<IMeal>();
@@ -32,10 +31,6 @@ export default function MenuItemPage() {
     "50g Fresh Mango",
     "3 tbs Low Fat Greek Yoghurt",
   ];
-
-  function handleClickIngredient(index: number) {
-    console.log(index);
-  }
 
   console.log(meal);
 
@@ -70,19 +65,15 @@ export default function MenuItemPage() {
 
             <div className={styles.ingredients_top}>
               <p>Ingredients</p>
-              <select name="" id="">
-                <option value="">1 serve</option>
-                <option value="">1 serve</option>
-                <option value="">1 serve</option>
-              </select>
+              <p>
+                {meal.quantity} {meal.quantity > 1 ? "Servings" : "Serving"}
+              </p>
             </div>
 
             <div className={styles.ingredients_content}>
               <div>
                 {ingredients.map((ingredient, index) => (
-                  <p onClick={() => handleClickIngredient(index)} key={index}>
-                    {ingredient}
-                  </p>
+                  <p key={index}>{ingredient}</p>
                 ))}
               </div>
             </div>
@@ -96,11 +87,11 @@ export default function MenuItemPage() {
               </p>
             </div>
 
-            <div className={styles.buttons}>
-              <button>Remove Item</button>
-
-              <button>Change Item</button>
-            </div>
+            <Link
+              href={`/${router.query.planId}/${router.query.mealId}/swap-ingredient`}
+            >
+              <a className={styles.button}>Change Item</a>
+            </Link>
           </section>
         </>
       )}
