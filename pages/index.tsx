@@ -10,6 +10,8 @@ import Link from "next/link";
 import { IMeal, IUser } from "types";
 import Macros from "@components/Macros";
 import { axiosInstance } from "@utils/index";
+import MealPlanSectionHeader from "@components/MealPlanSectionHeader";
+import MealPlanItem from "./MealPlanItem";
 
 export default function HomePage() {
   const router = useRouter();
@@ -92,7 +94,26 @@ export default function HomePage() {
     }
   }
 
-  console.log(user?.program);
+  function mealItem(planId: number, meal: IMeal) {
+    return (
+      <div className={styles.item}>
+        <input type="checkbox" />
+        <Link href={`/${planId}/${meal.id}`}>
+          <a>
+            <div className={styles.image}>
+              <Image
+                src="/food-placeholder.jpg"
+                width={1}
+                height={1}
+                layout="responsive"
+              />
+            </div>
+            <p>{meal.title}</p>
+          </a>
+        </Link>
+      </div>
+    );
+  }
 
   return (
     <main className={styles.home_page}>
@@ -100,6 +121,7 @@ export default function HomePage() {
 
       {!isUserLoading && user && (
         <>
+          {/* Invitation popup */}
           {user?.requested_nutritionists?.length > 0 && (
             <div className={styles.invitation}>
               <p>
@@ -114,6 +136,7 @@ export default function HomePage() {
             </div>
           )}
 
+          {/* Day shifter */}
           <section className={styles.top}>
             <div
               className={`${styles.left_arrow} ${
@@ -147,157 +170,91 @@ export default function HomePage() {
           {groupMeals(
             user.program.mealplan_foods[currentDay].meals,
             "breakfast"
-          ).map((meal, index) => (
-            <section className={styles.breakfast} key={index}>
-              <div className={styles.header}>
-                <div>
-                  <p>Breakfast</p>
-                  <span>
-                    {groupTotalCalories(
-                      user.program.mealplan_foods[currentDay].meals,
-                      "breakfast"
-                    )}{" "}
-                    Calories
-                  </span>
-                </div>
-                <TfiReload />
-              </div>
+          ).length > 0 && (
+            <section className={styles.breakfast}>
+              <MealPlanSectionHeader
+                course="breakfast"
+                meals={user.program.mealplan_foods[currentDay].meals}
+              />
 
-              <div className={styles.item}>
-                <input type="checkbox" />
-                <Link href="/menu-item">
-                  <a>
-                    <div className={styles.image}>
-                      <Image
-                        src="/food-placeholder.jpg"
-                        width={1}
-                        height={1}
-                        layout="responsive"
-                      />
-                    </div>
-                    <p>{meal.title}</p>
-                  </a>
-                </Link>
-              </div>
+              {groupMeals(
+                user.program.mealplan_foods[currentDay].meals,
+                "breakfast"
+              ).map((meal, index) => (
+                <MealPlanItem
+                  meal={meal}
+                  key={index}
+                  planId={user.program.mealplan_foods[currentDay].id}
+                />
+              ))}
             </section>
-          ))}
+          )}
 
           {/* Lunch */}
-          {groupMeals(
-            user.program.mealplan_foods[currentDay].meals,
-            "lunch"
-          ).map((meal, index) => (
-            <section className={styles.lunch} key={index}>
-              <div className={styles.header}>
-                <div>
-                  <p>Lunch</p>
-                  <span>
-                    {groupTotalCalories(
-                      user.program.mealplan_foods[currentDay].meals,
-                      "lunch"
-                    )}{" "}
-                    Calories
-                  </span>
-                </div>
-                <TfiReload />
-              </div>
+          {groupMeals(user.program.mealplan_foods[currentDay].meals, "lunch")
+            .length > 0 && (
+            <section className={styles.lunch}>
+              <MealPlanSectionHeader
+                course="lunch"
+                meals={user.program.mealplan_foods[currentDay].meals}
+              />
 
-              <div className={styles.item}>
-                <input type="checkbox" />
-                <Link href="/menu-item">
-                  <a>
-                    <div className={styles.image}>
-                      <Image
-                        src="/food-placeholder.jpg"
-                        width={1}
-                        height={1}
-                        layout="responsive"
-                      />
-                    </div>
-                    <p>{meal.title}</p>
-                  </a>
-                </Link>
-              </div>
+              {groupMeals(
+                user.program.mealplan_foods[currentDay].meals,
+                "lunch"
+              ).map((meal, index) => (
+                <MealPlanItem
+                  meal={meal}
+                  key={index}
+                  planId={user.program.mealplan_foods[currentDay].id}
+                />
+              ))}
             </section>
-          ))}
+          )}
 
           {/* Dinner */}
-          {groupMeals(
-            user.program.mealplan_foods[currentDay].meals,
-            "dinner"
-          ).map((meal, index) => (
-            <section className={styles.dinner} key={index}>
-              <div className={styles.header}>
-                <div>
-                  <p>Dinner</p>
-                  <span>
-                    {groupTotalCalories(
-                      user.program.mealplan_foods[currentDay].meals,
-                      "dinner"
-                    )}{" "}
-                    Calories
-                  </span>
-                </div>
-                <TfiReload />
-              </div>
+          {groupMeals(user.program.mealplan_foods[currentDay].meals, "dinner")
+            .length > 0 && (
+            <section className={styles.dinner}>
+              <MealPlanSectionHeader
+                course="dinner"
+                meals={user.program.mealplan_foods[currentDay].meals}
+              />
 
-              <div className={styles.item}>
-                <input type="checkbox" />
-                <Link href="/menu-item">
-                  <a>
-                    <div className={styles.image}>
-                      <Image
-                        src="/food-placeholder.jpg"
-                        width={1}
-                        height={1}
-                        layout="responsive"
-                      />
-                    </div>
-                    <p>{meal.title}</p>
-                  </a>
-                </Link>
-              </div>
+              {groupMeals(
+                user.program.mealplan_foods[currentDay].meals,
+                "dinner"
+              ).map((meal, index) => (
+                <MealPlanItem
+                  meal={meal}
+                  key={index}
+                  planId={user.program.mealplan_foods[currentDay].id}
+                />
+              ))}
             </section>
-          ))}
+          )}
 
           {/* Snacks */}
-          {groupMeals(
-            user.program.mealplan_foods[currentDay].meals,
-            "snacks"
-          ).map((meal, index) => (
-            <section className={styles.snacks} key={index}>
-              <div className={styles.header}>
-                <div>
-                  <p>Snacks</p>
-                  <span>
-                    {groupTotalCalories(
-                      user.program.mealplan_foods[currentDay].meals,
-                      "snacks"
-                    )}{" "}
-                    Calories
-                  </span>
-                </div>
-                <TfiReload />
-              </div>
+          {groupMeals(user.program.mealplan_foods[currentDay].meals, "snacks")
+            .length > 0 && (
+            <section className={styles.snacks}>
+              <MealPlanSectionHeader
+                course="snacks"
+                meals={user.program.mealplan_foods[currentDay].meals}
+              />
 
-              <div className={styles.item}>
-                <input type="checkbox" />
-                <Link href="/menu-item">
-                  <a>
-                    <div className={styles.image}>
-                      <Image
-                        src="/food-placeholder.jpg"
-                        width={1}
-                        height={1}
-                        layout="responsive"
-                      />
-                    </div>
-                    <p>{meal.title}</p>
-                  </a>
-                </Link>
-              </div>
+              {groupMeals(
+                user.program.mealplan_foods[currentDay].meals,
+                "snacks"
+              ).map((meal, index) => (
+                <MealPlanItem
+                  meal={meal}
+                  key={index}
+                  planId={user.program.mealplan_foods[currentDay].id}
+                />
+              ))}
             </section>
-          ))}
+          )}
 
           <button className={styles.add_item}>
             <AiOutlinePlus /> Add Item

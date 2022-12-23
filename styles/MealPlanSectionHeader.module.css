@@ -1,0 +1,17 @@
+.header {
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header p {
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.header span {
+  font-size: 14px;
+  color: var(--light_gray);
+}

@@ -81,57 +81,6 @@
   border-bottom: 1px solid var(--border_color);
 }
 
-.header {
-  margin-bottom: 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.header p {
-  font-size: 14px;
-  font-weight: 600;
-  text-transform: uppercase;
-}
-
-.header span {
-  font-size: 14px;
-  color: var(--light_gray);
-}
-
-.item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 1rem;
-}
-
-.item input {
-  width: 5%;
-  height: 5%;
-}
-
-.item a {
-  width: 90%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  color: var(--blue);
-}
-
-.image {
-  width: 20%;
-}
-
-.image img {
-  border-radius: 0.5rem;
-}
-
-.item p {
-  width: 75%;
-  font-size: 14px;
-}
-
 .add_item {
   padding: 1rem 2rem;
   border: none;
