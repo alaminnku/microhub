@@ -1,12 +1,12 @@
-import { IConsumerDetails } from "types";
-import { axiosInstance } from "@utils/index";
+import Image from "next/image";
 import { useUser } from "@context/User";
 import { useRouter } from "next/router";
+import { IConsumerDetails } from "types";
 import logo from "@public/logo-white.svg";
+import { axiosInstance } from "@utils/index";
 import styles from "@styles/AddDetails.module.css";
-import { ChangeEvent, FormEvent, useEffect, useState } from "react";
-import Image from "next/image";
 import ButtonLoader from "@components/ButtonLoader";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 
 export default function AddDetailsPage() {
   // Initial state

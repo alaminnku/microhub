@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
-import { useUser } from "@context/User";
 import { useRouter } from "next/router";
-import styles from "@styles/MyBody.module.css";
+import { useUser } from "@context/User";
+import React, { useEffect } from "react";
 import { formatNumber } from "@utils/index";
+import styles from "@styles/MyBody.module.css";
 import BackButton from "@components/BackButton";
 
 export default function MyBodyPage() {

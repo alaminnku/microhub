@@ -1,7 +1,7 @@
 import { useState } from "react";
+import MobileNav from "@components/MobileNav";
 import styles from "@styles/Header.module.css";
 import MobileMenu from "@components/MobileMenu";
-import MobileNav from "@components/MobileNav";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState<boolean>(false);

@@ -13,6 +13,7 @@ export default function SwapIngredientPage() {
   const { isUserLoading, user } = useUser();
   const [meal, setMeal] = useState<IMeal>();
 
+  // Get the ingredient
   useEffect(() => {
     if (!isUserLoading && !user && router.isReady) {
       router.push("/login");

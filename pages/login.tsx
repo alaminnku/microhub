@@ -1,14 +1,13 @@
-import { useUser } from "@context/User";
-import { axiosInstance } from "@utils/index";
-import Image from "next/image";
 import Link from "next/link";
-import logo from "@public/logo-white.svg";
-import { useRouter } from "next/router";
-import styles from "@styles/Login.module.css";
-import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import Image from "next/image";
 import { IFormData } from "types";
-
+import { useUser } from "@context/User";
+import { useRouter } from "next/router";
+import logo from "@public/logo-white.svg";
+import { axiosInstance } from "@utils/index";
+import styles from "@styles/Login.module.css";
 import SubmitButton from "@components/SubmitButton";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 
 export default function LoginPage() {
   // Initial state

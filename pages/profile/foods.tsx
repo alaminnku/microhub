@@ -1,8 +1,8 @@
-import BackButton from "@components/BackButton";
+import { useEffect } from "react";
 import { useUser } from "@context/User";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
 import styles from "@styles/Foods.module.css";
+import BackButton from "@components/BackButton";
 
 export default function FoodsPage() {
   const router = useRouter();

@@ -1,14 +1,14 @@
-import styles from "@styles/Profile.module.css";
-import Image from "next/image";
-import profileImage from "@public/profile.png";
-import logo from "@public/logo-white.svg";
-import { useUser } from "@context/User";
-import { useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
+import { useEffect } from "react";
 import { useRouter } from "next/router";
-import { IoIosBody } from "react-icons/io";
+import { useUser } from "@context/User";
 import { GiMeal } from "react-icons/gi";
 import { GrTarget } from "react-icons/gr";
+import logo from "@public/logo-white.svg";
+import { IoIosBody } from "react-icons/io";
+import profileImage from "@public/profile.png";
+import styles from "@styles/Profile.module.css";
 import { MdKeyboardArrowRight } from "react-icons/md";
 
 export default function ProfilePage() {

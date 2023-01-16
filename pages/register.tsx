@@ -1,13 +1,13 @@
 import Link from "next/link";
-import { IFormData } from "types";
 import Image from "next/image";
-import logo from "@public/logo-white.svg";
+import { IFormData } from "types";
 import { useUser } from "@context/User";
 import { useRouter } from "next/router";
+import logo from "@public/logo-white.svg";
 import { axiosInstance } from "@utils/index";
 import styles from "@styles/Register.module.css";
-import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import SubmitButton from "@components/SubmitButton";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 
 export default function RegistrationPage() {
   // Initial state

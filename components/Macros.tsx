@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
-import { BsPieChartFill } from "react-icons/bs";
 import styles from "@styles/Macros.module.css";
+import { BsPieChartFill } from "react-icons/bs";
+import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 
 interface IMacrosProps {
   text: string;

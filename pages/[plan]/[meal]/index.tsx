@@ -1,8 +1,8 @@
-import Macros from "@components/Macros";
-import { useUser } from "@context/User";
+import Link from "next/link";
 import { IMeal } from "types";
 import Image from "next/image";
-import Link from "next/link";
+import Macros from "@components/Macros";
+import { useUser } from "@context/User";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import styles from "@styles/Meal.module.css";

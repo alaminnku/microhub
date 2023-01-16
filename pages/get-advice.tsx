@@ -1,7 +1,7 @@
-import styles from "@styles/GetAdvice.module.css";
 import Image from "next/image";
 import { BiSearch } from "react-icons/bi";
 import { BsFilter } from "react-icons/bs";
+import styles from "@styles/GetAdvice.module.css";
 
 export default function GetAdvicePage() {
   return (

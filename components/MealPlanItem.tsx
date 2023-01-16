@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import styles from "@styles/MealPlanItem.module.css";
 import { IMeal } from "types";
+import styles from "@styles/MealPlanItem.module.css";
 
 interface IMealPlanItemProps {
   plan: number;

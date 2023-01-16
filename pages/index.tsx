@@ -1,13 +1,13 @@
-import { useUser } from "@context/User";
-import styles from "@styles/HomePage.module.css";
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
-import { MdKeyboardArrowRight } from "react-icons/md";
-import { AiOutlinePlus } from "react-icons/ai";
 import { IMeal, IUser } from "types";
+import { useUser } from "@context/User";
+import { useRouter } from "next/router";
 import Macros from "@components/Macros";
 import { axiosInstance } from "@utils/index";
+import { useEffect, useState } from "react";
+import { AiOutlinePlus } from "react-icons/ai";
+import styles from "@styles/HomePage.module.css";
 import MealPlanItem from "@components/MealPlanItem";
+import { MdKeyboardArrowRight } from "react-icons/md";
 import MealPlanSectionHeader from "@components/MealPlanSectionHeader";
 
 export default function HomePage() {

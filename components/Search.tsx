@@ -1,7 +1,6 @@
-import { BiSearch } from "react-icons/bi";
-import { BsFilter } from "react-icons/bs";
-import styles from "@styles/Search.module.css";
 import { FormEvent } from "react";
+import { BiSearch } from "react-icons/bi";
+import styles from "@styles/Search.module.css";
 
 export default function Search() {
   async function handleSearch(e: FormEvent) {

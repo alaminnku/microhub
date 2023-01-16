@@ -1,9 +1,8 @@
-import Macros from "@components/Macros";
-import styles from "@styles/MealPlan.module.css";
 import Image from "next/image";
 import Link from "next/link";
-import { BiSearch } from "react-icons/bi";
-import { BsFilter } from "react-icons/bs";
+import Search from "@components/Search";
+import styles from "@styles/MealPlan.module.css";
+import Macros from "@components/Macros";
 
 export default function MealPlanPage() {
   return (
@@ -11,13 +10,7 @@ export default function MealPlanPage() {
       <section>
         <h2>Select Meal Plan</h2>
 
-        <div className={styles.search}>
-          <div className={styles.icon_and_input}>
-            <BiSearch />
-            <input type="text" placeholder="Search" />
-          </div>
-          <BsFilter />
-        </div>
+        <Search />
 
         <div className={styles.feature_image}>
           <Image
@@ -53,7 +46,13 @@ export default function MealPlanPage() {
           </p>
         </div>
 
-        {/* <Macros text="Daily macros" calories={1850} /> */}
+        <Macros
+          text="Daily macros"
+          calories={1850}
+          carbs={900}
+          fat={300}
+          protein={350}
+        />
 
         <div className={styles.buttons}>
           <Link href="/meal-plan/see-details">

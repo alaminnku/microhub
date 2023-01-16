@@ -1,9 +1,9 @@
-import BackButton from "@components/BackButton";
+import { useEffect } from "react";
 import { useUser } from "@context/User";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
-import styles from "@styles/Goals.module.css";
 import { formatNumber } from "@utils/index";
+import styles from "@styles/Goals.module.css";
+import BackButton from "@components/BackButton";
 import { BsArrowRightShort } from "react-icons/bs";
 
 export default function GoalsPage() {

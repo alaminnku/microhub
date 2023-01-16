@@ -2,11 +2,11 @@ import Image from "next/image";
 import { useUser } from "@context/User";
 import { useRouter } from "next/router";
 import logo from "@public/logo-white.svg";
-import { IFormData, IQuestionnaireData } from "types";
+import { axiosInstance } from "@utils/index";
 import ButtonLoader from "@components/ButtonLoader";
 import styles from "@styles/Questionnaire.module.css";
+import { IFormData, IQuestionnaireData } from "types";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
-import { axiosInstance } from "@utils/index";
 
 export default function QuestionnairePage() {
   // Question
