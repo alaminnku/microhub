@@ -1,11 +1,12 @@
 import { useUser } from "@context/User";
-import styles from "@styles/SwapIngredient.module.css";
+import styles from "@styles/Ingredient.module.css";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { IoCloseOutline } from "react-icons/io5";
 import { TfiReload } from "react-icons/tfi";
 import { IMeal } from "types";
+import Search from "@components/Search";
 
 export default function SwapIngredientPage() {
   const router = useRouter();
@@ -18,8 +19,8 @@ export default function SwapIngredientPage() {
     } else if (user && router.isReady) {
       setMeal(
         user.program?.mealplan_foods
-          ?.find((mealPlan) => mealPlan.id === +router.query.planId!)
-          ?.meals.find((meal) => meal.id === +router.query.mealId!)
+          ?.find((mealPlan) => mealPlan.id === +router.query.plan!)
+          ?.meals.find((meal) => meal.id === +router.query.meal!)
       );
     }
   }, [isUserLoading, user, router.isReady]);
@@ -36,7 +37,7 @@ export default function SwapIngredientPage() {
           <h2>Swap Ingredient</h2>
         </div>
 
-        <Link href={`/${router.query.planId}/${router.query.mealId}`}>
+        <Link href={`/${router.query.plan}/${router.query.meal}`}>
           <a>
             <IoCloseOutline className={styles.close_icon} />
           </a>
@@ -71,7 +72,10 @@ export default function SwapIngredientPage() {
         </div>
 
         <div className={styles.swap_for}>
-          <p className={styles.title}>Swap for</p>
+          <p className={styles.title}>Search ingredients</p>
+
+          <Search />
+          {/* <p className={styles.title}>Swap for</p>
           <div className={styles.swap_for_ingredient}>
             <input type="radio" name="swapForIngredient" />
             <p>Soy Milk</p>
@@ -87,10 +91,10 @@ export default function SwapIngredientPage() {
           <div className={styles.swap_for_ingredient}>
             <input type="radio" name="swapForIngredient" />
             <p>Coconut Milk</p>
-          </div>
+          </div> */}
         </div>
 
-        <div className={styles.ingredient_details}>
+        {/* <div className={styles.ingredient_details}>
           <div className={styles.protein}>
             <p>0 g</p>
             <span>Protein</span>
@@ -109,11 +113,11 @@ export default function SwapIngredientPage() {
             <p>0 g</p>
             <span>Carbs</span>
           </div>
-        </div>
+        </div> */}
       </div>
 
       <div className={styles.buttons}>
-        <Link href={`/${router.query.planId}/${router.query.mealId}`}>
+        <Link href={`/${router.query.plan}/${router.query.meal}`}>
           <a>Cancel</a>
         </Link>
 

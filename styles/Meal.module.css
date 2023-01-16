@@ -55,12 +55,12 @@
   border: 1px solid var(--border_color);
 }
 
-.ingredients_content {
+.ingredients {
   margin-top: 1rem;
   margin-bottom: 2rem;
 }
 
-.ingredients_content p {
+.ingredients p {
   font-size: 14px;
   font-weight: 500;
   margin-bottom: 1rem;
@@ -69,11 +69,11 @@
   justify-content: space-between;
 }
 
-.ingredients_content p a {
+.ingredients p a {
   color: var(--blue);
 }
 
-.ingredients_content p:last-child {
+.ingredients p:last-child {
   margin-bottom: 0rem;
 }
 

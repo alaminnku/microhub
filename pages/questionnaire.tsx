@@ -54,11 +54,11 @@ export default function QuestionnairePage() {
   } = questionData;
 
   const {
-    work_phone_number,
-    home_phone_number,
     date_of_birth,
     lowest_weight,
     lowest_height,
+    work_phone_number,
+    home_phone_number,
   } = formData;
 
   // Check user

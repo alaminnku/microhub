@@ -83,6 +83,7 @@ export default function HomePage() {
     }
   }
 
+  // Calculate macro
   const calculateMacro = (meals: IMeal[], unit: string) =>
     meals.reduce((acc, curr) => acc + curr[unit as keyof object], 0);
 
@@ -167,7 +168,7 @@ export default function HomePage() {
                 <MealPlanItem
                   meal={meal}
                   key={index}
-                  planId={user.program.mealplan_foods[currentDay].id}
+                  plan={user.program.mealplan_foods[currentDay].id}
                 />
               ))}
             </section>
@@ -189,7 +190,7 @@ export default function HomePage() {
                 <MealPlanItem
                   meal={meal}
                   key={index}
-                  planId={user.program.mealplan_foods[currentDay].id}
+                  plan={user.program.mealplan_foods[currentDay].id}
                 />
               ))}
             </section>
@@ -211,7 +212,7 @@ export default function HomePage() {
                 <MealPlanItem
                   meal={meal}
                   key={index}
-                  planId={user.program.mealplan_foods[currentDay].id}
+                  plan={user.program.mealplan_foods[currentDay].id}
                 />
               ))}
             </section>
@@ -233,7 +234,7 @@ export default function HomePage() {
                 <MealPlanItem
                   meal={meal}
                   key={index}
-                  planId={user.program.mealplan_foods[currentDay].id}
+                  plan={user.program.mealplan_foods[currentDay].id}
                 />
               ))}
             </section>

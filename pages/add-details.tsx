@@ -42,13 +42,13 @@ export default function AddDetailsPage() {
 
   // Destructure form data
   const {
-    waist,
     hip,
-    forearm,
+    waist,
     wrist,
     gender,
     weight,
     height,
+    forearm,
     allergies,
     preferences,
     activity_level,

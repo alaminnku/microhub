@@ -4,15 +4,15 @@ import styles from "@styles/MealPlanItem.module.css";
 import { IMeal } from "types";
 
 interface IMealPlanItemProps {
-  planId: number;
+  plan: number;
   meal: IMeal;
 }
 
-export default function MealPlanItem({ planId, meal }: IMealPlanItemProps) {
+export default function MealPlanItem({ plan, meal }: IMealPlanItemProps) {
   return (
     <div className={styles.item}>
       <input type="checkbox" />
-      <Link href={`/${planId}/${meal.id}`}>
+      <Link href={`/${plan}/${meal.id}`}>
         <a>
           <div className={styles.image}>
             <Image

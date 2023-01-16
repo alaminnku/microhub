@@ -5,13 +5,14 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { IoCloseOutline } from "react-icons/io5";
 import styles from "@styles/Meal.module.css";
+import { IoCloseOutline } from "react-icons/io5";
 
 export default function MealPage() {
   const router = useRouter();
   const { isUserLoading, user } = useUser();
   const [meal, setMeal] = useState<IMeal>();
+  const [ingredient, setIngredient] = useState("");
 
   useEffect(() => {
     if (!isUserLoading && !user && router.isReady) {
@@ -19,8 +20,8 @@ export default function MealPage() {
     } else if (user && router.isReady) {
       setMeal(
         user.program?.mealplan_foods
-          ?.find((mealPlan) => mealPlan.id === +router.query.planId!)
-          ?.meals.find((meal) => meal.id === +router.query.mealId!)
+          ?.find((mealPlan) => mealPlan.id === +router.query.plan!)
+          ?.meals.find((meal) => meal.id === +router.query.meal!)
       );
     }
   }, [isUserLoading, user, router.isReady]);
@@ -31,8 +32,6 @@ export default function MealPage() {
     "50g Fresh Mango",
     "3 tbs Low Fat Greek Yoghurt",
   ];
-
-  console.log(meal);
 
   return (
     <main>
@@ -76,12 +75,17 @@ export default function MealPage() {
               </p>
             </div>
 
-            <div className={styles.ingredients_content}>
-              <div>
-                {ingredients.map((ingredient, index) => (
-                  <p key={index}>{ingredient}</p>
-                ))}
-              </div>
+            <div className={styles.ingredients}>
+              {ingredients.map((ingredient, index) => (
+                <p
+                  key={index}
+                  onClick={(e) =>
+                    setIngredient(e.currentTarget.textContent as string)
+                  }
+                >
+                  {ingredient}
+                </p>
+              ))}
             </div>
 
             <div className={styles.preparation}>
@@ -94,7 +98,9 @@ export default function MealPage() {
             </div>
 
             <Link
-              href={`/${router.query.planId}/${router.query.mealId}/swap-ingredient`}
+              href={`/${router.query.plan}/${
+                router.query.meal
+              }/swap/${ingredient.toLowerCase().split(" ").join("-")}`}
             >
               <a className={styles.button}>Change Item</a>
             </Link>
