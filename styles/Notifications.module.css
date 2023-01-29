@@ -1,0 +1,34 @@
+.notifications {
+  padding: var(--section_padding);
+}
+
+.notifications h2 {
+  margin-bottom: 1rem;
+}
+
+.invitation {
+  padding-bottom: 1.5rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border_color);
+}
+
+.invitation p {
+  margin-bottom: 1rem;
+}
+
+.buttons button {
+  border: none;
+  width: 7rem;
+  height: 2rem;
+  border-radius: 2rem;
+  color: var(--almost_white);
+}
+
+.buttons button:first-child {
+  margin-right: 1rem;
+  background: var(--blue);
+}
+
+.buttons button:last-child {
+  background: #ce7b4c;
+}

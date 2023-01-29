@@ -6,6 +6,7 @@ import { IMobileMenuProps } from "types";
 import { FaUserAlt } from "react-icons/fa";
 import styles from "@styles/MobileMenu.module.css";
 import { currentYear, axiosInstance } from "@utils/index";
+import { IoIosNotifications } from "react-icons/io";
 
 export default function MobileMenu({ isOpen, setIsOpen }: IMobileMenuProps) {
   // Hooks
@@ -55,6 +56,14 @@ export default function MobileMenu({ isOpen, setIsOpen }: IMobileMenuProps) {
           <Link href="/profile">
             <a>
               <FaUserAlt /> Profile
+            </a>
+          </Link>
+        </li>
+
+        <li onClick={closeMobileMenu} className={!user ? styles.hide : ""}>
+          <Link href="/notifications">
+            <a>
+              <IoIosNotifications /> Notifications
             </a>
           </Link>
         </li>

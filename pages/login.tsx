@@ -62,7 +62,7 @@ export default function LoginPage() {
       // Push to the home page
       router.push("/");
     } catch (err) {
-      console.log(err);
+      // Show alert
       showErrorAlert(err as AxiosError<IAxiosError>, setAlerts);
     } finally {
       setIsLoading(false);

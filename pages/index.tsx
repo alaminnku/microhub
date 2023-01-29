@@ -94,7 +94,7 @@ export default function HomePage() {
       {!isUserLoading && user && (
         <>
           {/* Invitation popup */}
-          {user?.requested_nutritionists?.length > 0 && (
+          {user.requested_nutritionists?.length > 0 && (
             <div className={styles.invitation}>
               <p>
                 You've got an invite from{" "}
@@ -108,141 +108,151 @@ export default function HomePage() {
             </div>
           )}
 
-          {/* Day shifter */}
-          <section className={styles.top}>
-            <div
-              className={`${styles.left_arrow} ${
-                currentDay === 0 && styles.disabled
-              }`}
-              onClick={previousDay}
-            >
-              <MdKeyboardArrowRight />
-            </div>
-            <p>{user.program.mealplan_foods[currentDay].day}</p>
-            <div
-              className={`${styles.right_arrow} ${
-                user.program.mealplan_foods.length - 1 === currentDay &&
-                styles.disabled
-              }`}
-              onClick={() => nextDay(user.program.mealplan_foods.length)}
-            >
-              <MdKeyboardArrowRight />
-            </div>
-          </section>
+          {user.program && (
+            <>
+              {/* Day shifter */}
+              <section className={styles.top}>
+                <div
+                  className={`${styles.left_arrow} ${
+                    currentDay === 0 && styles.disabled
+                  }`}
+                  onClick={previousDay}
+                >
+                  <MdKeyboardArrowRight />
+                </div>
+                <p>{user.program.mealplan_foods[currentDay].day}</p>
+                <div
+                  className={`${styles.right_arrow} ${
+                    user.program.mealplan_foods.length - 1 === currentDay &&
+                    styles.disabled
+                  }`}
+                  onClick={() => nextDay(user.program.mealplan_foods.length)}
+                >
+                  <MdKeyboardArrowRight />
+                </div>
+              </section>
 
-          <Macros
-            text="Total Macros"
-            calories={calculateMacro(
-              user?.program.mealplan_foods[currentDay].meals,
-              "cals"
-            )}
-            carbs={calculateMacro(
-              user?.program.mealplan_foods[currentDay].meals,
-              "carbs"
-            )}
-            fat={calculateMacro(
-              user?.program.mealplan_foods[currentDay].meals,
-              "fats"
-            )}
-            protein={calculateMacro(
-              user?.program.mealplan_foods[currentDay].meals,
-              "protein"
-            )}
-          />
-
-          {/* Breakfast */}
-          {groupMeals(
-            user.program.mealplan_foods[currentDay].meals,
-            "breakfast"
-          ).length > 0 && (
-            <section className={styles.breakfast}>
-              <MealPlanSectionHeader
-                course="breakfast"
-                meals={user.program.mealplan_foods[currentDay].meals}
+              <Macros
+                text="Total Macros"
+                calories={calculateMacro(
+                  user?.program.mealplan_foods[currentDay].meals,
+                  "cals"
+                )}
+                carbs={calculateMacro(
+                  user?.program.mealplan_foods[currentDay].meals,
+                  "carbs"
+                )}
+                fat={calculateMacro(
+                  user?.program.mealplan_foods[currentDay].meals,
+                  "fats"
+                )}
+                protein={calculateMacro(
+                  user?.program.mealplan_foods[currentDay].meals,
+                  "protein"
+                )}
               />
 
+              {/* Breakfast */}
               {groupMeals(
                 user.program.mealplan_foods[currentDay].meals,
                 "breakfast"
-              ).map((meal, index) => (
-                <MealPlanItem
-                  meal={meal}
-                  key={index}
-                  plan={user.program.mealplan_foods[currentDay].id}
-                />
-              ))}
-            </section>
-          )}
+              ).length > 0 && (
+                <section className={styles.breakfast}>
+                  <MealPlanSectionHeader
+                    course="breakfast"
+                    meals={user.program.mealplan_foods[currentDay].meals}
+                  />
 
-          {/* Lunch */}
-          {groupMeals(user.program.mealplan_foods[currentDay].meals, "lunch")
-            .length > 0 && (
-            <section className={styles.lunch}>
-              <MealPlanSectionHeader
-                course="lunch"
-                meals={user.program.mealplan_foods[currentDay].meals}
-              />
+                  {groupMeals(
+                    user.program.mealplan_foods[currentDay].meals,
+                    "breakfast"
+                  ).map((meal, index) => (
+                    <MealPlanItem
+                      meal={meal}
+                      key={index}
+                      plan={user.program.mealplan_foods[currentDay].id}
+                    />
+                  ))}
+                </section>
+              )}
 
+              {/* Lunch */}
               {groupMeals(
                 user.program.mealplan_foods[currentDay].meals,
                 "lunch"
-              ).map((meal, index) => (
-                <MealPlanItem
-                  meal={meal}
-                  key={index}
-                  plan={user.program.mealplan_foods[currentDay].id}
-                />
-              ))}
-            </section>
-          )}
+              ).length > 0 && (
+                <section className={styles.lunch}>
+                  <MealPlanSectionHeader
+                    course="lunch"
+                    meals={user.program.mealplan_foods[currentDay].meals}
+                  />
 
-          {/* Dinner */}
-          {groupMeals(user.program.mealplan_foods[currentDay].meals, "dinner")
-            .length > 0 && (
-            <section className={styles.dinner}>
-              <MealPlanSectionHeader
-                course="dinner"
-                meals={user.program.mealplan_foods[currentDay].meals}
-              />
+                  {groupMeals(
+                    user.program.mealplan_foods[currentDay].meals,
+                    "lunch"
+                  ).map((meal, index) => (
+                    <MealPlanItem
+                      meal={meal}
+                      key={index}
+                      plan={user.program.mealplan_foods[currentDay].id}
+                    />
+                  ))}
+                </section>
+              )}
 
+              {/* Dinner */}
               {groupMeals(
                 user.program.mealplan_foods[currentDay].meals,
                 "dinner"
-              ).map((meal, index) => (
-                <MealPlanItem
-                  meal={meal}
-                  key={index}
-                  plan={user.program.mealplan_foods[currentDay].id}
-                />
-              ))}
-            </section>
-          )}
+              ).length > 0 && (
+                <section className={styles.dinner}>
+                  <MealPlanSectionHeader
+                    course="dinner"
+                    meals={user.program.mealplan_foods[currentDay].meals}
+                  />
 
-          {/* Snacks */}
-          {groupMeals(user.program.mealplan_foods[currentDay].meals, "snacks")
-            .length > 0 && (
-            <section className={styles.snacks}>
-              <MealPlanSectionHeader
-                course="snacks"
-                meals={user.program.mealplan_foods[currentDay].meals}
-              />
+                  {groupMeals(
+                    user.program.mealplan_foods[currentDay].meals,
+                    "dinner"
+                  ).map((meal, index) => (
+                    <MealPlanItem
+                      meal={meal}
+                      key={index}
+                      plan={user.program.mealplan_foods[currentDay].id}
+                    />
+                  ))}
+                </section>
+              )}
 
+              {/* Snacks */}
               {groupMeals(
                 user.program.mealplan_foods[currentDay].meals,
                 "snacks"
-              ).map((meal, index) => (
-                <MealPlanItem
-                  meal={meal}
-                  key={index}
-                  plan={user.program.mealplan_foods[currentDay].id}
-                />
-              ))}
-            </section>
-          )}
+              ).length > 0 && (
+                <section className={styles.snacks}>
+                  <MealPlanSectionHeader
+                    course="snacks"
+                    meals={user.program.mealplan_foods[currentDay].meals}
+                  />
 
-          <button className={styles.add_item}>
-            <AiOutlinePlus /> Add Item
-          </button>
+                  {groupMeals(
+                    user.program.mealplan_foods[currentDay].meals,
+                    "snacks"
+                  ).map((meal, index) => (
+                    <MealPlanItem
+                      meal={meal}
+                      key={index}
+                      plan={user.program.mealplan_foods[currentDay].id}
+                    />
+                  ))}
+                </section>
+              )}
+
+              <button className={styles.add_item}>
+                <AiOutlinePlus /> Add Item
+              </button>
+            </>
+          )}
         </>
       )}
     </main>

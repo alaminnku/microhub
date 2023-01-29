@@ -1,13 +1,15 @@
 import Link from "next/link";
 import Image from "next/image";
-import { IFormData } from "types";
+import { IAxiosError, IFormData } from "types";
 import { useUser } from "@context/User";
 import { useRouter } from "next/router";
 import logo from "@public/logo-white.svg";
-import { axiosInstance } from "@utils/index";
+import { axiosInstance, showErrorAlert } from "@utils/index";
 import styles from "@styles/Register.module.css";
 import SubmitButton from "@components/SubmitButton";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { AxiosError } from "axios";
+import { useAlert } from "@context/Alert";
 
 export default function RegistrationPage() {
   // Initial state
@@ -20,6 +22,7 @@ export default function RegistrationPage() {
   };
   // Hooks
   const router = useRouter();
+  const { setAlerts } = useAlert();
   const { user, setUser } = useUser();
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState<IFormData>(initialState);
@@ -60,7 +63,8 @@ export default function RegistrationPage() {
       // Push to add details page
       router.push("/add-details");
     } catch (err) {
-      console.log(err);
+      // Show alert
+      showErrorAlert(err as AxiosError<IAxiosError>, setAlerts);
     } finally {
       setIsLoading(false);
     }
