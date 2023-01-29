@@ -49,7 +49,7 @@ export default function NotificationsPage() {
       <h2>Notifications</h2>
 
       {!isUserLoading && user && user.requested_nutritionists.length > 0 && (
-        <div className={styles.invitation}>
+        <div className={styles.notification}>
           <p>
             You've got an invite from{" "}
             {user.requested_nutritionists[0].first_name}{" "}
