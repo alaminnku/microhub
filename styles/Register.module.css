@@ -34,20 +34,6 @@
   border-radius: 2rem;
 }
 
-.agreement {
-  display: flex;
-  align-items: flex-start;
-}
-
-.agreement input {
-  margin-top: 0.5rem;
-  margin-right: 0.5rem;
-}
-
-.agreement p {
-  text-align: left;
-}
-
 .login a {
   color: var(--light_blue);
 }

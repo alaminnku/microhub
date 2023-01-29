@@ -151,6 +151,19 @@ export interface IUserContext {
   setUser: Dispatch<SetStateAction<IUser | null>>;
 }
 
+export interface IAlert {
+  type: string;
+  message: string;
+}
+
+export interface IAlertProps {
+  alerts: IAlert[];
+}
+
+export interface IAlertContext {
+  setAlerts: Dispatch<SetStateAction<IAlert[]>>;
+}
+
 interface IBooleanStateProps {
   isOpen: boolean;
   setIsOpen: Dispatch<SetStateAction<boolean>>;
@@ -168,4 +181,8 @@ export interface ISubmitButtonProps {
 
 export interface IBackButton {
   url: string;
+}
+
+export interface IAxiosError {
+  message: string;
 }

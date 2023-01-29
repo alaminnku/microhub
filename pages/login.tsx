@@ -1,12 +1,14 @@
 import Link from "next/link";
 import Image from "next/image";
-import { IFormData } from "types";
+import { AxiosError } from "axios";
 import { useUser } from "@context/User";
 import { useRouter } from "next/router";
 import logo from "@public/logo-white.svg";
-import { axiosInstance } from "@utils/index";
+import { useAlert } from "@context/Alert";
+import { IAxiosError, IFormData } from "types";
 import styles from "@styles/Login.module.css";
 import SubmitButton from "@components/SubmitButton";
+import { axiosInstance, showErrorAlert } from "@utils/index";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 
 export default function LoginPage() {
@@ -17,8 +19,9 @@ export default function LoginPage() {
   };
   // Hooks
   const router = useRouter();
-  const { isUserLoading, user } = useUser();
   const { setUser } = useUser();
+  const { setAlerts } = useAlert();
+  const { isUserLoading, user } = useUser();
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState<IFormData>(initialState);
 
@@ -53,14 +56,16 @@ export default function LoginPage() {
       const response = await axiosInstance.post("/users/signin", formData);
 
       // Update state
+      setFormData(initialState);
       setUser(response.data.data.user);
 
+      // Push to the home page
       router.push("/");
     } catch (err) {
       console.log(err);
+      showErrorAlert(err as AxiosError<IAxiosError>, setAlerts);
     } finally {
       setIsLoading(false);
-      setFormData(initialState);
     }
   }
   return (

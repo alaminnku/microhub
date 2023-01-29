@@ -54,6 +54,7 @@ export default function RegistrationPage() {
       const res = await axiosInstance.post("/users/signup/client", formData);
 
       // Update state
+      setFormData(initialState);
       setUser(res.data.data.user);
 
       // Push to add details page
@@ -62,7 +63,6 @@ export default function RegistrationPage() {
       console.log(err);
     } finally {
       setIsLoading(false);
-      setFormData(initialState);
     }
   }
 
@@ -117,10 +117,7 @@ export default function RegistrationPage() {
           />
         </form>
 
-        <div className={styles.agreement}>
-          <input type="checkbox" className="" />
-          <p className="">By signing up I agree to the Terms & Conditions</p>
-        </div>
+        <p>By signing up I agree to the Terms & Conditions</p>
 
         <SubmitButton
           text="Register Now"
