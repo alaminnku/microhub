@@ -1,0 +1,95 @@
+.create_meal_plans {
+  padding: var(--section_padding);
+}
+
+.create_meal_plans h2 {
+  margin-bottom: 1rem;
+}
+
+.save_program {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.save_program input {
+  border-radius: 6px 0px 0px 6px;
+  padding: 14px;
+  border: 1px solid var(--border_color);
+}
+
+.save_program button {
+  padding: 14px;
+  border: none;
+  font-size: 1rem;
+  background: var(--blue);
+  color: var(--almost_white);
+  border-radius: 0px 6px 6px 0px;
+}
+
+.controller {
+  padding: 1rem;
+  border-radius: 0.25rem;
+  background: var(--border_color);
+}
+
+.controller_top {
+  display: flex;
+  align-items: center;
+  /* margin-bottom: 1rem; */
+}
+
+.controller_top input,
+.controller_top select {
+  width: 40%;
+  padding: 8px;
+  border-radius: 0.25rem;
+  border: 1px solid var(--border_color);
+}
+
+.controller_top select {
+  border-radius: 0.25rem 0rem 0rem 0.25rem;
+}
+
+.controller_top .buttons {
+  width: 20%;
+  display: flex;
+  align-items: center;
+}
+
+.controller_top .buttons button {
+  width: 50%;
+  border: none;
+  font-size: 1rem;
+  padding: 7px 0rem;
+  background: var(--blue);
+  color: var(--almost_white);
+}
+
+.items {
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--almost_white);
+}
+
+.items:last-child {
+  border: none;
+  padding-bottom: 0rem;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  margin: 1rem 0rem;
+  justify-content: space-between;
+}
+
+.item:last-child {
+  margin-bottom: 0rem;
+}
+
+.item input,
+.item select {
+  width: 40%;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+}
