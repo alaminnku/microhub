@@ -288,6 +288,10 @@ export default function CreateMealPlansPage() {
           ))}
         </div>
       ))}
+      <div className={styles.add_remove_meal_buttons}>
+        <button onClick={addNewMeal}>Add New Meal</button>
+        <button onClick={removeNewMeal}>Remove Meal</button>
+      </div>
     </main>
   );
 }

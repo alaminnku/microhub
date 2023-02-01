@@ -93,3 +93,25 @@
   padding: 0.5rem;
   border-radius: 0.25rem;
 }
+
+.add_remove_meal_buttons {
+  margin-top: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.add_remove_meal_buttons button {
+  border: none;
+  width: 100%;
+  padding: 0.75rem;
+  font-size: 1rem;
+  border-radius: 2rem;
+  background: var(--blue);
+  color: var(--almost_white);
+}
+
+.add_remove_meal_buttons button:last-child {
+  margin-left: 1rem;
+  background: var(--light_blue);
+}
