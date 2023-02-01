@@ -3,6 +3,7 @@ import { axiosInstance } from "@utils/index";
 import { useRouter } from "next/router";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import styles from "@styles/CreateMealPlans.module.css";
+import axios from "axios";
 
 export default function CreateMealPlansPage() {
   // Initial state
@@ -50,16 +51,30 @@ export default function CreateMealPlansPage() {
   // Get recipes
   useEffect(() => {
     // Update state
+    getRecipe();
   }, []);
+
+  // Get recipe
+  async function getRecipe() {
+    try {
+      // make request to the backend
+      const response = await axios.get("/api/recipe/read");
+
+      // Update state
+      setRecipes(response.data);
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
   // Set food item
   function setFoodItem(
-    event: ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>,
     mealIndex: number,
     foodItemIndex: number
   ) {
-    const targetId = event.target.id;
-    const targetValue = event.target.value;
+    const targetId = e.target.id;
+    const targetValue = e.target.value;
 
     const newProgram = { ...program };
 
@@ -155,7 +170,7 @@ export default function CreateMealPlansPage() {
       </div>
 
       {program.meals.map((meal, mealIndex) => (
-        <div className={styles.controller}>
+        <div key={mealIndex} className={styles.controller}>
           <div className={styles.controller_top}>
             <input
               type="text"
@@ -196,7 +211,7 @@ export default function CreateMealPlansPage() {
           </div>
 
           {meal.food_items.map((foodItem, foodIndex) => (
-            <div className={styles.items}>
+            <div key={foodIndex} className={styles.items}>
               <div className={styles.item}>
                 <p>Course</p>
                 <select id="course">
@@ -210,7 +225,12 @@ export default function CreateMealPlansPage() {
 
               <div className={styles.item}>
                 <p>Recipe</p>
-                <select id="recipe">
+                <select
+                  id="recipe"
+                  value={foodItem.food}
+                  onChange={(e) => setFoodItem(e, mealIndex, foodIndex)}
+                >
+                  <option value="">--Select--</option>
                   {recipes.map((recipe: any, index) => (
                     <option key={index} value={JSON.stringify(recipe)}>
                       {recipe.name}
@@ -223,7 +243,7 @@ export default function CreateMealPlansPage() {
                 <p>Notes</p>
                 <input
                   type="text"
-                  id="notes"
+                  id="title"
                   placeholder="Notes"
                   value={foodItem.title}
                   onChange={(e) => setFoodItem(e, mealIndex, foodIndex)}
@@ -242,7 +262,7 @@ export default function CreateMealPlansPage() {
                 <p>Servings (g)</p>
                 <input
                   type="number"
-                  id="servings"
+                  id="serving"
                   value={foodItem.serving}
                   onChange={(e) => setFoodItem(e, mealIndex, foodIndex)}
                 />
