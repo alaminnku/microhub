@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { IMeal } from "types";
+import { IFoodItem } from "types";
 import Image from "next/image";
 import Macros from "@components/Macros";
 import { useUser } from "@context/User";
@@ -11,7 +11,7 @@ import { IoCloseOutline } from "react-icons/io5";
 export default function MealPage() {
   const router = useRouter();
   const { isUserLoading, user } = useUser();
-  const [meal, setMeal] = useState<IMeal>();
+  const [meal, setMeal] = useState<IFoodItem>();
   const [ingredient, setIngredient] = useState("");
 
   useEffect(() => {
@@ -19,9 +19,9 @@ export default function MealPage() {
       router.push("/login");
     } else if (user && router.isReady) {
       setMeal(
-        user.program?.mealplan_foods
-          ?.find((mealPlan) => mealPlan.id === +router.query.plan!)
-          ?.meals.find((meal) => meal.id === +router.query.meal!)
+        user.program?.meals
+          ?.find((meal) => meal.id === +router.query.meal!)
+          ?.food_items.find((foodItem) => foodItem.id === +router.query.food!)
       );
     }
   }, [isUserLoading, user, router.isReady]);
@@ -98,8 +98,8 @@ export default function MealPage() {
             </div>
 
             <Link
-              href={`/${router.query.plan}/${
-                router.query.meal
+              href={`/${router.query.meal}/${
+                router.query.food
               }/swap/${ingredient.toLowerCase().split(" ").join("-")}`}
             >
               <a className={styles.button}>Change Item</a>

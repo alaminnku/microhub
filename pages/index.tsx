@@ -1,4 +1,4 @@
-import { IMeal, IUser } from "types";
+import { IFoodItem } from "types";
 import { useUser } from "@context/User";
 import { useRouter } from "next/router";
 import Macros from "@components/Macros";
@@ -24,9 +24,9 @@ export default function HomePage() {
     }
   }, [user, isUserLoading, router.isReady]);
 
-  // Groups meals by course
-  const groupMeals = (meals: IMeal[], groupBy: string) =>
-    meals.filter((meal) => meal.course === groupBy);
+  // Groups foodItems by course
+  const groupFoodItems = (foodItems: IFoodItem[], groupBy: string) =>
+    foodItems.filter((meal) => meal.course === groupBy);
 
   // Go to the next day
   function nextDay(mealPlansLength: number) {
@@ -51,8 +51,8 @@ export default function HomePage() {
   }
 
   // Calculate macro
-  const calculateMacro = (meals: IMeal[], unit: string) =>
-    meals.reduce((acc, curr) => acc + curr[unit as keyof object], 0);
+  const calculateMacro = (foodItems: IFoodItem[], unit: string) =>
+    foodItems.reduce((acc, curr) => acc + curr[unit as keyof object], 0);
 
   return (
     <main className={styles.home_page}>
@@ -72,13 +72,12 @@ export default function HomePage() {
             >
               <MdKeyboardArrowRight />
             </div>
-            <p>{user.program.mealplan_foods[currentDay].day}</p>
+            <p>{user.program.meals[currentDay].day}</p>
             <div
               className={`${styles.right_arrow} ${
-                user.program.mealplan_foods.length - 1 === currentDay &&
-                styles.disabled
+                user.program.meals.length - 1 === currentDay && styles.disabled
               }`}
-              onClick={() => nextDay(user.program.mealplan_foods.length)}
+              onClick={() => nextDay(user.program.meals.length)}
             >
               <MdKeyboardArrowRight />
             </div>
@@ -87,108 +86,108 @@ export default function HomePage() {
           <Macros
             text="Total Macros"
             calories={calculateMacro(
-              user?.program.mealplan_foods[currentDay].meals,
+              user?.program.meals[currentDay].food_items,
               "cals"
             )}
             carbs={calculateMacro(
-              user?.program.mealplan_foods[currentDay].meals,
+              user?.program.meals[currentDay].food_items,
               "carbs"
             )}
             fat={calculateMacro(
-              user?.program.mealplan_foods[currentDay].meals,
+              user?.program.meals[currentDay].food_items,
               "fats"
             )}
             protein={calculateMacro(
-              user?.program.mealplan_foods[currentDay].meals,
+              user?.program.meals[currentDay].food_items,
               "protein"
             )}
           />
 
           {/* Breakfast */}
-          {groupMeals(
-            user.program.mealplan_foods[currentDay].meals,
+          {groupFoodItems(
+            user.program.meals[currentDay].food_items,
             "breakfast"
           ).length > 0 && (
             <section className={styles.breakfast}>
               <MealPlanSectionHeader
                 course="breakfast"
-                meals={user.program.mealplan_foods[currentDay].meals}
+                foodItems={user.program.meals[currentDay].food_items}
               />
 
-              {groupMeals(
-                user.program.mealplan_foods[currentDay].meals,
+              {groupFoodItems(
+                user.program.meals[currentDay].food_items,
                 "breakfast"
-              ).map((meal, index) => (
+              ).map((foodItem, index) => (
                 <MealPlanItem
-                  meal={meal}
+                  foodItem={foodItem}
                   key={index}
-                  plan={user.program.mealplan_foods[currentDay].id}
+                  plan={user.program.meals[currentDay].id}
                 />
               ))}
             </section>
           )}
 
           {/* Lunch */}
-          {groupMeals(user.program.mealplan_foods[currentDay].meals, "lunch")
+          {groupFoodItems(user.program.meals[currentDay].food_items, "lunch")
             .length > 0 && (
             <section className={styles.lunch}>
               <MealPlanSectionHeader
                 course="lunch"
-                meals={user.program.mealplan_foods[currentDay].meals}
+                foodItems={user.program.meals[currentDay].food_items}
               />
 
-              {groupMeals(
-                user.program.mealplan_foods[currentDay].meals,
+              {groupFoodItems(
+                user.program.meals[currentDay].food_items,
                 "lunch"
-              ).map((meal, index) => (
+              ).map((foodItem, index) => (
                 <MealPlanItem
-                  meal={meal}
+                  foodItem={foodItem}
                   key={index}
-                  plan={user.program.mealplan_foods[currentDay].id}
+                  plan={user.program.meals[currentDay].id}
                 />
               ))}
             </section>
           )}
 
           {/* Dinner */}
-          {groupMeals(user.program.mealplan_foods[currentDay].meals, "dinner")
+          {groupFoodItems(user.program.meals[currentDay].food_items, "dinner")
             .length > 0 && (
             <section className={styles.dinner}>
               <MealPlanSectionHeader
                 course="dinner"
-                meals={user.program.mealplan_foods[currentDay].meals}
+                foodItems={user.program.meals[currentDay].food_items}
               />
 
-              {groupMeals(
-                user.program.mealplan_foods[currentDay].meals,
+              {groupFoodItems(
+                user.program.meals[currentDay].food_items,
                 "dinner"
-              ).map((meal, index) => (
+              ).map((foodItem, index) => (
                 <MealPlanItem
-                  meal={meal}
+                  foodItem={foodItem}
                   key={index}
-                  plan={user.program.mealplan_foods[currentDay].id}
+                  plan={user.program.meals[currentDay].id}
                 />
               ))}
             </section>
           )}
 
           {/* Snacks */}
-          {groupMeals(user.program.mealplan_foods[currentDay].meals, "snacks")
+          {groupFoodItems(user.program.meals[currentDay].food_items, "snacks")
             .length > 0 && (
             <section className={styles.snacks}>
               <MealPlanSectionHeader
                 course="snacks"
-                meals={user.program.mealplan_foods[currentDay].meals}
+                foodItems={user.program.meals[currentDay].food_items}
               />
 
-              {groupMeals(
-                user.program.mealplan_foods[currentDay].meals,
+              {groupFoodItems(
+                user.program.meals[currentDay].food_items,
                 "snacks"
-              ).map((meal, index) => (
+              ).map((foodItem, index) => (
                 <MealPlanItem
-                  meal={meal}
+                  foodItem={foodItem}
                   key={index}
-                  plan={user.program.mealplan_foods[currentDay].id}
+                  plan={user.program.meals[currentDay].id}
                 />
               ))}
             </section>

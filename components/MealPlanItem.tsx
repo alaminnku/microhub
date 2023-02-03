@@ -1,18 +1,18 @@
 import Image from "next/image";
 import Link from "next/link";
-import { IMeal } from "types";
+import { IFoodItem, IMeal } from "types";
 import styles from "@styles/MealPlanItem.module.css";
 
 interface IMealPlanItemProps {
   plan: number;
-  meal: IMeal;
+  foodItem: IFoodItem;
 }
 
-export default function MealPlanItem({ plan, meal }: IMealPlanItemProps) {
+export default function MealPlanItem({ plan, foodItem }: IMealPlanItemProps) {
   return (
     <div className={styles.item}>
       <input type="checkbox" />
-      <Link href={`/${plan}/${meal.id}`}>
+      <Link href={`/${plan}/${foodItem.id}`}>
         <a>
           <div className={styles.image}>
             <Image
@@ -22,7 +22,7 @@ export default function MealPlanItem({ plan, meal }: IMealPlanItemProps) {
               layout="responsive"
             />
           </div>
-          <p>{meal.title}</p>
+          <p>{foodItem.title}</p>
         </a>
       </Link>
     </div>

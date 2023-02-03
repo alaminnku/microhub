@@ -1,20 +1,20 @@
 import React from "react";
-import { IMeal } from "types";
+import { IFoodItem, IMeal } from "types";
 import { TfiReload } from "react-icons/tfi";
 import styles from "@styles/MealPlanSectionHeader.module.css";
 
 interface IMealPlanSectionHeaderProps {
-  meals: IMeal[];
+  foodItems: IFoodItem[];
   course: string;
 }
 
 export default function MealPlanSectionHeader({
-  meals,
+  foodItems,
   course,
 }: IMealPlanSectionHeaderProps) {
   // Calculate total calories of each group
   const groupTotalCalories = () =>
-    meals
+    foodItems
       .filter((meal) => meal.course === course)
       .reduce((acc, curr) => acc + curr.cals, 0);
 

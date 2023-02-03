@@ -5,13 +5,13 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { IoCloseOutline } from "react-icons/io5";
 import { TfiReload } from "react-icons/tfi";
-import { IMeal } from "types";
+import { IFoodItem } from "types";
 import Search from "@components/Search";
 
 export default function SwapIngredientPage() {
   const router = useRouter();
   const { isUserLoading, user } = useUser();
-  const [meal, setMeal] = useState<IMeal>();
+  const [meal, setMeal] = useState<IFoodItem>();
 
   // Get the ingredient
   useEffect(() => {
@@ -19,9 +19,9 @@ export default function SwapIngredientPage() {
       router.push("/login");
     } else if (user && router.isReady) {
       setMeal(
-        user.program?.mealplan_foods
-          ?.find((mealPlan) => mealPlan.id === +router.query.plan!)
-          ?.meals.find((meal) => meal.id === +router.query.meal!)
+        user.program?.meals
+          ?.find((mealPlan) => mealPlan.id === +router.query.meal!)
+          ?.food_items.find((foodItem) => foodItem.id === +router.query.food!)
       );
     }
   }, [isUserLoading, user, router.isReady]);

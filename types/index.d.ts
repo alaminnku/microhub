@@ -25,7 +25,7 @@ export interface INutritionist {
   status: number;
 }
 
-export interface IMeal {
+export interface IFoodItem {
   cals: number;
   carbs: number;
   course: string;
@@ -41,11 +41,11 @@ export interface IMeal {
   title: string;
 }
 
-export interface IMealPlan {
+export interface IMeal {
   createdAt: string;
   day: string;
   id: number;
-  meals: IMeal[];
+  food_items: IFoodItem[];
   programId: number;
   week: number;
 }
@@ -58,7 +58,7 @@ export interface IProgram {
   description: string;
   fats: number;
   id: number;
-  mealplan_foods: IMealPlan[];
+  meals: IMeal[];
   name: string;
   nutritionistId: number;
   preference: string;
