@@ -5,9 +5,10 @@ import { useUser } from "@context/User";
 import { IMobileMenuProps } from "types";
 import { FaUserAlt } from "react-icons/fa";
 import styles from "@styles/MobileMenu.module.css";
-import { currentYear, axiosInstance } from "@utils/index";
 import { IoIosNotifications } from "react-icons/io";
 import { IoCalendarSharp } from "react-icons/io5";
+import { currentYear, axiosInstance } from "@utils/index";
+import { AiFillMessage } from "react-icons/ai";
 
 export default function MobileMenu({ isOpen, setIsOpen }: IMobileMenuProps) {
   // Hooks
@@ -65,6 +66,14 @@ export default function MobileMenu({ isOpen, setIsOpen }: IMobileMenuProps) {
           <Link href="/notifications">
             <a>
               <IoIosNotifications /> Notifications
+            </a>
+          </Link>
+        </li>
+
+        <li onClick={closeMobileMenu} className={!user ? styles.hide : ""}>
+          <Link href="/messages">
+            <a>
+              <AiFillMessage /> Messages
             </a>
           </Link>
         </li>

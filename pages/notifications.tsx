@@ -4,12 +4,20 @@ import styles from "@styles/Notifications.module.css";
 import { axiosInstance, showErrorAlert } from "@utils/index";
 import { AxiosError } from "axios";
 import { useRouter } from "next/router";
+import { useEffect } from "react";
 import { IAxiosError, IUser } from "types";
 
 export default function NotificationsPage() {
   const router = useRouter();
   const { setAlerts } = useAlert();
   const { user, setUser, isUserLoading } = useUser();
+
+  // Check user
+  useEffect(() => {
+    if (!isUserLoading && !user) {
+      router.push("/login");
+    }
+  }, [isUserLoading, user]);
 
   // Handle nutritionist invitation
   async function handleInvite(status: number) {
@@ -49,7 +57,7 @@ export default function NotificationsPage() {
       <h2>Notifications</h2>
 
       {!isUserLoading && user && user.requested_nutritionists.length > 0 && (
-        <div className={styles.notification}>
+        <section className={styles.notification}>
           <p>
             You've got an invite from{" "}
             {user.requested_nutritionists[0].first_name}{" "}
@@ -59,7 +67,7 @@ export default function NotificationsPage() {
             <button onClick={() => handleInvite(1)}>Confirm</button>
             <button onClick={() => handleInvite(-1)}>Reject</button>
           </div>
-        </div>
+        </section>
       )}
     </main>
   );
