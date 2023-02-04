@@ -1,0 +1,74 @@
+.update_weight {
+  padding: var(--section_padding);
+}
+
+.update_weight h2 {
+  margin-bottom: 1rem;
+}
+
+.update_weight form {
+  display: flex;
+  align-items: center;
+  padding-left: 1rem;
+  margin-bottom: 1.5rem;
+  justify-content: space-between;
+  border-radius: 0.5rem 0rem 0rem 0.5rem;
+  border: 1px solid var(--border_color);
+}
+
+.update_weight form input {
+  width: 90%;
+  outline: none;
+  font-size: 1rem;
+  padding: 0.8rem 0rem;
+}
+
+.update_weight form input::placeholder {
+  font-size: 16px;
+}
+
+.update_weight form button {
+  border: none;
+  font-size: 1rem;
+  padding: 1rem 1.5rem;
+  color: var(--almost_white);
+  background: var(--blue);
+  border-radius: 0rem 0.5rem 0.5rem 0rem;
+}
+
+.history_title {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.history {
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid var(--border_color);
+}
+
+.history p {
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.history span {
+  font-size: 0.8rem;
+  color: var(--gray);
+  font-weight: 500;
+}
+
+.up,
+.down {
+  color: green;
+  font-size: 1.5rem;
+}
+
+.up {
+  color: red;
+}

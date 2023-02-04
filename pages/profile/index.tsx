@@ -3,7 +3,7 @@ import Image from "next/image";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 import { useUser } from "@context/User";
-import { GiMeal } from "react-icons/gi";
+import { GiMeal, GiWeightScale } from "react-icons/gi";
 import { GrTarget } from "react-icons/gr";
 import logo from "@public/logo-white.svg";
 import { IoIosBody } from "react-icons/io";
@@ -89,52 +89,21 @@ export default function ProfilePage() {
                 </div>
               </a>
             </Link>
+
+            <Link href="/profile/update-weight">
+              <a className={styles.update_weight}>
+                <div className={styles.icon_and_text}>
+                  <div className={styles.first_icon}>
+                    <GiWeightScale />
+                  </div>
+                  <p>Update weight</p>
+                </div>
+                <div className={styles.last_icon}>
+                  <MdKeyboardArrowRight />
+                </div>
+              </a>
+            </Link>
           </div>
-
-          {/* <div className={styles.details}>
-            <p className={styles.title}>Your summary</p>
-            <div className={styles.item}>
-              <IoIosBody />
-              <p>Body mass index</p>
-              <p>{user.consumer?.bmi}</p>
-            </div>
-
-            <div className={styles.item}>
-              <IoIosBody />
-              <p>Diet preference</p>
-              <p>{user.consumer?.preferences}</p>
-            </div>
-
-            <div className={styles.item}>
-              <IoIosBody />
-              <p>Weight</p>
-              <p>{user.consumer?.weight}</p>
-            </div>
-
-            <div className={styles.item}>
-              <IoIosBody />
-              <p>Healthy weight</p>
-              <p>{user.consumer?.healthy_weight}</p>
-            </div>
-
-            <div className={styles.item}>
-              <IoIosBody />
-              <p>Height</p>
-              <p>{user.consumer?.height}</p>
-            </div>
-
-            <div className={styles.item}>
-              <IoIosBody />
-              <p>TDEE</p>
-              <p>{user.consumer?.tdee}</p>
-            </div>
-
-            <div className={styles.item}>
-              <IoIosBody />
-              <p>Activity level</p>
-              <p>{user.consumer?.activity_level}</p>
-            </div>
-          </div> */}
         </section>
       )}
     </main>

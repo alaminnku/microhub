@@ -52,7 +52,8 @@
 
 .my_body,
 .foods,
-.goals {
+.goals,
+.update_weight {
   color: var(--blue);
   display: flex;
   align-items: center;
@@ -67,7 +68,8 @@
 
 .my_body .first_icon,
 .foods .first_icon,
-.goals .first_icon {
+.goals .first_icon,
+.update_weight .first_icon {
   width: 2.5rem;
   height: 2.5rem;
   display: flex;
@@ -87,6 +89,10 @@
 
 .goals .first_icon {
   background: #d8f3dc;
+}
+
+.update_weight .first_icon {
+  background: #e6e6ff;
 }
 
 .first_icon svg {
