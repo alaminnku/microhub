@@ -75,7 +75,7 @@ export default function SwapIngredientPage() {
         <div className={styles.swap_for}>
           <p className={styles.title}>Search ingredients</p>
 
-          <Search />
+          <Search path="programs/swaps?search=" />
           {/* <p className={styles.title}>Swap for</p>
           <div className={styles.swap_for_ingredient}>
             <input type="radio" name="swapForIngredient" />

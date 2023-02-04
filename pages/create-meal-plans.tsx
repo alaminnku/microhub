@@ -1,7 +1,7 @@
 import { useUser } from "@context/User";
 import { axiosInstance } from "@utils/index";
 import { useRouter } from "next/router";
-import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import styles from "@styles/CreateMealPlans.module.css";
 import axios from "axios";
 

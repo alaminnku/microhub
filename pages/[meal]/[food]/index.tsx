@@ -6,13 +6,17 @@ import { useUser } from "@context/User";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import styles from "@styles/Meal.module.css";
+import { HiOutlineRefresh } from "react-icons/hi";
 import { IoCloseOutline } from "react-icons/io5";
 
 export default function MealPage() {
   const router = useRouter();
   const { isUserLoading, user } = useUser();
   const [meal, setMeal] = useState<IFoodItem>();
-  const [ingredient, setIngredient] = useState("");
+  const [ingredient, setIngredient] = useState({
+    index: 0,
+    name: "",
+  });
 
   useEffect(() => {
     if (!isUserLoading && !user && router.isReady) {
@@ -75,18 +79,24 @@ export default function MealPage() {
               </p>
             </div>
 
-            <div className={styles.ingredients}>
-              {ingredients.map((ingredient, index) => (
-                <p
-                  key={index}
-                  onClick={(e) =>
-                    setIngredient(e.currentTarget.textContent as string)
-                  }
-                >
-                  {ingredient}
-                </p>
-              ))}
-            </div>
+            {ingredients.length > 0 && (
+              <div className={styles.ingredients}>
+                {ingredients.map((ingredientName, index) => (
+                  <p
+                    key={index}
+                    onClick={(e) => {
+                      setIngredient({
+                        index,
+                        name: e.currentTarget.textContent as string,
+                      });
+                    }}
+                  >
+                    {ingredientName}{" "}
+                    {index === ingredient.index && <HiOutlineRefresh />}
+                  </p>
+                ))}
+              </div>
+            )}
 
             <div className={styles.preparation}>
               <p>Prep</p>
@@ -100,7 +110,7 @@ export default function MealPage() {
             <Link
               href={`/${router.query.meal}/${
                 router.query.food
-              }/swap/${ingredient.toLowerCase().split(" ").join("-")}`}
+              }/swap/${ingredient.name.toLowerCase().split(" ").join("-")}`}
             >
               <a className={styles.button}>Change Item</a>
             </Link>

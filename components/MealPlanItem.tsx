@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { IFoodItem, IMeal } from "types";
+import { IFoodItem } from "types";
 import styles from "@styles/MealPlanItem.module.css";
 
 interface IMealPlanItemProps {
