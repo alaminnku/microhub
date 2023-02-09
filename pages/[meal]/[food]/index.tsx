@@ -32,8 +32,6 @@ export default function FoodItemPage() {
 
   console.log(foodItem);
 
-  //swaps?ingredient_id={{number}}&gap={{number}}&swap_ingredient={{searching ingredient}}
-
   return (
     <main>
       {isUserLoading && <h2>Loading...</h2>}

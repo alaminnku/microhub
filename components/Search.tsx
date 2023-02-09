@@ -2,8 +2,9 @@ import { FormEvent, useState } from "react";
 import { BiSearch } from "react-icons/bi";
 import styles from "@styles/Search.module.css";
 import { axiosInstance } from "@utils/index";
+import { ISearchProps } from "types";
 
-export default function Search({ path }: { path: string }) {
+export default function Search({ path, setResults }: ISearchProps) {
   const [searchValue, setSearchValue] = useState("");
 
   async function handleSearch(e: FormEvent) {
@@ -12,7 +13,7 @@ export default function Search({ path }: { path: string }) {
     try {
       const response = await axiosInstance.get(`/${path}${searchValue}`);
 
-      console.log(response);
+      setResults(response.data.data.data.results);
     } catch (err) {
       console.log(err);
     }

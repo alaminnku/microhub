@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { IIngredient } from "types";
+import { IIngredient, ISwapAbleIngredient } from "types";
 import { useUser } from "@context/User";
 import { useRouter } from "next/router";
 import Search from "@components/Search";
@@ -10,8 +10,14 @@ import styles from "@styles/Ingredient.module.css";
 
 export default function SwapIngredientPage() {
   const router = useRouter();
+  const [gap, setGap] = useState<number>();
   const { isUserLoading, user } = useUser();
   const [ingredient, setIngredient] = useState<IIngredient>();
+  const [swapAbleIngredient, setSwapAbleIngredient] =
+    useState<ISwapAbleIngredient>();
+  const [swapAbleIngredients, setSwapAbleIngredients] = useState<
+    ISwapAbleIngredient[]
+  >([]);
 
   // Get the ingredient
   useEffect(() => {
@@ -33,7 +39,7 @@ export default function SwapIngredientPage() {
     console.log("hello");
   }
 
-  console.log(ingredient);
+  console.log(swapAbleIngredient);
 
   return (
     <main className={styles.swap_ingredient}>
@@ -81,49 +87,60 @@ export default function SwapIngredientPage() {
               </div>
             </div>
 
-            <div className={styles.swap_for}>
-              <p className={styles.title}>Search ingredients</p>
-
-              <Search path="programs/swaps?search=" />
-              {/* <p className={styles.title}>Swap for</p>
-          <div className={styles.swap_for_ingredient}>
-            <input type="radio" name="swapForIngredient" />
-            <p>Soy Milk</p>
-          </div>
-          <div className={styles.swap_for_ingredient}>
-            <input type="radio" name="swapForIngredient" />
-            <p>Oat Milk</p>
-          </div>
-          <div className={styles.swap_for_ingredient}>
-            <input type="radio" name="swapForIngredient" />
-            <p>Full Cream Milk</p>
-          </div>
-          <div className={styles.swap_for_ingredient}>
-            <input type="radio" name="swapForIngredient" />
-            <p>Coconut Milk</p>
-          </div> */}
+            <div className={styles.gap}>
+              <label htmlFor="gap">Select macro gap</label>
+              <input
+                id="gap"
+                type="number"
+                value={gap}
+                placeholder="E.g 20"
+                onChange={(e) => setGap(+e.target.value)}
+              />
             </div>
 
-            {/* <div className={styles.ingredient_details}>
-          <div className={styles.protein}>
-            <p>0 g</p>
-            <span>Protein</span>
-          </div>
+            <div className={styles.search}>
+              <label>Search ingredients</label>
+              <Search
+                path={`programs/swaps?ingredient_id=${ingredient.id}&gap=${
+                  gap ? gap / 100 : 0.2
+                }&swap_ingredient=`}
+                setResults={setSwapAbleIngredients}
+              />
+            </div>
 
-          <span className={styles.border}></span>
+            {swapAbleIngredients.length > 0 && (
+              <div className={styles.swap_for}>
+                <p>Swap for</p>
 
-          <div className={styles.fats}>
-            <p>0 g</p>
-            <span>Fats</span>
-          </div>
+                {swapAbleIngredients.map((swapAbleIngredient) => (
+                  <div className={styles.swap_for_ingredient}>
+                    <input
+                      type="radio"
+                      name="swapAbleIngredient"
+                      onChange={() => setSwapAbleIngredient(swapAbleIngredient)}
+                    />
+                    <label>{swapAbleIngredient.name}</label>
+                  </div>
+                ))}
+              </div>
+            )}
 
-          <span className={styles.border}></span>
-
-          <div className={styles.carbs}>
-            <p>0 g</p>
-            <span>Carbs</span>
-          </div>
-        </div> */}
+            <div className={styles.ingredient_details}>
+              <div className={styles.protein}>
+                <p>0 g</p>
+                <span>Protein</span>
+              </div>
+              <span className={styles.border}></span>
+              <div className={styles.fats}>
+                <p>0 g</p>
+                <span>Fats</span>
+              </div>
+              <span className={styles.border}></span>
+              <div className={styles.carbs}>
+                <p>0 g</p>
+                <span>Carbs</span>
+              </div>
+            </div>
           </div>
 
           <div className={styles.buttons}>

@@ -219,3 +219,13 @@ export interface IBackButton {
 export interface IAxiosError {
   message: string;
 }
+
+export interface ISwapAbleIngredient {
+  id: number;
+  name: string;
+}
+
+export interface ISearchProps {
+  path: string;
+  setResults: Dispatch<SetStateAction<ISwapAbleIngredient[]>>;
+}
