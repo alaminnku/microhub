@@ -37,6 +37,8 @@ export default function MealPage() {
     "3 tbs Low Fat Greek Yoghurt",
   ];
 
+  console.log(meal);
+
   return (
     <main>
       {isUserLoading && <h2>Loading...</h2>}
@@ -68,7 +70,7 @@ export default function MealPage() {
               text="Macros"
               calories={meal.cals}
               carbs={meal.carbs}
-              fat={meal.fats}
+              fat={meal.fat}
               protein={meal.protein}
             />
 

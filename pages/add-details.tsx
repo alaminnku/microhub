@@ -1,11 +1,13 @@
 import Image from "next/image";
+import { AxiosError } from "axios";
+import { useAlert } from "@context/Alert";
 import { useUser } from "@context/User";
 import { useRouter } from "next/router";
-import { IConsumerDetails } from "types";
 import logo from "@public/logo-white.svg";
-import { axiosInstance } from "@utils/index";
 import styles from "@styles/AddDetails.module.css";
 import ButtonLoader from "@components/ButtonLoader";
+import { IAxiosError, IConsumerDetails } from "types";
+import { axiosInstance, showErrorAlert } from "@utils/index";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 
 export default function AddDetailsPage() {
@@ -27,6 +29,7 @@ export default function AddDetailsPage() {
 
   // Hooks
   const router = useRouter();
+  const { setAlerts } = useAlert();
   const { isUserLoading, user, setUser } = useUser();
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState<IConsumerDetails>(initialState);
@@ -110,13 +113,15 @@ export default function AddDetailsPage() {
         }
       });
 
+      // Clear from data
+      setFormData(initialState);
+
       // Push to the profile page
       router.push("/questionnaire");
     } catch (err) {
-      console.log(err);
+      showErrorAlert(err as AxiosError<IAxiosError>, setAlerts);
     } finally {
       setIsLoading(false);
-      setFormData(initialState);
     }
   }
 

@@ -2,7 +2,7 @@ import { IFoodItem } from "types";
 import { useUser } from "@context/User";
 import { useRouter } from "next/router";
 import Macros from "@components/Macros";
-import { axiosInstance } from "@utils/index";
+import { axiosInstance, calculateMacro, days } from "@utils/index";
 import { useEffect, useState } from "react";
 import { AiOutlinePlus } from "react-icons/ai";
 import styles from "@styles/HomePage.module.css";
@@ -50,9 +50,7 @@ export default function HomePage() {
     }
   }
 
-  // Calculate macro
-  const calculateMacro = (foodItems: IFoodItem[], unit: string) =>
-    foodItems.reduce((acc, curr) => acc + curr[unit as keyof object], 0);
+  console.log(user?.program);
 
   return (
     <main className={styles.home_page}>
@@ -72,7 +70,7 @@ export default function HomePage() {
             >
               <MdKeyboardArrowRight />
             </div>
-            <p>{user.program.meals[currentDay].day}</p>
+            <p>{days[user.program.meals[currentDay].day]}</p>
             <div
               className={`${styles.right_arrow} ${
                 user.program.meals.length - 1 === currentDay && styles.disabled
@@ -87,15 +85,15 @@ export default function HomePage() {
             text="Total Macros"
             calories={calculateMacro(
               user?.program.meals[currentDay].food_items,
-              "cals"
+              "calories"
             )}
             carbs={calculateMacro(
               user?.program.meals[currentDay].food_items,
-              "carbs"
+              "carbohydrates"
             )}
             fat={calculateMacro(
               user?.program.meals[currentDay].food_items,
-              "fats"
+              "fat"
             )}
             protein={calculateMacro(
               user?.program.meals[currentDay].food_items,

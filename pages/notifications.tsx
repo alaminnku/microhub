@@ -52,11 +52,12 @@ export default function NotificationsPage() {
       }
     }
   }
+
   return (
     <main className={styles.notifications}>
       <h2>Notifications</h2>
 
-      {!isUserLoading && user && user.requested_nutritionists.length > 0 && (
+      {!isUserLoading && user && user.requested_nutritionists?.length > 0 && (
         <section className={styles.notification}>
           <p>
             You've got an invite from{" "}

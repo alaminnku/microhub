@@ -16,7 +16,7 @@ export default function MealPlanSectionHeader({
   const groupTotalCalories = () =>
     foodItems
       .filter((meal) => meal.course === course)
-      .reduce((acc, curr) => acc + curr.cals, 0);
+      .reduce((acc, curr) => acc + curr.recipe.calories, 0);
 
   return (
     <div className={styles.header}>

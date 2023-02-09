@@ -11,14 +11,14 @@ import Search from "@components/Search";
 export default function SwapIngredientPage() {
   const router = useRouter();
   const { isUserLoading, user } = useUser();
-  const [meal, setMeal] = useState<IFoodItem>();
+  const [foodItem, setFoodItem] = useState<IFoodItem>();
 
   // Get the ingredient
   useEffect(() => {
     if (!isUserLoading && !user && router.isReady) {
       router.push("/login");
     } else if (user && router.isReady) {
-      setMeal(
+      setFoodItem(
         user.program?.meals
           ?.find((mealPlan) => mealPlan.id === +router.query.meal!)
           ?.food_items.find((foodItem) => foodItem.id === +router.query.food!)
@@ -30,6 +30,8 @@ export default function SwapIngredientPage() {
     console.log("hello");
   }
 
+  console.log(foodItem);
+
   return (
     <main className={styles.swap_ingredient}>
       <div className={styles.top}>
@@ -38,7 +40,7 @@ export default function SwapIngredientPage() {
           <h2>Swap Ingredient</h2>
         </div>
 
-        <Link href={`/${router.query.plan}/${router.query.meal}`}>
+        <Link href={`/${router.query.meal}/${router.query.food}`}>
           <a>
             <IoCloseOutline className={styles.close_icon} />
           </a>

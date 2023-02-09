@@ -30,20 +30,38 @@ export interface IFoodItem {
   carbs: number;
   course: string;
   createdAt: string;
-  fats: number;
-  food_id: string;
+  fat: number;
   id: number;
   image_url: string;
-  mealplanFoodId: number;
+  mealId: string;
+  recipeId: number;
   protein: number;
+  recipe: {
+    id: number;
+    calories: number;
+    carbohydrates: number;
+    carbohydratesPercentage: number;
+    createdAt: string;
+    fat: number;
+    fatPercentage: number;
+    id: number;
+    image_url: string;
+    ingredients: {};
+    method: string;
+    name: string;
+    nutritionistId: number;
+    protein: number;
+    proteinPercentage: number;
+  };
   quantity: number;
   serving: string;
+  swapers: any[];
   title: string;
 }
 
 export interface IMeal {
   createdAt: string;
-  day: string;
+  day: number;
   id: number;
   food_items: IFoodItem[];
   programId: number;

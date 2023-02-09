@@ -1,5 +1,5 @@
 import axios, { AxiosError } from "axios";
-import { IAlert, IAxiosError } from "types";
+import { IAlert, IAxiosError, IFoodItem } from "types";
 import { Dispatch, SetStateAction } from "react";
 
 // Create axios instance
@@ -36,3 +36,18 @@ export function showErrorAlert(
       : [...currState, { message: "Something wen't wrong", type: "failed" }]
   );
 }
+
+// Week days
+export const days: { [key: number]: string } = {
+  0: "Sunday",
+  1: "Monday",
+  2: "Tuesday",
+  3: "Wednesday",
+  4: "Thursday",
+  5: "Friday",
+  6: "Saturday",
+};
+
+// Calculate macro
+export const calculateMacro = (foodItems: IFoodItem[], unit: string) =>
+  foodItems.reduce((acc, curr) => acc + curr.recipe[unit as keyof object], 0);
