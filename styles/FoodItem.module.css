@@ -61,11 +61,12 @@
 }
 
 .ingredients p {
+  display: flex;
   font-size: 14px;
   font-weight: 500;
   margin-bottom: 1rem;
-  display: flex;
   align-items: center;
+  text-transform: capitalize;
   justify-content: space-between;
 }
 

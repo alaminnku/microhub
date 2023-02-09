@@ -5,16 +5,16 @@ import Macros from "@components/Macros";
 import { useUser } from "@context/User";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import styles from "@styles/Meal.module.css";
+import styles from "@styles/FoodItem.module.css";
 import { HiOutlineRefresh } from "react-icons/hi";
 import { IoCloseOutline } from "react-icons/io5";
 
-export default function MealPage() {
+export default function FoodItemPage() {
   const router = useRouter();
   const { isUserLoading, user } = useUser();
-  const [meal, setMeal] = useState<IFoodItem>();
+  const [foodItem, setFoodItem] = useState<IFoodItem>();
   const [ingredient, setIngredient] = useState({
-    index: 0,
+    id: 0,
     name: "",
   });
 
@@ -22,7 +22,7 @@ export default function MealPage() {
     if (!isUserLoading && !user && router.isReady) {
       router.push("/login");
     } else if (user && router.isReady) {
-      setMeal(
+      setFoodItem(
         user.program?.meals
           ?.find((meal) => meal.id === +router.query.meal!)
           ?.food_items.find((foodItem) => foodItem.id === +router.query.food!)
@@ -30,20 +30,15 @@ export default function MealPage() {
     }
   }, [isUserLoading, user, router.isReady]);
 
-  const ingredients = [
-    "20g Chia seeds",
-    "1/2 Cup Almost Milk",
-    "50g Fresh Mango",
-    "3 tbs Low Fat Greek Yoghurt",
-  ];
+  console.log(foodItem);
 
-  console.log(meal);
+  //swaps?ingredient_id={{number}}&gap={{number}}&swap_ingredient={{searching ingredient}}
 
   return (
     <main>
       {isUserLoading && <h2>Loading...</h2>}
 
-      {user && meal && (
+      {user && foodItem && (
         <>
           <section className={styles.top}>
             <Image
@@ -62,57 +57,49 @@ export default function MealPage() {
 
           <section className={styles.content}>
             <div className={styles.header}>
-              <p>{meal.title}</p>
+              <p>{foodItem.title}</p>
               <span>10 mins prep. 0 mins cook</span>
             </div>
 
             <Macros
               text="Macros"
-              calories={meal.cals}
-              carbs={meal.carbs}
-              fat={meal.fat}
-              protein={meal.protein}
+              calories={foodItem.recipe.calories}
+              carbs={foodItem.recipe.carbohydrates}
+              fat={foodItem.recipe.fat}
+              protein={foodItem.recipe.protein}
             />
 
             <div className={styles.ingredients_top}>
               <p>Ingredients</p>
-              <p>
-                {meal.quantity} {meal.quantity > 1 ? "Servings" : "Serving"}
-              </p>
+              <p>{foodItem.serving} Servings</p>
             </div>
 
-            {ingredients.length > 0 && (
+            {foodItem.recipe.ingredients.length > 0 && (
               <div className={styles.ingredients}>
-                {ingredients.map((ingredientName, index) => (
+                {foodItem.recipe.ingredients.map((ing) => (
                   <p
-                    key={index}
+                    key={ing.id}
                     onClick={(e) => {
                       setIngredient({
-                        index,
+                        id: ing.id,
                         name: e.currentTarget.textContent as string,
                       });
                     }}
                   >
-                    {ingredientName}{" "}
-                    {index === ingredient.index && <HiOutlineRefresh />}
+                    {ing.name}{" "}
+                    {ing.id === ingredient.id && <HiOutlineRefresh />}
                   </p>
                 ))}
               </div>
             )}
 
             <div className={styles.preparation}>
-              <p>Prep</p>
-              <p>
-                Combine Chia Seeds with your choice of milk in a bowl. Put in
-                the fridge overnight. Top with fresh fruit and a dollop of
-                yoghurt.
-              </p>
+              <p>Method</p>
+              <p>{foodItem.recipe.method}</p>
             </div>
 
             <Link
-              href={`/${router.query.meal}/${
-                router.query.food
-              }/swap/${ingredient.name.toLowerCase().split(" ").join("-")}`}
+              href={`/${router.query.meal}/${router.query.food}/swap/${ingredient.id}`}
             >
               <a className={styles.button}>Change Item</a>
             </Link>

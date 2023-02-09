@@ -25,6 +25,21 @@ export interface INutritionist {
   status: number;
 }
 
+export interface IIngredient {
+  amount: number;
+  cals: number;
+  carbs: number;
+  createdAt: string;
+  fat: number;
+  id: number;
+  image: string;
+  name: string;
+  protein: number;
+  recipeId: number;
+  spoon_id: string;
+  unit: string;
+}
+
 export interface IFoodItem {
   cals: number;
   carbs: number;
@@ -46,7 +61,7 @@ export interface IFoodItem {
     fatPercentage: number;
     id: number;
     image_url: string;
-    ingredients: {};
+    ingredients: IIngredient[];
     method: string;
     name: string;
     nutritionistId: number;
