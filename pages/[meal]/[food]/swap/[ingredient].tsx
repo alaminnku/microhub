@@ -26,8 +26,8 @@ export default function SwapIngredientPage() {
       router.push("/login");
     } else if (user && router.isReady) {
       setIngredient(
-        user.program?.meals
-          ?.find((mealPlan) => mealPlan.id === +router.query.meal!)
+        user.program.meals
+          .find((mealPlan) => mealPlan.id === +router.query.meal!)
           ?.food_items.find((foodItem) => foodItem.id === +router.query.food!)
           ?.recipe.ingredients.find(
             (ingredient) => ingredient.id === +router.query.ingredient!
@@ -36,6 +36,7 @@ export default function SwapIngredientPage() {
     }
   }, [isUserLoading, user, router.isReady]);
 
+  // Handle swap ingredient
   async function handleSwapIngredient() {
     try {
       const response = await axiosInstance.post("/programs/swaps", {

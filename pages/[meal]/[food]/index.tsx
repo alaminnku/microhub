@@ -1,10 +1,10 @@
 import Link from "next/link";
-import { IFoodItem } from "types";
 import Image from "next/image";
 import Macros from "@components/Macros";
 import { useUser } from "@context/User";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { IFoodItem, IIngredient } from "types";
 import styles from "@styles/FoodItem.module.css";
 import { HiOutlineRefresh } from "react-icons/hi";
 import { IoCloseOutline } from "react-icons/io5";
@@ -17,37 +17,40 @@ export default function FoodItemPage() {
     id: 0,
     name: "",
   });
+  const [ingredients, setIngredients] = useState<IIngredient[]>();
 
   useEffect(() => {
     if (!isUserLoading && !user && router.isReady) {
       router.push("/login");
     } else if (user && router.isReady) {
-      setFoodItem(
-        user.program?.meals
-          ?.find((meal) => meal.id === +router.query.meal!)
-          ?.food_items.find((foodItem) => foodItem.id === +router.query.food!)
-      );
+      // Get food item
+      const foodItem = user.program.meals
+        .find((meal) => meal.id === +router.query.meal!)
+        ?.food_items.find((foodItem) => foodItem.id === +router.query.food!);
+
+      if (foodItem) {
+        // Swapped and static ingredients
+        const swappedIngredients = foodItem.swapers;
+        const staticIngredients = foodItem.recipe.ingredients;
+
+        // Update states
+        setFoodItem(foodItem);
+        setIngredients(
+          swappedIngredients.length > 0
+            ? [
+                ...staticIngredients.filter((ingredient) =>
+                  swappedIngredients.some(
+                    (swapper) => swapper.ingredientId !== ingredient.id
+                  )
+                ),
+                // Return the ingredients of swapped items
+                // ...swappedIngredients
+              ]
+            : staticIngredients
+        );
+      }
     }
   }, [isUserLoading, user, router.isReady]);
-
-  // Swapped and static ingredients
-  const swappedIngredients = foodItem?.swapers!;
-  const staticIngredients = foodItem?.recipe.ingredients!;
-
-  const ingredients =
-    swappedIngredients?.length > 0
-      ? [
-          ...staticIngredients.filter((ingredient) =>
-            swappedIngredients.some(
-              (swapper) => swapper.ingredientId !== ingredient.id
-            )
-          ),
-          // Return the ingredients of swapped items
-          ...swappedIngredients.map(
-            (swappedIngredient) => swappedIngredient.swapIngredientId
-          ),
-        ]
-      : foodItem?.recipe.ingredients;
 
   return (
     <main>
@@ -89,9 +92,9 @@ export default function FoodItemPage() {
               <p>{foodItem.serving} Servings</p>
             </div>
 
-            {foodItem.recipe.ingredients.length > 0 && (
+            {ingredients && ingredients.length > 0 && (
               <div className={styles.ingredients}>
-                {foodItem.recipe.ingredients.map((ing) => (
+                {ingredients?.map((ing) => (
                   <p
                     key={ing.id}
                     onClick={(e) => {
