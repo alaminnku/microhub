@@ -7,6 +7,7 @@ import { TfiReload } from "react-icons/tfi";
 import { useEffect, useState } from "react";
 import { IoCloseOutline } from "react-icons/io5";
 import styles from "@styles/Ingredient.module.css";
+import { axiosInstance } from "@utils/index";
 
 export default function SwapIngredientPage() {
   const router = useRouter();
@@ -35,8 +36,18 @@ export default function SwapIngredientPage() {
     }
   }, [isUserLoading, user, router.isReady]);
 
-  function handleSwapIngredient() {
-    console.log("hello");
+  async function handleSwapIngredient() {
+    try {
+      const response = await axiosInstance.post("/programs/swaps", {
+        foodItemId: router.query.food,
+        ingredientId: ingredient?.id,
+        swapIngredientId: swapAbleIngredient?.id,
+      });
+
+      console.log(response);
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   console.log(swapAbleIngredient);
@@ -113,7 +124,10 @@ export default function SwapIngredientPage() {
                 <p>Swap for</p>
 
                 {swapAbleIngredients.map((swapAbleIngredient) => (
-                  <div className={styles.swap_for_ingredient}>
+                  <div
+                    key={swapAbleIngredient.id}
+                    className={styles.swap_for_ingredient}
+                  >
                     <input
                       type="radio"
                       name="swapAbleIngredient"
@@ -148,7 +162,12 @@ export default function SwapIngredientPage() {
               <a>Cancel</a>
             </Link>
 
-            <button onClick={handleSwapIngredient}>Swap</button>
+            <button
+              onClick={handleSwapIngredient}
+              disabled={!swapAbleIngredient}
+            >
+              Swap
+            </button>
           </div>
         </section>
       )}

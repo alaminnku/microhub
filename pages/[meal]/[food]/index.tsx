@@ -30,7 +30,24 @@ export default function FoodItemPage() {
     }
   }, [isUserLoading, user, router.isReady]);
 
-  console.log(foodItem);
+  // Swapped and static ingredients
+  const swappedIngredients = foodItem?.swapers!;
+  const staticIngredients = foodItem?.recipe.ingredients!;
+
+  const ingredients =
+    swappedIngredients?.length > 0
+      ? [
+          ...staticIngredients.filter((ingredient) =>
+            swappedIngredients.some(
+              (swapper) => swapper.ingredientId !== ingredient.id
+            )
+          ),
+          // Return the ingredients of swapped items
+          ...swappedIngredients.map(
+            (swappedIngredient) => swappedIngredient.swapIngredientId
+          ),
+        ]
+      : foodItem?.recipe.ingredients;
 
   return (
     <main>

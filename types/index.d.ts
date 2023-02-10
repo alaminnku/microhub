@@ -70,7 +70,14 @@ export interface IFoodItem {
   };
   quantity: number;
   serving: string;
-  swapers: any[];
+  swapers: {
+    consumerId: number;
+    createdAt: string;
+    foodItemId: number;
+    id: number;
+    ingredientId: number;
+    swapIngredientId: number;
+  }[];
   title: string;
 }
 
