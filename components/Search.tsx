@@ -7,13 +7,16 @@ import { ISearchProps } from "types";
 export default function Search({ path, setResults }: ISearchProps) {
   const [searchValue, setSearchValue] = useState("");
 
+  // Handle search
   async function handleSearch(e: FormEvent) {
     e.preventDefault();
 
     try {
+      // Make request to the backend
       const response = await axiosInstance.get(`/${path}${searchValue}`);
 
-      setResults(response.data.data.data.results);
+      // Update state
+      setResults(response.data.data.data);
     } catch (err) {
       console.log(err);
     }

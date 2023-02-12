@@ -2,10 +2,10 @@ import { IFoodItem } from "types";
 import { useUser } from "@context/User";
 import { useRouter } from "next/router";
 import Macros from "@components/Macros";
-import { axiosInstance, calculateMacro, days } from "@utils/index";
 import { useEffect, useState } from "react";
 import { AiOutlinePlus } from "react-icons/ai";
 import styles from "@styles/HomePage.module.css";
+import { calculateMacro, days } from "@utils/index";
 import MealPlanItem from "@components/MealPlanItem";
 import { MdKeyboardArrowRight } from "react-icons/md";
 import MealPlanSectionHeader from "@components/MealPlanSectionHeader";
@@ -49,8 +49,6 @@ export default function HomePage() {
       console.log("hello");
     }
   }
-
-  console.log(user?.program);
 
   return (
     <main className={styles.home_page}>
