@@ -204,6 +204,11 @@ export interface IAlertContext {
   setAlerts: Dispatch<SetStateAction<IAlert[]>>;
 }
 
+export interface IPreBuiltRecipeContext {
+  preBuiltRecipes: IPreBuiltRecipe[];
+  setPreBuiltRecipes: Dispatch<SetStateAction<IPreBuiltRecipe[]>>;
+}
+
 interface IBooleanStateProps {
   isOpen: boolean;
   setIsOpen: Dispatch<SetStateAction<boolean>>;
@@ -234,4 +239,45 @@ export interface ISwapAbleIngredient {
 
 export interface ISearchProps {
   handleSearch: (e: FormEvent) => Promise<void>;
+}
+
+export interface IPreBuiltRecipe {
+  id: number;
+  title: string;
+  image: string;
+  nutrition: {
+    ingredients: {
+      id: number;
+      name: string;
+      amount: number;
+      unit: string;
+      fat: number;
+      cals: number;
+      carbs: number;
+      protein: number;
+      nutrients: {
+        name: string;
+        amount: number;
+        unit: string;
+        percentOfDailyNeeds: number;
+      }[];
+      fatPercentage: number;
+      carbsPercentage: number;
+      proteinPercentage: number;
+    }[];
+  };
+}
+
+export interface IPreBuiltRecipeIngredient {
+  id: number;
+  name: string;
+  amount: number;
+  unit: string;
+  fat: number;
+  cals: number;
+  carbs: number;
+  protein: number;
+  fatPercentage: number;
+  carbsPercentage: number;
+  proteinPercentage: number;
 }

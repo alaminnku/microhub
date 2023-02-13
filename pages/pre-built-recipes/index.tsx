@@ -1,13 +1,15 @@
-import { FormEvent, useState } from "react";
-import Image from "next/image";
-import { axiosInstance } from "@utils/index";
-import Search from "@components/Search";
-import styles from "@styles/PreBuiltRecipes.module.css";
 import Link from "next/link";
+import Image from "next/image";
+import Search from "@components/Search";
+import { FormEvent, useState } from "react";
+import { axiosInstance } from "@utils/index";
+import styles from "@styles/PreBuiltRecipes.module.css";
+
+import { usePreBuiltRecipe } from "@context/PreBuiltRecipe";
 
 export default function PreBuiltRecipesPage() {
   const [search, setSearch] = useState("");
-  const [recipes, setRecipes] = useState([]);
+  const { preBuiltRecipes, setPreBuiltRecipes } = usePreBuiltRecipe();
   const [recipe, setRecipe] = useState({
     name: "",
     fat: 0,
@@ -34,7 +36,7 @@ export default function PreBuiltRecipesPage() {
         `/recipes/search?search=${search}&number=10`
       );
 
-      setRecipes(response.data.data.results);
+      setPreBuiltRecipes(response.data.data.results);
     } catch (err) {
       console.log(err);
     } finally {
@@ -42,91 +44,91 @@ export default function PreBuiltRecipesPage() {
     }
   }
 
-  function handleClick(index: number) {
-    const selectedRecipe = recipes[index]?.nutrition.ingredients;
+  // function handleClick(index: number) {
+  //   const selectedRecipe = recipes[index]?.nutrition.ingredients;
 
-    setIngredients(selectedRecipe);
+  //   setIngredients(selectedRecipe);
 
-    const processedRecipe = selectedRecipe.map((recipe) => {
-      let obj = {
-        fat: 0,
-        cals: 0,
-        unit: 0,
-        name: "",
-        carbs: 0,
-        amount: 0,
-        image: "",
-        protein: 0,
-        spoon_id: 0,
-        fatPercentage: 0,
-        carbsPercentage: 0,
-        proteinPercentage: 0,
-      };
+  //   const processedRecipe = selectedRecipe.map((recipe) => {
+  //     let obj = {
+  //       fat: 0,
+  //       cals: 0,
+  //       unit: 0,
+  //       name: "",
+  //       carbs: 0,
+  //       amount: 0,
+  //       image: "",
+  //       protein: 0,
+  //       spoon_id: 0,
+  //       fatPercentage: 0,
+  //       carbsPercentage: 0,
+  //       proteinPercentage: 0,
+  //     };
 
-      obj.spoon_id = recipe.id;
-      obj.name = recipe.name;
-      obj.amount = recipe.amount;
-      obj.unit = recipe.unit || "not found";
-      obj.image = recipe.image || "image.jpg";
-      obj.fat = recipe.nutrients.find((item) => item.name == "Fat").amount;
-      obj.protein = recipe.nutrients.find(
-        (item) => item.name == "Protein"
-      ).amount;
-      obj.carbs = recipe.nutrients.find(
-        (item) => item.name == "Carbohydrates"
-      ).amount;
-      obj.cals = recipe.nutrients.find(
-        (item) => item.name == "Calories"
-      ).amount;
-      obj.proteinPercentage = recipe.nutrients.find(
-        (item) => item.name == "Protein"
-      ).percentOfDailyNeeds;
-      obj.fatPercentage = recipe.nutrients.find(
-        (item) => item.name == "Fat"
-      ).percentOfDailyNeeds;
-      obj.carbsPercentage = recipe.nutrients.find(
-        (item) => item.name == "Carbohydrates"
-      ).percentOfDailyNeeds;
+  //     obj.spoon_id = recipe.id;
+  //     obj.name = recipe.name;
+  //     obj.amount = recipe.amount;
+  //     obj.unit = recipe.unit || "not found";
+  //     obj.image = recipe.image || "image.jpg";
+  //     obj.fat = recipe.nutrients.find((item) => item.name == "Fat").amount;
+  //     obj.protein = recipe.nutrients.find(
+  //       (item) => item.name == "Protein"
+  //     ).amount;
+  //     obj.carbs = recipe.nutrients.find(
+  //       (item) => item.name == "Carbohydrates"
+  //     ).amount;
+  //     obj.cals = recipe.nutrients.find(
+  //       (item) => item.name == "Calories"
+  //     ).amount;
+  //     obj.proteinPercentage = recipe.nutrients.find(
+  //       (item) => item.name == "Protein"
+  //     ).percentOfDailyNeeds;
+  //     obj.fatPercentage = recipe.nutrients.find(
+  //       (item) => item.name == "Fat"
+  //     ).percentOfDailyNeeds;
+  //     obj.carbsPercentage = recipe.nutrients.find(
+  //       (item) => item.name == "Carbohydrates"
+  //     ).percentOfDailyNeeds;
 
-      return obj;
-    });
+  //     return obj;
+  //   });
 
-    const fatTotal = processedRecipe.reduce((acc, curr) => acc + curr.fat, 0);
+  //   const fatTotal = processedRecipe.reduce((acc, curr) => acc + curr.fat, 0);
 
-    const proteinTotal = processedRecipe.reduce(
-      (acc, curr) => acc + curr.protein,
-      0
-    );
-    const calsTotal = processedRecipe.reduce((acc, curr) => acc + curr.cals, 0);
-    const carbsTotal = processedRecipe.reduce(
-      (acc, curr) => acc + curr.carbs,
-      0
-    );
-    const proteinPercentageTotal = processedRecipe.reduce(
-      (acc, curr) => acc + curr.proteinPercentage,
-      0
-    );
-    const fatPercentageTotal = processedRecipe.reduce(
-      (acc, curr) => acc + curr.fatPercentage,
-      0
-    );
-    const carbsPercentageTotal = processedRecipe.reduce(
-      (acc, curr) => acc + curr.carbsPercentage,
-      0
-    );
+  //   const proteinTotal = processedRecipe.reduce(
+  //     (acc, curr) => acc + curr.protein,
+  //     0
+  //   );
+  //   const calsTotal = processedRecipe.reduce((acc, curr) => acc + curr.cals, 0);
+  //   const carbsTotal = processedRecipe.reduce(
+  //     (acc, curr) => acc + curr.carbs,
+  //     0
+  //   );
+  //   const proteinPercentageTotal = processedRecipe.reduce(
+  //     (acc, curr) => acc + curr.proteinPercentage,
+  //     0
+  //   );
+  //   const fatPercentageTotal = processedRecipe.reduce(
+  //     (acc, curr) => acc + curr.fatPercentage,
+  //     0
+  //   );
+  //   const carbsPercentageTotal = processedRecipe.reduce(
+  //     (acc, curr) => acc + curr.carbsPercentage,
+  //     0
+  //   );
 
-    setRecipe({
-      ...recipe,
-      fat: fatTotal,
-      calories: calsTotal,
-      protein: proteinTotal,
-      carbohydrates: carbsTotal,
-      ingredients: processedRecipe,
-      fatPercentage: fatPercentageTotal,
-      proteinPercentage: proteinPercentageTotal,
-      carbohydratesPercentage: carbsPercentageTotal,
-    });
-  }
+  //   setRecipe({
+  //     ...recipe,
+  //     fat: fatTotal,
+  //     calories: calsTotal,
+  //     protein: proteinTotal,
+  //     carbohydrates: carbsTotal,
+  //     ingredients: processedRecipe,
+  //     fatPercentage: fatPercentageTotal,
+  //     proteinPercentage: proteinPercentageTotal,
+  //     carbohydratesPercentage: carbsPercentageTotal,
+  //   });
+  // }
 
   async function saveRecipe() {
     if (recipe.name.trim() != "") {
@@ -150,21 +152,24 @@ export default function PreBuiltRecipesPage() {
         <Search handleSearch={searchRecipes} />
       </div>
 
-      {recipes.length > 0 && (
+      {preBuiltRecipes.length > 0 && (
         <div className={styles.recipes}>
-          {recipes.map((recipe) => (
-            <Link key={recipe.id} href={`/pre-built-recipes/${recipe.id}`}>
+          {preBuiltRecipes.map((preBuiltRecipe) => (
+            <Link
+              key={preBuiltRecipe.id}
+              href={`/pre-built-recipes/${preBuiltRecipe.id}`}
+            >
               <a className={styles.recipe}>
                 <div className={styles.recipe_image}>
                   <Image
                     width={1}
                     height={1}
-                    src={recipe.image}
-                    layout="responsive"
                     objectFit="cover"
+                    layout="responsive"
+                    src={preBuiltRecipe.image}
                   />
                 </div>
-                <p>{recipe.title}</p>
+                <p>{preBuiltRecipe.title}</p>
               </a>
             </Link>
           ))}
