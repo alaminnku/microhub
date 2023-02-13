@@ -36,7 +36,7 @@ export default function FoodItemPage() {
         // Update states
         setFoodItem(foodItem);
         setIngredients(
-          swappedIngredients.length > 0
+          swappedIngredients?.length > 0
             ? [
                 ...staticIngredients.filter((ingredient) =>
                   swappedIngredients.some(
@@ -51,6 +51,8 @@ export default function FoodItemPage() {
       }
     }
   }, [isUserLoading, user, router.isReady]);
+
+  // console.log(JSON.parse(foodItem?.swapers[0].ingredientInfo));
 
   return (
     <main>

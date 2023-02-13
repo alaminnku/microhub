@@ -4,7 +4,7 @@ import { useUser } from "@context/User";
 import { useRouter } from "next/router";
 import Search from "@components/Search";
 import { TfiReload } from "react-icons/tfi";
-import { useEffect, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { IoCloseOutline } from "react-icons/io5";
 import styles from "@styles/Ingredient.module.css";
 import { axiosInstance } from "@utils/index";
@@ -45,13 +45,34 @@ export default function SwapIngredientPage() {
         swapIngredientId: swapAbleIngredient?.id,
       });
 
-      console.log(response);
+      console.log(JSON.parse(response.data.data.swap.ingredientInfo));
     } catch (err) {
       console.log(err);
     }
   }
 
-  console.log(swapAbleIngredient);
+  // Handle search
+  async function handleSwapAbleIngredients(e: FormEvent) {
+    e.preventDefault();
+
+    try {
+      // Make request to the backend
+      const response = await axiosInstance.get(
+        `/programs/swaps?ingredient_id=${ingredient?.id}&gap=${
+          gap ? gap / 100 : 0.2
+        }&swap_ingredient=`
+      );
+
+      console.log(response.data.data);
+
+      // Update state
+      setSwapAbleIngredients(response.data.data.data);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  // console.log(swapAbleIngredient, ingredient);
 
   return (
     <main className={styles.swap_ingredient}>
@@ -112,12 +133,7 @@ export default function SwapIngredientPage() {
 
             <div className={styles.search}>
               <label>Search ingredients</label>
-              <Search
-                path={`programs/swaps?ingredient_id=${ingredient.id}&gap=${
-                  gap ? gap / 100 : 0.2
-                }&swap_ingredient=`}
-                setResults={setSwapAbleIngredients}
-              />
+              <Search handleSearch={handleSwapAbleIngredients} />
             </div>
 
             {swapAbleIngredients.length > 0 && (
@@ -140,22 +156,35 @@ export default function SwapIngredientPage() {
               </div>
             )}
 
-            <div className={styles.ingredient_details}>
-              <div className={styles.protein}>
-                <p>0 g</p>
-                <span>Protein</span>
+            {swapAbleIngredient && (
+              <div className={styles.ingredient_details}>
+                <div className={styles.protein}>
+                  <p>
+                    {swapAbleIngredient.nutrition.caloricBreakdown.percentFat} g
+                  </p>
+                  <span>Protein</span>
+                </div>
+                <span className={styles.border}></span>
+                <div className={styles.fats}>
+                  <p>
+                    {
+                      swapAbleIngredient.nutrition.caloricBreakdown
+                        .percentProtein
+                    }{" "}
+                    g
+                  </p>
+                  <span>Fats</span>
+                </div>
+                <span className={styles.border}></span>
+                <div className={styles.carbs}>
+                  <p>
+                    {swapAbleIngredient.nutrition.caloricBreakdown.percentCarbs}{" "}
+                    g
+                  </p>
+                  <span>Carbs</span>
+                </div>
               </div>
-              <span className={styles.border}></span>
-              <div className={styles.fats}>
-                <p>0 g</p>
-                <span>Fats</span>
-              </div>
-              <span className={styles.border}></span>
-              <div className={styles.carbs}>
-                <p>0 g</p>
-                <span>Carbs</span>
-              </div>
-            </div>
+            )}
           </div>
 
           <div className={styles.buttons}>

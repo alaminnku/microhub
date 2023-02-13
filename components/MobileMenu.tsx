@@ -9,6 +9,7 @@ import { IoIosNotifications } from "react-icons/io";
 import { IoCalendarSharp } from "react-icons/io5";
 import { currentYear, axiosInstance } from "@utils/index";
 import { AiFillMessage } from "react-icons/ai";
+import { GiMeal } from "react-icons/gi";
 
 export default function MobileMenu({ isOpen, setIsOpen }: IMobileMenuProps) {
   // Hooks
@@ -82,6 +83,14 @@ export default function MobileMenu({ isOpen, setIsOpen }: IMobileMenuProps) {
           <Link href="/create-meal-plans">
             <a>
               <IoCalendarSharp /> Create plans
+            </a>
+          </Link>
+        </li>
+
+        <li onClick={closeMobileMenu} className={!user ? styles.hide : ""}>
+          <Link href="/pre-built-recipes">
+            <a>
+              <GiMeal /> Pre-built recipes
             </a>
           </Link>
         </li>

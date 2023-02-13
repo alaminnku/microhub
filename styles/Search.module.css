@@ -1,4 +1,4 @@
-.search {
+.search_form {
   display: flex;
   align-items: center;
   padding: 0rem 1rem;
@@ -8,11 +8,11 @@
   border: 1px solid var(--border_color);
 }
 
-.search svg {
+.search_form svg {
   font-size: 1.25rem;
 }
 
-.search input {
+.search_form input {
   width: 90%;
   outline: none;
   font-size: 1rem;
@@ -20,6 +20,6 @@
   border-right: 1px solid var(--border_color);
 }
 
-.search input::placeholder {
+.search_form input::placeholder {
   font-size: 16px;
 }

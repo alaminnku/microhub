@@ -233,6 +233,5 @@ export interface ISwapAbleIngredient {
 }
 
 export interface ISearchProps {
-  path: string;
-  setResults: Dispatch<SetStateAction<ISwapAbleIngredient[]>>;
+  handleSearch: (e: FormEvent) => Promise<void>;
 }
