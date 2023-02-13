@@ -1,4 +1,5 @@
 /** @type {import('next').NextConfig} */
+
 const withPWA = require("next-pwa")({
   dest: "public",
   register: true,
@@ -9,6 +10,9 @@ const withPWA = require("next-pwa")({
 const nextConfig = withPWA({
   reactStrictMode: true,
   swcMinify: true,
+  images: {
+    domains: ["spoonacular.com"],
+  },
 });
 
 module.exports = nextConfig;

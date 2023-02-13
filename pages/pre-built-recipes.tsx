@@ -3,6 +3,7 @@ import Image from "next/image";
 import { axiosInstance } from "@utils/index";
 import Search from "@components/Search";
 import styles from "@styles/PreBuiltRecipes.module.css";
+import Link from "next/link";
 
 export default function PreBuiltRecipesPage() {
   const [search, setSearch] = useState("");
@@ -148,6 +149,27 @@ export default function PreBuiltRecipesPage() {
         <h2>Search recipes</h2>
         <Search handleSearch={searchRecipes} />
       </div>
+
+      {recipes.length > 0 && (
+        <div className={styles.recipes}>
+          {recipes.map((recipe) => (
+            <Link key={recipe.id} href={`/pre-built-recipes/${recipe.id}`}>
+              <a className={styles.recipe}>
+                <div className={styles.recipe_image}>
+                  <Image
+                    width={1}
+                    height={1}
+                    src={recipe.image}
+                    layout="responsive"
+                    objectFit="cover"
+                  />
+                </div>
+                <p>{recipe.title}</p>
+              </a>
+            </Link>
+          ))}
+        </div>
+      )}
 
       {/* <div>
         <Image src={data.image} width={50} height={50} layout="fixed" />

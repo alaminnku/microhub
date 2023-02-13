@@ -5,3 +5,26 @@
 .search h2 {
   margin-bottom: 0.75rem;
 }
+
+.recipes {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.recipe p {
+  font-size: 0.9rem;
+  overflow: hidden;
+  color: var(--black);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.recipe_image {
+  margin-bottom: 0.5rem;
+}
+
+.recipe_image img {
+  border-radius: 0.25rem;
+}
