@@ -18,7 +18,13 @@ export default function Search({ handleSearch }: ISearchProps) {
         value={searchValue}
         onChange={(e) => setSearchValue(e.target.value)}
       />
-      <BiSearch onClick={(e) => handleSearch(e, searchValue)} />
+
+      <button
+        disabled={!searchValue}
+        onClick={(e) => handleSearch(e, searchValue)}
+      >
+        <BiSearch />
+      </button>
     </form>
   );
 }
