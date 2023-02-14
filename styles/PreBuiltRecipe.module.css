@@ -1,0 +1,78 @@
+.pre_built_recipe {
+  padding: var(--section_padding);
+}
+
+.table {
+  overflow-y: scroll;
+}
+
+.pre_built_recipe h2 {
+  margin-bottom: 0.75rem;
+}
+
+.drag_left {
+  top: 50%;
+  left: 50%;
+  width: 2rem;
+  position: absolute;
+  translate: -50% -50%;
+}
+
+.pre_built_recipe table {
+  width: 100%;
+  margin-bottom: 1.25rem;
+  border-collapse: collapse;
+}
+
+.pre_built_recipe table th,
+.pre_built_recipe table td {
+  text-align: left;
+  padding: 1rem;
+}
+
+.pre_built_recipe table th:last-child,
+.pre_built_recipe table td:last-child {
+  text-align: right;
+}
+
+.pre_built_recipe table thead tr {
+  background-color: var(--almost_white);
+}
+
+.pre_built_recipe table tbody tr {
+  border-bottom: 1px solid var(--border_color);
+}
+
+.pre_built_recipe table td {
+  font-weight: 500;
+  color: var(--gray);
+  font-size: 0.9rem;
+  text-transform: capitalize;
+}
+
+.save_recipe {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.save_recipe input {
+  padding: 14px;
+  flex-grow: 1;
+  border-radius: 0.25rem 0rem 0rem 0.25rem;
+  border: 1px solid var(--border_color);
+}
+
+.save_recipe input:focus {
+  outline: none;
+}
+
+.save_recipe button {
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 14px 32px;
+  background: var(--blue);
+  color: var(--almost_white);
+  border-radius: 0rem 0.25rem 0.25rem 0rem;
+}

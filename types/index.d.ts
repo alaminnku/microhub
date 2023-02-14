@@ -26,18 +26,18 @@ export interface INutritionist {
 }
 
 export interface IIngredient {
-  amount: number;
+  id: number;
+  fat: number;
+  unit: string;
+  name: string;
   cals: number;
   carbs: number;
-  createdAt: string;
-  fat: number;
-  id: number;
   image: string;
-  name: string;
+  amount: number;
   protein: number;
   recipeId: number;
   spoon_id: string;
-  unit: string;
+  createdAt: string;
 }
 
 export interface IFoodItem {
@@ -204,7 +204,7 @@ export interface IAlertContext {
   setAlerts: Dispatch<SetStateAction<IAlert[]>>;
 }
 
-export interface IPreBuiltRecipeContext {
+export interface IDataContext {
   preBuiltRecipes: IPreBuiltRecipe[];
   setPreBuiltRecipes: Dispatch<SetStateAction<IPreBuiltRecipe[]>>;
 }
@@ -238,7 +238,14 @@ export interface ISwapAbleIngredient {
 }
 
 export interface ISearchProps {
-  handleSearch: (e: FormEvent) => Promise<void>;
+  handleSearch: (e: FormEvent, searchValue: string) => Promise<void>;
+}
+
+export interface INutrient {
+  name: string;
+  amount: number;
+  unit: string;
+  percentOfDailyNeeds: number;
 }
 
 export interface IPreBuiltRecipe {
@@ -255,12 +262,7 @@ export interface IPreBuiltRecipe {
       cals: number;
       carbs: number;
       protein: number;
-      nutrients: {
-        name: string;
-        amount: number;
-        unit: string;
-        percentOfDailyNeeds: number;
-      }[];
+      nutrients: INutrient[];
       fatPercentage: number;
       carbsPercentage: number;
       proteinPercentage: number;
@@ -269,14 +271,15 @@ export interface IPreBuiltRecipe {
 }
 
 export interface IPreBuiltRecipeIngredient {
-  id: number;
-  name: string;
-  amount: number;
-  unit: string;
   fat: number;
+  name: string;
+  unit: string;
   cals: number;
   carbs: number;
+  image: string;
+  amount: number;
   protein: number;
+  spoon_id: number;
   fatPercentage: number;
   carbsPercentage: number;
   proteinPercentage: number;

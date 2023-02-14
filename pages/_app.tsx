@@ -7,7 +7,7 @@ import { AppProps } from "next/app";
 import UserProvider from "@context/User";
 import Header from "@components/Header";
 import AlertProvider from "@context/Alert";
-import PreBuiltRecipeProvider from "@context/PreBuiltRecipe";
+import DataProvider from "@context/Data";
 
 Router.events.on("routeChangeStart", () => NProgress.start());
 Router.events.on("routeChangeComplete", () => NProgress.done());
@@ -16,12 +16,12 @@ Router.events.on("routeChangeError", () => NProgress.done());
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <AlertProvider>
-      <PreBuiltRecipeProvider>
+      <DataProvider>
         <UserProvider>
           <Header />
           <Component {...pageProps} />
         </UserProvider>
-      </PreBuiltRecipeProvider>
+      </DataProvider>
     </AlertProvider>
   );
 }

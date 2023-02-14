@@ -52,7 +52,7 @@ export default function SwapIngredientPage() {
   }
 
   // Handle search
-  async function handleSwapAbleIngredients(e: FormEvent) {
+  async function searchSwapAbleIngredients(e: FormEvent, searchValue: string) {
     e.preventDefault();
 
     try {
@@ -60,7 +60,7 @@ export default function SwapIngredientPage() {
       const response = await axiosInstance.get(
         `/programs/swaps?ingredient_id=${ingredient?.id}&gap=${
           gap ? gap / 100 : 0.2
-        }&swap_ingredient=`
+        }&swap_ingredient=${searchValue}`
       );
 
       console.log(response.data.data);
@@ -133,7 +133,7 @@ export default function SwapIngredientPage() {
 
             <div className={styles.search}>
               <label>Search ingredients</label>
-              <Search handleSearch={handleSwapAbleIngredients} />
+              <Search handleSearch={searchSwapAbleIngredients} />
             </div>
 
             {swapAbleIngredients.length > 0 && (
