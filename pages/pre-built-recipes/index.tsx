@@ -7,14 +7,14 @@ import { axiosInstance } from "@utils/index";
 import styles from "@styles/PreBuiltRecipes.module.css";
 
 export default function PreBuiltRecipesPage() {
-  const [isLoading, setLoading] = useState(false);
+  const [isSearching, setIsSearching] = useState(false);
   const { preBuiltRecipes, setPreBuiltRecipes } = useData();
 
   async function searchRecipes(e: FormEvent, searchValue: string) {
     e.preventDefault();
 
     try {
-      setLoading(true);
+      setIsSearching(true);
 
       const response = await axiosInstance.get(
         `/recipes/search?search=${searchValue}&number=10`
@@ -24,7 +24,7 @@ export default function PreBuiltRecipesPage() {
     } catch (err) {
       console.log(err);
     } finally {
-      setLoading(false);
+      setIsSearching(false);
     }
   }
 
@@ -32,7 +32,7 @@ export default function PreBuiltRecipesPage() {
     <main className={styles.pre_built_recipes}>
       <div className={styles.search}>
         <h2>Search recipes</h2>
-        <Search handleSearch={searchRecipes} />
+        <Search isSearching={isSearching} handleSearch={searchRecipes} />
       </div>
 
       {preBuiltRecipes.length > 0 && (

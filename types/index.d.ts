@@ -238,6 +238,7 @@ export interface ISwapAbleIngredient {
 }
 
 export interface ISearchProps {
+  isSearching: boolean;
   handleSearch: (e: FormEvent, searchValue: string) => Promise<void>;
 }
 

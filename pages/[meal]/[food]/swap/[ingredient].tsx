@@ -13,6 +13,7 @@ export default function SwapIngredientPage() {
   const router = useRouter();
   const [gap, setGap] = useState<number>();
   const { isUserLoading, user } = useUser();
+  const [isSearching, setIsSearching] = useState(false);
   const [ingredient, setIngredient] = useState<IIngredient>();
   const [swapAbleIngredient, setSwapAbleIngredient] =
     useState<ISwapAbleIngredient>();
@@ -56,6 +57,8 @@ export default function SwapIngredientPage() {
     e.preventDefault();
 
     try {
+      setIsSearching(true);
+
       // Make request to the backend
       const response = await axiosInstance.get(
         `/programs/swaps?ingredient_id=${ingredient?.id}&gap=${
@@ -69,6 +72,8 @@ export default function SwapIngredientPage() {
       setSwapAbleIngredients(response.data.data.data);
     } catch (err) {
       console.log(err);
+    } finally {
+      setIsSearching(false);
     }
   }
 
@@ -133,7 +138,10 @@ export default function SwapIngredientPage() {
 
             <div className={styles.search}>
               <label>Search ingredients</label>
-              <Search handleSearch={searchSwapAbleIngredients} />
+              <Search
+                isSearching={isSearching}
+                handleSearch={searchSwapAbleIngredients}
+              />
             </div>
 
             {swapAbleIngredients.length > 0 && (
