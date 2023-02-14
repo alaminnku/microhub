@@ -160,26 +160,27 @@ export default function SwapIngredientPage() {
               <div className={styles.ingredient_details}>
                 <div className={styles.protein}>
                   <p>
-                    {swapAbleIngredient.nutrition.caloricBreakdown.percentFat} g
+                    {/* {swapAbleIngredient.nutrition.caloricBreakdown.percentFat} */}
+                    0 g
                   </p>
                   <span>Protein</span>
                 </div>
                 <span className={styles.border}></span>
                 <div className={styles.fats}>
                   <p>
-                    {
+                    {/* {
                       swapAbleIngredient.nutrition.caloricBreakdown
                         .percentProtein
-                    }{" "}
-                    g
+                    } */}
+                    0 g
                   </p>
                   <span>Fats</span>
                 </div>
                 <span className={styles.border}></span>
                 <div className={styles.carbs}>
                   <p>
-                    {swapAbleIngredient.nutrition.caloricBreakdown.percentCarbs}{" "}
-                    g
+                    {/* {swapAbleIngredient.nutrition.caloricBreakdown.percentCarbs} */}
+                    0 g
                   </p>
                   <span>Carbs</span>
                 </div>

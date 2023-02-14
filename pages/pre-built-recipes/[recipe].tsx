@@ -1,8 +1,8 @@
 import { useRouter } from "next/router";
+import { useData } from "@context/Data";
 import { useEffect, useState } from "react";
 import { axiosInstance } from "@utils/index";
 import styles from "@styles/PreBuiltRecipe.module.css";
-import { useData } from "@context/Data";
 import { INutrient, IPreBuiltRecipe, IPreBuiltRecipeIngredient } from "types";
 
 export default function PreBuiltRecipePage() {
@@ -27,6 +27,7 @@ export default function PreBuiltRecipePage() {
       const findUnit = (nutrients: INutrient[], unit: string) =>
         nutrients.find((nutrient) => nutrient.name === unit);
 
+      // Update states
       if (recipe) {
         setPreBuiltRecipe(recipe);
         setIngredients(
@@ -54,6 +55,7 @@ export default function PreBuiltRecipePage() {
     }
   }, [preBuiltRecipes, router.isReady]);
 
+  // Save recipe
   async function saveRecipe() {
     // Calculate total
     const calculateTotal = (
@@ -76,9 +78,10 @@ export default function PreBuiltRecipePage() {
       carbohydratesPercentage: calculateTotal(ingredients, "carbsPercentage"),
     };
 
+    // Make request to the backend
     try {
       const response = await axiosInstance.post(
-        "https://microhubbackend.microhubltd.com.au/api/v1/recipes",
+        "/consumers/programs",
         saveAbleRecipe
       );
 
@@ -117,9 +120,9 @@ export default function PreBuiltRecipePage() {
                     <th>Protein</th>
                     <th>Calories</th>
                     <th>Carbs</th>
-                    <th>Fat%</th>
-                    <th>Carbs%</th>
-                    <th>Protein%</th>
+                    <th>Fat(%)</th>
+                    <th>Carbs(%)</th>
+                    <th>Protein(%)</th>
                   </tr>
                 </thead>
 

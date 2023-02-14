@@ -8,6 +8,7 @@ import {
   HiArrowSmDown,
   HiArrowSmUp,
 } from "react-icons/hi";
+import { axiosInstance } from "@utils/index";
 
 export default function UpdateWeightPage() {
   // Hooks
@@ -15,12 +16,26 @@ export default function UpdateWeightPage() {
   const { user, isUserLoading } = useUser();
   const [weight, setWeight] = useState<number>();
 
+  console.log(user);
+
   // Check user
   useEffect(() => {
     if (!isUserLoading && !user) {
       router.push("/login");
     }
+
+    getWeight();
   }, [isUserLoading, user]);
+
+  async function getWeight() {
+    try {
+      const response = await axiosInstance.get("/trainers/consumers");
+
+      console.log(response);
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
   async function handleUpdateWeight(e: FormEvent) {
     e.preventDefault();
