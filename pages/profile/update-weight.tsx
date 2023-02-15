@@ -9,7 +9,13 @@ export default function UpdateWeightPage() {
   // Hooks
   const router = useRouter();
   const { user, isUserLoading } = useUser();
-  const [weight, setWeight] = useState<number>();
+  const [consumerDetails, setConsumerDetails] = useState({
+    weight: "",
+    height: "",
+  });
+
+  // Destructure data
+  const { weight, height } = consumerDetails;
 
   // Check user
   useEffect(() => {
@@ -23,7 +29,10 @@ export default function UpdateWeightPage() {
     e.preventDefault();
 
     try {
-      const response = await axiosInstance.patch("/consumers");
+      const response = await axiosInstance.patch("/consumers", {
+        weight: +weight,
+        height: +height,
+      });
 
       console.log(response);
     } catch (err) {
@@ -40,9 +49,25 @@ export default function UpdateWeightPage() {
           <form>
             <input
               type="number"
-              placeholder="Enter your current weight"
               value={weight}
-              onChange={(e) => setWeight(+e.target.value)}
+              placeholder="Enter your current weight"
+              onChange={(e) =>
+                setConsumerDetails((currState) => ({
+                  ...currState,
+                  weight: e.target.value,
+                }))
+              }
+            />
+            <input
+              type="number"
+              value={height}
+              placeholder="Enter your current height"
+              onChange={(e) =>
+                setConsumerDetails((currState) => ({
+                  ...currState,
+                  height: e.target.value,
+                }))
+              }
             />
             <button onClick={handleAddWeight}>Save</button>
           </form>
