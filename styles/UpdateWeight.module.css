@@ -1,5 +1,6 @@
 .update_weight {
   padding: var(--section_padding);
+  padding-top: 1.5rem;
 }
 
 .update_weight h2 {
