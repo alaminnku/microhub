@@ -7,19 +7,19 @@ import BackButton from "@components/BackButton";
 
 export default function MyBodyPage() {
   const router = useRouter();
-  const { user } = useUser();
+  const { isUserLoading, user } = useUser();
 
   useEffect(() => {
-    if (!user && router.isReady) {
+    if (!isUserLoading && !user && router.isReady) {
       router.push("/login");
     } else if (!user?.consumer) {
       router.push("/add-details");
     }
-  }, [user, router.isReady]);
+  }, [isUserLoading, user, router.isReady]);
 
   return (
     <main>
-      {user && (
+      {!isUserLoading && user && user.consumer && (
         <>
           <BackButton url="/profile" />
 
@@ -29,14 +29,14 @@ export default function MyBodyPage() {
             <div className={styles.details}>
               <div className={styles.item}>
                 <p>
-                  {user?.consumer?.weight} <span>kg</span>
+                  {user.consumer.consumer_details[0].weight} <span>kg</span>
                 </p>
                 <p>Weight</p>
               </div>
 
               <div className={styles.item}>
                 <p>
-                  {user?.consumer?.height} <span>cm</span>
+                  {user.consumer.consumer_details[0].height} <span>cm</span>
                 </p>
                 <p>Height</p>
               </div>
