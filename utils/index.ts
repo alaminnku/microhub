@@ -24,16 +24,16 @@ export function showSuccessAlert(
 
 // Error alert
 export function showErrorAlert(
-  err: AxiosError<IAxiosError>,
+  err: AxiosError<IAxiosError> | string,
   setAlerts: Dispatch<SetStateAction<IAlert[]>>
 ) {
   setAlerts((currState) =>
-    err.response
-      ? [
+    typeof err === "string"
+      ? [...currState, { message: err, type: "failed" }]
+      : [
           ...currState,
           { message: err.response?.data.message as string, type: "failed" },
         ]
-      : [...currState, { message: "Something wen't wrong", type: "failed" }]
   );
 }
 

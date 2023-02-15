@@ -1,18 +1,21 @@
 import Link from "next/link";
-import { IIngredient, ISwapAbleIngredient } from "types";
 import { useUser } from "@context/User";
 import { useRouter } from "next/router";
 import Search from "@components/Search";
+import { useAlert } from "@context/Alert";
 import { TfiReload } from "react-icons/tfi";
-import { FormEvent, useEffect, useState } from "react";
 import { IoCloseOutline } from "react-icons/io5";
 import styles from "@styles/Ingredient.module.css";
-import { axiosInstance } from "@utils/index";
+import { FormEvent, useEffect, useState } from "react";
+import { IAxiosError, IIngredient, ISwapAbleIngredient } from "types";
+import { axiosInstance, showErrorAlert } from "@utils/index";
+import { AxiosError } from "axios";
 
 export default function SwapIngredientPage() {
   const router = useRouter();
-  const [gap, setGap] = useState<number>();
+  const { setAlerts } = useAlert();
   const { isUserLoading, user } = useUser();
+  const [gap, setGap] = useState<string>("");
   const [isSearching, setIsSearching] = useState(false);
   const [ingredient, setIngredient] = useState<IIngredient>();
   const [swapAbleIngredient, setSwapAbleIngredient] =
@@ -62,16 +65,20 @@ export default function SwapIngredientPage() {
       // Make request to the backend
       const response = await axiosInstance.get(
         `/programs/swaps?ingredient_id=${ingredient?.id}&gap=${
-          gap ? gap / 100 : 0.2
+          gap ? +gap / 100 : 0.2
         }&swap_ingredient=${searchValue}`
       );
 
-      console.log(response.data.data);
-
-      // Update state
-      setSwapAbleIngredients(response.data.data.data);
+      if (response.data.data.data.length === 0) {
+        // Show alert
+        showErrorAlert("No swap able ingredients found", setAlerts);
+      } else {
+        // Update state
+        setSwapAbleIngredients(response.data.data.data);
+      }
     } catch (err) {
-      console.log(err);
+      // Show alert
+      showErrorAlert(err as AxiosError<IAxiosError>, setAlerts);
     } finally {
       setIsSearching(false);
     }
@@ -132,7 +139,7 @@ export default function SwapIngredientPage() {
                 type="number"
                 value={gap}
                 placeholder="E.g 20"
-                onChange={(e) => setGap(+e.target.value)}
+                onChange={(e) => setGap(e.target.value)}
               />
             </div>
 
