@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { AxiosError } from "axios";
 import { useUser } from "@context/User";
 import { useRouter } from "next/router";
 import Search from "@components/Search";
@@ -7,9 +8,8 @@ import { TfiReload } from "react-icons/tfi";
 import { IoCloseOutline } from "react-icons/io5";
 import styles from "@styles/Ingredient.module.css";
 import { FormEvent, useEffect, useState } from "react";
-import { IAxiosError, IIngredient, ISwapAbleIngredient } from "types";
 import { axiosInstance, showErrorAlert } from "@utils/index";
-import { AxiosError } from "axios";
+import { IAxiosError, IIngredient, ISwapAbleIngredient } from "types";
 
 export default function SwapIngredientPage() {
   const router = useRouter();
