@@ -1,14 +1,9 @@
 import { useUser } from "@context/User";
 import { useRouter } from "next/router";
+import { axiosInstance } from "@utils/index";
 import styles from "@styles/UpdateWeight.module.css";
 import { FormEvent, useEffect, useState } from "react";
-import {
-  HiArrowNarrowDown,
-  HiArrowNarrowUp,
-  HiArrowSmDown,
-  HiArrowSmUp,
-} from "react-icons/hi";
-import { axiosInstance } from "@utils/index";
+import { HiArrowNarrowDown, HiArrowNarrowUp } from "react-icons/hi";
 
 export default function UpdateWeightPage() {
   // Hooks
@@ -16,20 +11,19 @@ export default function UpdateWeightPage() {
   const { user, isUserLoading } = useUser();
   const [weight, setWeight] = useState<number>();
 
-  console.log(user);
-
   // Check user
   useEffect(() => {
     if (!isUserLoading && !user) {
       router.push("/login");
     }
-
-    getWeight();
   }, [isUserLoading, user]);
 
-  async function getWeight() {
+  // Add weight to consumer details
+  async function handleAddWeight(e: FormEvent) {
+    e.preventDefault();
+
     try {
-      const response = await axiosInstance.get("/trainers/consumers");
+      const response = await axiosInstance.patch("/consumers");
 
       console.log(response);
     } catch (err) {
@@ -37,31 +31,11 @@ export default function UpdateWeightPage() {
     }
   }
 
-  async function handleUpdateWeight(e: FormEvent) {
-    e.preventDefault();
-
-    console.log(weight);
-  }
-
-  const weightHistory = [
-    {
-      weight: 165,
-      date: "Dec 10, 2022",
-    },
-    {
-      weight: 170,
-      date: "Jan 10, 2023",
-    },
-    {
-      weight: 160,
-      date: "Jan 18, 2023",
-    },
-  ];
   return (
     <main className={styles.update_weight}>
       <h2>Update weight</h2>
 
-      {!isUserLoading && user && (
+      {!isUserLoading && user?.consumer && (
         <section>
           <form>
             <input
@@ -70,39 +44,41 @@ export default function UpdateWeightPage() {
               value={weight}
               onChange={(e) => setWeight(+e.target.value)}
             />
-            <button onClick={handleUpdateWeight}>Save</button>
+            <button onClick={handleAddWeight}>Save</button>
           </form>
 
           <div className={styles.weight_history}>
             <p className={styles.history_title}>Weight history</p>
 
-            {weightHistory.length > 0 && (
+            {user.consumer.consumer_details.length > 0 && (
               <>
-                {weightHistory
-                  .sort(
-                    (a, b) =>
-                      new Date(b.date).getTime() - new Date(a.date).getTime()
-                  )
-                  .map((history, index) => (
+                {user.consumer.consumer_details.map(
+                  (consumerDetails, index) => (
                     <div className={styles.history} key={index}>
                       <div>
-                        <p>{history.weight} lbs</p>
-                        <span>{history.date}</span>
+                        <p>{consumerDetails.weight} kg</p>
+                        <span>
+                          {new Date(consumerDetails.to_date).toDateString()}
+                        </span>
                       </div>
 
-                      {index < weightHistory.length - 1 && (
-                        <>
-                          {weightHistory[index].weight -
-                            weightHistory[weightHistory.length - 1].weight >
-                          0 ? (
-                            <HiArrowNarrowUp className={styles.up} />
-                          ) : (
-                            <HiArrowNarrowDown className={styles.down} />
-                          )}
-                        </>
-                      )}
+                      {user.consumer &&
+                        index < user.consumer.consumer_details.length - 1 && (
+                          <>
+                            {user.consumer.consumer_details[index].weight -
+                              user.consumer.consumer_details[
+                                user.consumer.consumer_details.length - 1
+                              ].weight >
+                            0 ? (
+                              <HiArrowNarrowUp className={styles.up} />
+                            ) : (
+                              <HiArrowNarrowDown className={styles.down} />
+                            )}
+                          </>
+                        )}
                     </div>
-                  ))}
+                  )
+                )}
               </>
             )}
           </div>

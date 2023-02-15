@@ -148,6 +148,15 @@ export interface IUser {
       BODY_FAT_PCT: number;
       LEAN_BODY_MASS: number;
     };
+    consumer_details: {
+      consumerId: number;
+      createdAt: string;
+      from_date: string;
+      height: number;
+      id: number;
+      to_date: string;
+      weight: number;
+    }[];
     body_frame: string;
     createdAt: string;
     daily_targets: {

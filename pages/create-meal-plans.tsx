@@ -142,7 +142,7 @@ export default function CreateMealPlansPage() {
   async function saveProgram() {
     if (program.name.trim() != "") {
       try {
-        await axiosInstance.post("/programs", program);
+        await axiosInstance.post("/consumers/program", program);
       } catch (err) {
         console.log(err);
       }
