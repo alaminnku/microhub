@@ -1,14 +1,19 @@
 import { useUser } from "@context/User";
 import { useRouter } from "next/router";
-import { axiosInstance } from "@utils/index";
+import { axiosInstance, showErrorAlert } from "@utils/index";
 import styles from "@styles/UpdateWeight.module.css";
 import { FormEvent, useEffect, useState } from "react";
 import { HiArrowNarrowDown, HiArrowNarrowUp } from "react-icons/hi";
+import { useAlert } from "@context/Alert";
+import { AxiosError } from "axios";
+import { IAxiosError } from "types";
 
 export default function UpdateWeightPage() {
   // Hooks
   const router = useRouter();
-  const { user, isUserLoading } = useUser();
+  const { setAlerts } = useAlert();
+  const { user, setUser, isUserLoading } = useUser();
+
   const [consumerDetails, setConsumerDetails] = useState({
     weight: "",
     height: "",
@@ -29,14 +34,24 @@ export default function UpdateWeightPage() {
     e.preventDefault();
 
     try {
+      // Make request to the backend
       const response = await axiosInstance.patch("/consumers", {
         weight: +weight,
         height: +height,
       });
 
       console.log(response);
+
+      // Update the user
+      // setUser((currState) =>
+      //   currState?.consumer
+      //     ? { ...currState, consumer: response.data.data }
+      //     : currState
+      // );
     } catch (err) {
+      // Log error
       console.log(err);
+      showErrorAlert(err as AxiosError<IAxiosError>, setAlerts);
     }
   }
 
@@ -77,8 +92,13 @@ export default function UpdateWeightPage() {
 
             {user.consumer.consumer_details.length > 0 && (
               <>
-                {user.consumer.consumer_details.map(
-                  (consumerDetails, index) => (
+                {user.consumer.consumer_details
+                  .sort(
+                    (a, b) =>
+                      new Date(b.to_date).getTime() -
+                      new Date(a.to_date).getTime()
+                  )
+                  .map((consumerDetails, index) => (
                     <div className={styles.history} key={index}>
                       <div>
                         <p>{consumerDetails.weight} kg</p>
@@ -102,8 +122,7 @@ export default function UpdateWeightPage() {
                           </>
                         )}
                     </div>
-                  )
-                )}
+                  ))}
               </>
             )}
           </div>
