@@ -6,7 +6,7 @@ import { FormEvent, useEffect, useState } from "react";
 import { HiArrowNarrowDown, HiArrowNarrowUp } from "react-icons/hi";
 import { useAlert } from "@context/Alert";
 import { AxiosError } from "axios";
-import { IAxiosError } from "types";
+import { IAxiosError, IWeightHistory } from "types";
 import BackButton from "@components/BackButton";
 
 export default function UpdateWeightPage() {
@@ -20,18 +20,25 @@ export default function UpdateWeightPage() {
   const router = useRouter();
   const { setAlerts } = useAlert();
   const { user, setUser, isUserLoading } = useUser();
-
+  const [weightHistory, setWeightHistory] = useState<IWeightHistory[]>([]);
   const [consumerDetails, setConsumerDetails] = useState(initialState);
 
   // Destructure data
   const { weight, height } = consumerDetails;
 
-  // Check user
+  // Check user and get weight history
   useEffect(() => {
-    if (!isUserLoading && !user) {
+    if (!isUserLoading && !user && router.isReady) {
       router.push("/login");
+    } else if (user?.consumer) {
+      setWeightHistory(
+        user.consumer.consumer_details.sort(
+          (a, b) =>
+            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+        )
+      );
     }
-  }, [isUserLoading, user]);
+  }, [isUserLoading, user, router.isReady]);
 
   // Add weight to consumer details
   async function handleAddWeight(e: FormEvent) {
@@ -44,8 +51,6 @@ export default function UpdateWeightPage() {
         height: +height,
       });
 
-      console.log(response.data.data.consumer);
-
       // Updated consumer
       const updatedConsumer = response.data.data.consumer;
 
@@ -55,14 +60,7 @@ export default function UpdateWeightPage() {
           ? {
               ...currState,
               consumer: {
-                ...currState.consumer,
-                bmi: updatedConsumer.bmi,
-                tdee: updatedConsumer.tdee,
-                weight: updatedConsumer.weight,
-                height: updatedConsumer.height,
-                body_fat: updatedConsumer.body_fat,
-                daily_targets: updatedConsumer.daily_targets,
-                healthy_weight: updatedConsumer.healthy_weight,
+                ...updatedConsumer,
                 consumer_details: [
                   ...currState.consumer.consumer_details,
                   updatedConsumer.consumer_details[0],
@@ -117,39 +115,30 @@ export default function UpdateWeightPage() {
             <div className={styles.weight_history}>
               <p className={styles.history_title}>Weight history</p>
 
-              {user.consumer.consumer_details.length > 0 && (
+              {weightHistory.length > 0 && (
                 <>
-                  {user.consumer.consumer_details
-                    .sort(
-                      (a, b) =>
-                        new Date(b.to_date).getTime() -
-                        new Date(a.to_date).getTime()
-                    )
-                    .map((consumerDetails, index) => (
-                      <div className={styles.history} key={index}>
-                        <div>
-                          <p>{consumerDetails.weight} kg</p>
-                          <span>
-                            {new Date(consumerDetails.to_date).toDateString()}
-                          </span>
-                        </div>
-
-                        {user.consumer &&
-                          index < user.consumer.consumer_details.length - 1 && (
-                            <>
-                              {user.consumer.consumer_details[index].weight -
-                                user.consumer.consumer_details[
-                                  user.consumer.consumer_details.length - 1
-                                ].weight >
-                              0 ? (
-                                <HiArrowNarrowUp className={styles.up} />
-                              ) : (
-                                <HiArrowNarrowDown className={styles.down} />
-                              )}
-                            </>
-                          )}
+                  {weightHistory.map((consumerDetails, index) => (
+                    <div className={styles.history} key={index}>
+                      <div>
+                        <p>{consumerDetails.weight} kg</p>
+                        <span>
+                          {new Date(consumerDetails.createdAt).toDateString()}
+                        </span>
                       </div>
-                    ))}
+
+                      {user.consumer && index < weightHistory.length - 1 && (
+                        <>
+                          {weightHistory[index].weight -
+                            weightHistory[index + 1].weight >
+                          0 ? (
+                            <HiArrowNarrowUp className={styles.up} />
+                          ) : (
+                            <HiArrowNarrowDown className={styles.down} />
+                          )}
+                        </>
+                      )}
+                    </div>
+                  ))}
                 </>
               )}
             </div>

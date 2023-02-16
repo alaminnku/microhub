@@ -8,15 +8,15 @@ import { BsArrowRightShort } from "react-icons/bs";
 
 export default function GoalsPage() {
   const router = useRouter();
-  const { user } = useUser();
+  const { user, isUserLoading } = useUser();
 
   useEffect(() => {
-    if (!user && router.isReady) {
+    if (!isUserLoading && !user && router.isReady) {
       router.push("/login");
     } else if (!user?.consumer) {
       router.push("/add-details");
     }
-  }, [user, router.isReady]);
+  }, [isUserLoading, user, router.isReady]);
 
   return (
     <main>

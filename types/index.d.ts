@@ -294,3 +294,8 @@ export interface IPreBuiltRecipeIngredient {
   carbsPercentage: number;
   proteinPercentage: number;
 }
+
+export interface IWeightHistory {
+  weight: number;
+  createdAt: string;
+}

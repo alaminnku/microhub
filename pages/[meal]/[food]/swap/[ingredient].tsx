@@ -40,21 +40,6 @@ export default function SwapIngredientPage() {
     }
   }, [isUserLoading, user, router.isReady]);
 
-  // Handle swap ingredient
-  async function handleSwapIngredient() {
-    try {
-      const response = await axiosInstance.post("/programs/swaps", {
-        foodItemId: router.query.food,
-        ingredientId: ingredient?.id,
-        swapIngredientId: swapAbleIngredient?.id,
-      });
-
-      console.log(JSON.parse(response.data.data.swap.ingredientInfo));
-    } catch (err) {
-      console.log(err);
-    }
-  }
-
   // Handle search
   async function searchSwapAbleIngredients(e: FormEvent, searchValue: string) {
     e.preventDefault();
@@ -84,7 +69,24 @@ export default function SwapIngredientPage() {
     }
   }
 
-  // console.log(swapAbleIngredient, ingredient);
+  // Handle swap ingredient
+  async function handleSwapIngredient() {
+    try {
+      const response = await axiosInstance.post("/programs/swaps", {
+        foodItemId: router.query.food,
+        ingredientId: ingredient?.id,
+        swapIngredientId: swapAbleIngredient?.id,
+      });
+
+      console.log(response);
+
+      // console.log(JSON.parse(response.data.data.swap.ingredientInfo));
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  console.log(swapAbleIngredient, ingredient);
 
   return (
     <main className={styles.swap_ingredient}>
