@@ -3,7 +3,11 @@ import { useUser } from "@context/User";
 import { useRouter } from "next/router";
 import styles from "@styles/Messages.module.css";
 import { RiSendPlaneFill } from "react-icons/ri";
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useEffect, useMemo, useState } from "react";
+
+const socket = io("https://microhubbackend.microhubltd.com.au/", {
+  transports: ["websocket", "polling", "flashsocket"],
+});
 
 export default function MessagesPage() {
   // Hooks
@@ -13,7 +17,6 @@ export default function MessagesPage() {
   const [receivedMessage, setReceivedMessage] = useState("");
 
   // Socket
-  const socket = io("https://microhubbackend.microhubltd.com.au/api/v1");
 
   // Check user
   useEffect(() => {
@@ -22,22 +25,27 @@ export default function MessagesPage() {
     }
 
     // Join room
-    socket.emit("joinRoom", "roomId");
+    socket.emit("joinRoom", "asasdasdaffasf");
 
     // Receive message
-    socket.on("messages", (data) => setReceivedMessage(data.message));
+    socket.on("messages", (data) => {
+      console.log(data, "messages");
+      setReceivedMessage(data.message);
+    });
   }, [isUserLoading, user, socket]);
 
   // Send message
   function handleSendMessage(e: FormEvent) {
     e.preventDefault();
 
+    console.log("message");
+
     socket.emit("sendMessage", {
       message,
-      room: "roomId",
+      room: "asasdasdaffasf",
       send_side: "consumer",
       consumerId: user?.consumer?.id,
-      nutritionistId: "",
+      nutritionistId: 3,
     });
   }
 
@@ -48,9 +56,7 @@ export default function MessagesPage() {
       {!isUserLoading && user && (
         <section>
           <div className={styles.texts}>
-            {receivedMessage && (
-              <p className={styles.client_message}>{receivedMessage}</p>
-            )}
+            {receivedMessage && <p className={styles.client_message}>{receivedMessage}</p>}
 
             {message && <p className={styles.my_message}>{message}</p>}
           </div>
@@ -62,7 +68,8 @@ export default function MessagesPage() {
               onChange={(e) => setMessage(e.target.value)}
               placeholder="Type your message"
             />
-            <RiSendPlaneFill onClick={handleSendMessage} />
+
+            <RiSendPlaneFill onClick={handleSendMessage} style={{ cursor: "pointer", userSelect: "none" }} />
           </form>
         </section>
       )}
