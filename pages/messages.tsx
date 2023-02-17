@@ -25,7 +25,7 @@ export default function MessagesPage() {
     socket.emit("joinRoom", "roomId");
 
     // Receive message
-    socket.on("receiveMessage", (data) => setReceivedMessage(data.message));
+    socket.on("messages", (data) => setReceivedMessage(data.message));
   }, [isUserLoading, user, socket]);
 
   // Send message
