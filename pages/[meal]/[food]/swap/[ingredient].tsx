@@ -30,6 +30,7 @@ export default function SwapIngredientPage() {
     if (!isUserLoading && !user && router.isReady) {
       router.push("/login");
     } else if (user && router.isReady) {
+      // Update state
       setIngredient(
         user.program.meals
           .find((mealPlan) => mealPlan.id === +router.query.meal!)
@@ -66,6 +67,7 @@ export default function SwapIngredientPage() {
       // Show alert
       showErrorAlert(err as AxiosError<IAxiosError>, setAlerts);
     } finally {
+      // Remove loader
       setIsSearching(false);
     }
   }

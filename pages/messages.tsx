@@ -1,3 +1,4 @@
+import io from "socket.io-client";
 import { useUser } from "@context/User";
 import { useRouter } from "next/router";
 import styles from "@styles/Messages.module.css";
@@ -9,18 +10,35 @@ export default function MessagesPage() {
   const router = useRouter();
   const { user, isUserLoading } = useUser();
   const [message, setMessage] = useState("");
+  const [receivedMessage, setReceivedMessage] = useState("");
+
+  // Socket
+  const socket = io("https://microhubbackend.microhubltd.com.au/api/v1");
 
   // Check user
   useEffect(() => {
     if (!isUserLoading && !user) {
       router.push("/login");
     }
-  }, [isUserLoading, user]);
 
-  async function handleSendMessage(e: FormEvent) {
+    // Join room
+    socket.emit("joinRoom", "roomId");
+
+    // Receive message
+    socket.on("receiveMessage", (data) => setReceivedMessage(data.message));
+  }, [isUserLoading, user, socket]);
+
+  // Send message
+  function handleSendMessage(e: FormEvent) {
     e.preventDefault();
 
-    console.log(message);
+    socket.emit("sendMessage", {
+      message,
+      room: "roomId",
+      send_side: "consumer",
+      consumerId: user?.consumer?.id,
+      nutritionistId: "",
+    });
   }
 
   return (
@@ -30,8 +48,11 @@ export default function MessagesPage() {
       {!isUserLoading && user && (
         <section>
           <div className={styles.texts}>
-            <p className={styles.client_message}>Hello there</p>
-            <p className={styles.my_message}>Hi, nice to meet you</p>
+            {receivedMessage && (
+              <p className={styles.client_message}>{receivedMessage}</p>
+            )}
+
+            {message && <p className={styles.my_message}>{message}</p>}
           </div>
 
           <form onSubmit={handleSendMessage}>

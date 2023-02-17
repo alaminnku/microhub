@@ -241,11 +241,6 @@ export interface IAxiosError {
   message: string;
 }
 
-export interface ISwapAbleIngredient {
-  id: number;
-  name: string;
-}
-
 export interface ISearchProps {
   isSearching: boolean;
   handleSearch: (e: FormEvent, searchValue: string) => Promise<void>;
