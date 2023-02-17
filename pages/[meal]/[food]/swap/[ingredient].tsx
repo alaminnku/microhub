@@ -5,17 +5,19 @@ import { useRouter } from "next/router";
 import Search from "@components/Search";
 import { useAlert } from "@context/Alert";
 import { TfiReload } from "react-icons/tfi";
+import { IAxiosError, IIngredient } from "types";
 import { IoCloseOutline } from "react-icons/io5";
 import styles from "@styles/Ingredient.module.css";
+import ButtonLoader from "@components/ButtonLoader";
 import { FormEvent, useEffect, useState } from "react";
 import { axiosInstance, showErrorAlert } from "@utils/index";
-import { IAxiosError, IIngredient, ISwapAbleIngredient } from "types";
 
 export default function SwapIngredientPage() {
   const router = useRouter();
   const { setAlerts } = useAlert();
   const [gap, setGap] = useState<string>("");
   const { isUserLoading, user, setUser } = useUser();
+  const [isSwapping, setIsSwapping] = useState(false);
   const [isSearching, setIsSearching] = useState(false);
   const [ingredient, setIngredient] = useState<IIngredient>();
   const [swapAbleIngredient, setSwapAbleIngredient] = useState<IIngredient>();
@@ -61,7 +63,6 @@ export default function SwapIngredientPage() {
         setSwapAbleIngredients(response.data.data.data);
       }
     } catch (err) {
-      console.log(err);
       // Show alert
       showErrorAlert(err as AxiosError<IAxiosError>, setAlerts);
     } finally {
@@ -72,6 +73,10 @@ export default function SwapIngredientPage() {
   // Handle swap ingredient
   async function handleSwapIngredient() {
     try {
+      // Show loader
+      setIsSwapping(true);
+
+      // Make request to the backend
       await axiosInstance.post("/programs/swaps", {
         foodItemId: router.query.food,
         ingredientId: ingredient?.id,
@@ -117,9 +122,14 @@ export default function SwapIngredientPage() {
           : currState
       );
 
+      // Back to the food page
       router.back();
     } catch (err) {
-      console.log(err);
+      // Show alert
+      showErrorAlert(err as AxiosError<IAxiosError>, setAlerts);
+    } finally {
+      // Remove loader
+      setIsSwapping(false);
     }
   }
 
@@ -239,7 +249,7 @@ export default function SwapIngredientPage() {
               onClick={handleSwapIngredient}
               disabled={!swapAbleIngredient}
             >
-              Swap
+              {isSwapping ? <ButtonLoader /> : "Swap"}
             </button>
           </div>
         </section>
