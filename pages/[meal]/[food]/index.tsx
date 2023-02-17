@@ -31,14 +31,14 @@ export default function FoodItemPage() {
       if (foodItem) {
         // Swapped and static ingredients
         const swappedIngredients = foodItem.swapers;
-        const staticIngredients = foodItem.recipe.ingredients;
+        const originalIngredients = foodItem.recipe.ingredients;
 
         // Update states
         setFoodItem(foodItem);
         setIngredients(
           swappedIngredients?.length > 0
             ? [
-                ...staticIngredients.filter((ingredient) =>
+                ...originalIngredients.filter((ingredient) =>
                   swappedIngredients.some(
                     (swapper) => swapper.ingredientId !== ingredient.id
                   )
@@ -46,7 +46,7 @@ export default function FoodItemPage() {
                 // Return the ingredients of swapped items
                 // ...swappedIngredients
               ]
-            : staticIngredients
+            : originalIngredients
         );
       }
     }

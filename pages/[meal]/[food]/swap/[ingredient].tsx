@@ -14,15 +14,14 @@ import { IAxiosError, IIngredient, ISwapAbleIngredient } from "types";
 export default function SwapIngredientPage() {
   const router = useRouter();
   const { setAlerts } = useAlert();
-  const { isUserLoading, user } = useUser();
   const [gap, setGap] = useState<string>("");
+  const { isUserLoading, user, setUser } = useUser();
   const [isSearching, setIsSearching] = useState(false);
   const [ingredient, setIngredient] = useState<IIngredient>();
-  const [swapAbleIngredient, setSwapAbleIngredient] =
-    useState<ISwapAbleIngredient>();
-  const [swapAbleIngredients, setSwapAbleIngredients] = useState<
-    ISwapAbleIngredient[]
-  >([]);
+  const [swapAbleIngredient, setSwapAbleIngredient] = useState<IIngredient>();
+  const [swapAbleIngredients, setSwapAbleIngredients] = useState<IIngredient[]>(
+    []
+  );
 
   // Get the ingredient
   useEffect(() => {
@@ -62,6 +61,7 @@ export default function SwapIngredientPage() {
         setSwapAbleIngredients(response.data.data.data);
       }
     } catch (err) {
+      console.log(err);
       // Show alert
       showErrorAlert(err as AxiosError<IAxiosError>, setAlerts);
     } finally {
@@ -72,21 +72,58 @@ export default function SwapIngredientPage() {
   // Handle swap ingredient
   async function handleSwapIngredient() {
     try {
-      const response = await axiosInstance.post("/programs/swaps", {
+      await axiosInstance.post("/programs/swaps", {
         foodItemId: router.query.food,
         ingredientId: ingredient?.id,
         swapIngredientId: swapAbleIngredient?.id,
       });
 
-      console.log(response);
+      // Update program
+      setUser((currState) =>
+        currState?.program && swapAbleIngredient
+          ? {
+              ...currState,
+              program: {
+                ...currState.program,
+                meals: currState.program.meals.map((meal) => {
+                  if (meal.id === +router.query.meal!) {
+                    return {
+                      ...meal,
+                      food_items: meal.food_items.map((foodItem) => {
+                        if (foodItem.id === +router.query.food!) {
+                          return {
+                            ...foodItem,
+                            recipe: {
+                              ...foodItem.recipe,
+                              ingredients: [
+                                ...foodItem.recipe.ingredients.filter(
+                                  (ing) => ing.id !== ingredient?.id
+                                ),
+                                swapAbleIngredient,
+                              ],
+                            },
+                          };
+                        } else {
+                          return foodItem;
+                        }
+                      }),
+                    };
+                  } else {
+                    return meal;
+                  }
+                }),
+              },
+            }
+          : currState
+      );
 
-      // console.log(JSON.parse(response.data.data.swap.ingredientInfo));
+      router.back();
     } catch (err) {
       console.log(err);
     }
   }
 
-  console.log(swapAbleIngredient, ingredient);
+  // console.log(user?.program);
 
   return (
     <main className={styles.swap_ingredient}>
@@ -176,29 +213,17 @@ export default function SwapIngredientPage() {
             {swapAbleIngredient && (
               <div className={styles.ingredient_details}>
                 <div className={styles.protein}>
-                  <p>
-                    {/* {swapAbleIngredient.nutrition.caloricBreakdown.percentFat} */}
-                    0 g
-                  </p>
+                  <p>{swapAbleIngredient.protein} g</p>
                   <span>Protein</span>
                 </div>
                 <span className={styles.border}></span>
                 <div className={styles.fats}>
-                  <p>
-                    {/* {
-                      swapAbleIngredient.nutrition.caloricBreakdown
-                        .percentProtein
-                    } */}
-                    0 g
-                  </p>
+                  <p>{swapAbleIngredient.fat} g</p>
                   <span>Fats</span>
                 </div>
                 <span className={styles.border}></span>
                 <div className={styles.carbs}>
-                  <p>
-                    {/* {swapAbleIngredient.nutrition.caloricBreakdown.percentCarbs} */}
-                    0 g
-                  </p>
+                  <p>{swapAbleIngredient.carbs} g</p>
                   <span>Carbs</span>
                 </div>
               </div>
