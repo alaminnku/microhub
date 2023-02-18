@@ -23,6 +23,7 @@ export interface INutritionist {
   photo: string;
   linkToken: string;
   status: number;
+  room: string;
 }
 
 export interface IIngredient {
@@ -192,6 +193,7 @@ export interface IConsumerDetails {
   activity_level: string;
   favorite_foods: string;
   least_favorite_foods: string;
+  room: string;
 }
 
 export interface IUserContext {

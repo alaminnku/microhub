@@ -1,66 +1,23 @@
-.messages {
+.nutritionist {
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: var(--section_padding);
+  padding: 2rem 1rem;
 }
 
-.messages form {
-  position: fixed;
-  bottom: 0;
-  right: var(--section_padding);
-  left: var(--section_padding);
-  display: flex;
-  align-items: center;
-  padding: 0rem 1rem;
-  border-radius: 2rem;
-  margin-bottom: 1.5rem;
-  justify-content: space-between;
-  border: 1px solid var(--border_color);
+.nutritionist-list {
+  display: grid;
+  gap: 0.5rem;
+  padding-top: 1rem;
 }
 
-.messages form svg {
-  font-size: 1.25rem;
+.nutritionist-item {
 }
 
-.messages form input {
-  width: 90%;
-  outline: none;
-  font-size: 1rem;
-  padding: 0.8rem 0rem;
-  border-right: 1px solid var(--border_color);
-}
+.nutritionist-link {
+  cursor: pointer;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  display: block;
 
-.messages form input::placeholder {
-  font-size: 16px;
-}
-
-.texts {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 8rem;
-}
-
-.my_message,
-.client_message {
-  max-width: 85%;
-  padding: 6px 16px;
-  width: fit-content;
-  margin-bottom: 2rem;
-  border-radius: 0.5rem;
-  background: var(--blue);
-  color: var(--almost_white);
-}
-
-.texts p:last-child {
-  margin-bottom: 0rem;
-}
-
-.my_message {
-  align-self: flex-end;
-}
-
-.client_message {
-  background: #284f8a;
+  color: black;
+  padding: 1rem .75rem;
 }

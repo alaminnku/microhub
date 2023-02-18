@@ -1,22 +1,24 @@
-import io from "socket.io-client";
 import { useUser } from "@context/User";
+import { useNitritionistList } from "@utils/hooks";
 import { useRouter } from "next/router";
-import styles from "@styles/Messages.module.css";
+import { useState, useEffect, FormEvent } from "react";
 import { RiSendPlaneFill } from "react-icons/ri";
-import { FormEvent, useEffect, useMemo, useState } from "react";
+import { io } from "socket.io-client";
+
+import styles from "@styles/Message.module.css";
 
 const socket = io("https://microhubbackend.microhubltd.com.au/", {
   transports: ["websocket", "polling", "flashsocket"],
 });
 
-export default function MessagesPage() {
-  // Hooks
+export default function MessagePage() {
   const router = useRouter();
+
+  const roomId = router.query.message as string;
+
   const { user, isUserLoading } = useUser();
   const [message, setMessage] = useState("");
   const [receivedMessage, setReceivedMessage] = useState("");
-
-  // Socket
 
   // Check user
   useEffect(() => {
@@ -50,7 +52,7 @@ export default function MessagesPage() {
   }
 
   return (
-    <main className={styles.messages}>
+    <main className={styles.message}>
       <h2>Messages</h2>
 
       {!isUserLoading && user && (

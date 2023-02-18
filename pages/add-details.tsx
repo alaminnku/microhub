@@ -10,29 +10,31 @@ import { IAxiosError, IConsumerDetails } from "types";
 import { axiosInstance, showErrorAlert } from "@utils/index";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 
+const initialState: IConsumerDetails = {
+  waist: 0,
+  hip: 0,
+  forearm: 0,
+  wrist: 0,
+  gender: "",
+  weight: 0,
+  height: 0,
+  allergies: "",
+  preferences: "",
+  activity_level: "",
+  favorite_foods: "",
+  least_favorite_foods: "",
+  room: "",
+};
+
 export default function AddDetailsPage() {
   // Initial state
-  const initialState = {
-    waist: 0,
-    hip: 0,
-    forearm: 0,
-    wrist: 0,
-    gender: "",
-    weight: 0,
-    height: 0,
-    allergies: "",
-    preferences: "",
-    activity_level: "",
-    favorite_foods: "",
-    least_favorite_foods: "",
-  };
 
   // Hooks
   const router = useRouter();
   const { setAlerts } = useAlert();
   const { isUserLoading, user, setUser } = useUser();
   const [isLoading, setIsLoading] = useState(false);
-  const [formData, setFormData] = useState<IConsumerDetails>(initialState);
+  const [formData, setFormData] = useState(initialState);
 
   // Check user details
   useEffect(() => {
@@ -68,12 +70,7 @@ export default function AddDetailsPage() {
     setFormData((currFormData) => ({
       ...currFormData,
       [id]:
-        id === "waist" ||
-        id === "hip" ||
-        id === "forearm" ||
-        id === "wrist" ||
-        id === "weight" ||
-        id === "height"
+        id === "waist" || id === "hip" || id === "forearm" || id === "wrist" || id === "weight" || id === "height"
           ? +value
           : value,
     }));
@@ -84,8 +81,7 @@ export default function AddDetailsPage() {
     e.preventDefault();
 
     // Convert text to array
-    const convertTextToArray = (text: string) =>
-      text.split(",").map((el) => el.trim());
+    const convertTextToArray = (text: string) => text.split(",").map((el) => el.trim());
 
     // Format data
     const data = {
@@ -141,21 +137,15 @@ export default function AddDetailsPage() {
             <div className={styles.content}>
               <p className={styles.title}>Welcome to MicroHub!</p>
               <p className={styles.description}>
-                We're excited to help you kick start your journey to better
-                nutrition. Help us get to know you and your goals by answering
-                our questionnaire. Please be as honest as possible as it will
-                help us to serve you better.
+                We're excited to help you kick start your journey to better nutrition. Help us get to know you and your
+                goals by answering our questionnaire. Please be as honest as possible as it will help us to serve you
+                better.
               </p>
             </div>
 
             <form onSubmit={handleSubmit} className={styles.form}>
               <label htmlFor="name">Name</label>
-              <input
-                id="name"
-                type="text"
-                value={`${user?.first_name} ${user?.last_name}`}
-                readOnly
-              />
+              <input id="name" type="text" value={`${user?.first_name} ${user?.last_name}`} readOnly />
 
               <label htmlFor="gender">What's your gender?</label>
               <select id="gender" value={gender} onChange={handleChange}>
@@ -168,65 +158,25 @@ export default function AddDetailsPage() {
               </select>
 
               <label htmlFor="weight">What's your weight (kg)?</label>
-              <input
-                type="number"
-                id="weight"
-                value={weight}
-                onChange={handleChange}
-              />
+              <input type="number" id="weight" value={weight} onChange={handleChange} />
 
               <label htmlFor="height">How tall are you (cm)?</label>
-              <input
-                type="number"
-                id="height"
-                value={height}
-                onChange={handleChange}
-              />
+              <input type="number" id="height" value={height} onChange={handleChange} />
 
-              <label htmlFor="waist">
-                What is your waist measurement (cm)?
-              </label>
-              <input
-                type="number"
-                id="waist"
-                value={waist}
-                onChange={handleChange}
-              />
+              <label htmlFor="waist">What is your waist measurement (cm)?</label>
+              <input type="number" id="waist" value={waist} onChange={handleChange} />
 
               <label htmlFor="hip">What is your hip measurement (cm)?</label>
-              <input
-                type="number"
-                id="hip"
-                value={hip}
-                onChange={handleChange}
-              />
+              <input type="number" id="hip" value={hip} onChange={handleChange} />
 
-              <label htmlFor="forearm">
-                What is your forearm measurement (cm)?
-              </label>
-              <input
-                type="number"
-                id="forearm"
-                value={forearm}
-                onChange={handleChange}
-              />
+              <label htmlFor="forearm">What is your forearm measurement (cm)?</label>
+              <input type="number" id="forearm" value={forearm} onChange={handleChange} />
 
-              <label htmlFor="wrist">
-                What is your wrist measurement (cm)?
-              </label>
-              <input
-                type="number"
-                id="wrist"
-                value={wrist}
-                onChange={handleChange}
-              />
+              <label htmlFor="wrist">What is your wrist measurement (cm)?</label>
+              <input type="number" id="wrist" value={wrist} onChange={handleChange} />
 
               <label htmlFor="activity_level">How active are you?</label>
-              <select
-                id="activity_level"
-                value={activity_level}
-                onChange={handleChange}
-              >
+              <select id="activity_level" value={activity_level} onChange={handleChange}>
                 <option hidden aria-hidden value="Please select one">
                   Please select one
                 </option>
@@ -238,11 +188,7 @@ export default function AddDetailsPage() {
               </select>
 
               <label htmlFor="preferences">Foods preferences</label>
-              <select
-                id="preferences"
-                value={preferences}
-                onChange={handleChange}
-              >
+              <select id="preferences" value={preferences} onChange={handleChange}>
                 <option hidden aria-hidden value="Please select one">
                   Please select one
                 </option>
@@ -259,39 +205,16 @@ export default function AddDetailsPage() {
                 <option value="lacto vegetarian">Lacto vegetarian</option>
               </select>
 
-              <label htmlFor="favorite_foods">
-                Foods you love (comma separated)
-              </label>
-              <input
-                type="text"
-                id="favorite_foods"
-                value={favorite_foods}
-                onChange={handleChange}
-              />
+              <label htmlFor="favorite_foods">Foods you love (comma separated)</label>
+              <input type="text" id="favorite_foods" value={favorite_foods} onChange={handleChange} />
 
-              <label htmlFor="least_favorite_foods">
-                Foods you don't like so much (comma separated)
-              </label>
-              <input
-                type="text"
-                id="least_favorite_foods"
-                value={least_favorite_foods}
-                onChange={handleChange}
-              />
+              <label htmlFor="least_favorite_foods">Foods you don't like so much (comma separated)</label>
+              <input type="text" id="least_favorite_foods" value={least_favorite_foods} onChange={handleChange} />
 
-              <label htmlFor="allergies">
-                Foods you are allergic to (comma separated)
-              </label>
-              <input
-                type="text"
-                id="allergies"
-                value={allergies}
-                onChange={handleChange}
-              />
+              <label htmlFor="allergies">Foods you are allergic to (comma separated)</label>
+              <input type="text" id="allergies" value={allergies} onChange={handleChange} />
 
-              <button className={styles.submit_button}>
-                {isLoading ? <ButtonLoader /> : "Submit"}
-              </button>
+              <button className={styles.submit_button}>{isLoading ? <ButtonLoader /> : "Submit"}</button>
             </form>
           </section>
         </>
