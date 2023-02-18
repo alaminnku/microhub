@@ -13,7 +13,7 @@ export default function MessagesPage() {
 
   const { user, isUserLoading } = useUser();
 
-  const [nutritionistList] = useNitritionistList();
+  const { nutritionistList, nutritionistLoading } = useNitritionistList();
 
   useEffect(() => {
     if (!isUserLoading && !user) {
@@ -25,23 +25,29 @@ export default function MessagesPage() {
     <main className={styles["nutritionist"]}>
       <h2>Messages</h2>
 
-      {!isUserLoading && user && (
-        <ul className={styles["nutritionist-list"]}>
-          {nutritionistList.map((nutritionist) => (
-            <li key={nutritionist.id} className={styles["nutritionist-item"]}>
-              <Link href={`/messages/${nutritionist.room}`}>
-                <a className={styles["nutritionist-link"]}>
-                  <h3>
-                    {nutritionist.first_name} {nutritionist.last_name}
-                  </h3>
+      <div className={styles["nutritionist__section"]}>
+        {nutritionistList.length === 0 && !nutritionistLoading && (
+          <h3 className={styles["nutritionist__empty"]}>No nutritionist.</h3>
+        )}
 
-                  <p>{nutritionist.email}</p>
-                </a>
-              </Link>
-            </li>
-          ))}
-        </ul>
-      )}
+        {!isUserLoading && user && (
+          <ul className={styles["nutritionist__list"]}>
+            {nutritionistList.map((nutritionist) => (
+              <li key={nutritionist.id} className={styles["nutritionist__item"]}>
+                <Link href={`/messages/${nutritionist.room}`}>
+                  <a className={styles["nutritionist__link"]}>
+                    <h3>
+                      {nutritionist.first_name} {nutritionist.last_name}
+                    </h3>
+
+                    <p>{nutritionist.email}</p>
+                  </a>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
     </main>
   );
 }

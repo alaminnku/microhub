@@ -1,23 +1,41 @@
 .nutritionist {
-  min-height: 100vh;
+  height: calc(100vh - 51px);
   padding: 2rem 1rem;
+
+  display: grid;
+  grid-auto-rows: min-content 1fr;
+  overflow: hidden;
 }
 
-.nutritionist-list {
+.nutritionist__section {
+  height: 100%;
+  overflow-y: auto;
+
+  display: flex;
+}
+
+.nutritionist__empty {
+  align-self: center;
+  text-align: center;
+  width: 100%;
+}
+
+.nutritionist__list {
+  width: 100%;
   display: grid;
   gap: 0.5rem;
   padding-top: 1rem;
 }
 
-.nutritionist-item {
+.nutritionist__item {
 }
 
-.nutritionist-link {
+.nutritionist__link {
   cursor: pointer;
   border: 1px solid #ccc;
   border-radius: 8px;
   display: block;
 
   color: black;
-  padding: 1rem .75rem;
+  padding: 1rem 0.75rem;
 }

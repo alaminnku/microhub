@@ -10,12 +10,12 @@ export const useNitritionistList = () => {
 
   const [nutritionistList, setNutritionistList] = useState<INutritionist[]>([]);
 
-  const [loading, setLoading] = useState(false);
+  const [nutritionistLoading, setNutritionistLoading] = useState(false);
 
   useEffect(() => {
     const getData = async () => {
       try {
-        setLoading(true);
+        setNutritionistLoading(true);
 
         const { data } = await axiosInstance.get<{ data: { nutritionists: INutritionist[] } }>("consumers/trainers");
         setNutritionistList(data.data.nutritionists);
@@ -24,12 +24,12 @@ export const useNitritionistList = () => {
       } catch (error) {
         showErrorAlert(error as AxiosError<IAxiosError>, setAlerts);
       } finally {
-        setLoading(false);
+        setNutritionistLoading(false);
       }
     };
 
     getData();
   }, []);
 
-  return [nutritionistList, loading] as const;
+  return { nutritionistList, nutritionistLoading };
 };
