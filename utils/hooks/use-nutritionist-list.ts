@@ -1,4 +1,5 @@
 import { useAlert } from "@context/Alert";
+import { useUser } from "@context/User";
 import { AxiosError } from "axios";
 import { useEffect, useState } from "react";
 import { IAxiosError, INutritionist } from "types";

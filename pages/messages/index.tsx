@@ -15,15 +15,11 @@ export default function MessagesPage() {
 
   const [nutritionistList] = useNitritionistList();
 
-  console.log(nutritionistList);
-
   useEffect(() => {
     if (!isUserLoading && !user) {
       router.push("/login");
     }
   }, [isUserLoading, user]);
-
-  console.log(router);
 
   return (
     <main className={styles["nutritionist"]}>

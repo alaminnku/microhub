@@ -1,7 +1,7 @@
 import { useUser } from "@context/User";
-import { useNitritionistList, useRoomMessages } from "@utils/hooks";
+import { useRoomMessages } from "@utils/hooks";
 import { useRouter } from "next/router";
-import { useState, useEffect, FormEvent, useCallback, useRef } from "react";
+import { useState, useEffect, FormEvent, useRef } from "react";
 import { RiSendPlaneFill } from "react-icons/ri";
 import { io } from "socket.io-client";
 
@@ -23,23 +23,19 @@ export default function MessagePage() {
 
   const { messages, sendMessage, setMessages } = useRoomMessages(roomId);
 
+  const [message, setMessage] = useState("");
+
   const scrollRef = useRef<HTMLLIElement>(null);
 
   const scrollToBottom = () => {
     scrollRef.current?.scrollIntoView();
   };
 
-  const handleSendMessage = async (e: FormEvent<HTMLFormElement>) => {
+  const handleMessageSend = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const formData = new FormData(e.currentTarget);
-
-    const message = formData.get("message");
-
-    if (typeof message !== "string") return;
-
-    e.currentTarget?.reset();
     await sendMessage(message);
+    setMessage("");
   };
 
   useEffect(() => {
@@ -50,7 +46,6 @@ export default function MessagePage() {
     socket.emit("join", roomId);
 
     socket.on("messages", (data) => {
-      console.log(data, "messages");
       if (data) setMessages(data);
     });
   }, [isUserLoading, user, socket, roomId]);
@@ -90,13 +85,15 @@ export default function MessagePage() {
             </ul>
           </div>
 
-          <form onSubmit={handleSendMessage} className={styles.message__form} autoComplete="off">
+          <form onSubmit={handleMessageSend} className={styles.message__form} autoComplete="off">
             <input
               name="message"
               className={styles.message__input}
               type="text"
               placeholder="Type your message"
               required
+              value={message}
+              onChange={(event) => setMessage(event.target.value)}
             />
 
             <button className={styles.message__send}>
