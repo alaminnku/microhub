@@ -1,12 +1,9 @@
-import io from "socket.io-client";
 import { useUser } from "@context/User";
 import { useRouter } from "next/router";
 import styles from "@styles/Messages.module.css";
-import { RiSendPlaneFill } from "react-icons/ri";
-import { FormEvent, useEffect } from "react";
+import { useEffect } from "react";
 import { useNitritionistList } from "@utils/hooks";
 import Link from "next/link";
-import BackButton from "@components/BackButton";
 
 export default function MessagesPage() {
   const router = useRouter();
