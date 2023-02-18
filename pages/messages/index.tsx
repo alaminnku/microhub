@@ -23,7 +23,7 @@ export default function MessagesPage() {
 
   return (
     <main className={styles["nutritionist"]}>
-      <h2>Nutritionolists</h2>
+      <h2>Messages</h2>
 
       {!isUserLoading && user && (
         <ul className={styles["nutritionist-list"]}>
