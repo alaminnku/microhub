@@ -6,6 +6,7 @@ import { RiSendPlaneFill } from "react-icons/ri";
 import { FormEvent, useEffect } from "react";
 import { useNitritionistList } from "@utils/hooks";
 import Link from "next/link";
+import BackButton from "@components/BackButton";
 
 export default function MessagesPage() {
   const router = useRouter();

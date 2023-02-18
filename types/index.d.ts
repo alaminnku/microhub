@@ -113,6 +113,7 @@ export interface IUser {
   email: string;
   first_name: string;
   last_name: string;
+  role: string;
   photo: string;
   createdAt: string;
   requested_nutritionists: INutritionist[];
@@ -295,4 +296,16 @@ export interface IPreBuiltRecipeIngredient {
 export interface IWeightHistory {
   weight: number;
   createdAt: string;
+}
+
+export interface IMessage {
+  id: number;
+  message: string;
+  room_number: string;
+  send_side: string;
+  send_date: string;
+  createdAt: string;
+  updatedAt: string;
+  consumerId: number | null;
+  nutritionistId: number | null;
 }
