@@ -14,8 +14,7 @@ export const useRoomMessages = (roomId: string | undefined) => {
   const [sendingLoading, setSendingLoading] = useState(false);
 
   const sortedMessages = useMemo(() => {
-    const filteredMessages = messages.filter((message) => Boolean(message.message));
-    const sortedMessages = filteredMessages.sort(
+    const sortedMessages = [...messages].sort(
       (prev, curr) => new Date(prev.createdAt).valueOf() - new Date(curr.createdAt).valueOf()
     );
 
