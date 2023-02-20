@@ -1,0 +1,117 @@
+.message {
+  padding: 1rem 0.75rem;
+  height: calc(100vh - 51px);
+
+  display: grid;
+  grid-auto-rows: min-content 1fr;
+}
+
+.message__header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding-bottom: 0.5rem;
+}
+
+.message__back a {
+  margin: 0;
+}
+
+.message__section {
+  height: 100%;
+  overflow-y: hidden;
+
+  display: grid;
+  grid-auto-rows: 1fr min-content;
+
+  gap: 0.75rem;
+}
+
+.message__list-wrapper {
+  padding: 1rem 0.5rem;
+  overflow-y: auto;
+
+  display: flex;
+  align-items: flex-end;
+}
+
+.message__list {
+  width: 100%;
+  max-height: 100%;
+  display: grid;
+  gap: 2rem;
+
+  margin-bottom: 0.5rem;
+}
+
+.message__list-item {
+  padding: 0.75rem 1rem;
+  max-width: 85%;
+
+  min-height: 4rem;
+
+  display: flex;
+  align-items: center;
+
+  position: relative;
+
+  border-radius: 1rem;
+
+  font-size: 0.95rem;
+}
+
+.message__item-date {
+  font-size: 0.75rem;
+  position: absolute;
+  bottom: 0;
+  transform: translateY(100%);
+  color: #bbb;
+  white-space: nowrap;
+}
+
+.message__list-item.received {
+  background-color: #b4c7d6;
+  justify-self: flex-start;
+  color: #000;
+}
+
+.message__list-item.received .message__item-date {
+  left: 1rem;
+}
+
+.message__list-item.sent {
+  background-color: #132642;
+  justify-self: flex-end;
+  color: #fff;
+}
+
+.message__list-item.sent .message__item-date {
+  right: 1rem;
+}
+
+.message__form {
+  display: flex;
+  align-items: center;
+}
+
+.message__input {
+  width: 100%;
+  height: 2rem;
+  padding: 0.5rem 0.5rem;
+
+  border: 1px solid #ccc;
+  border-radius: 0.5rem;
+}
+
+.message__input:focus {
+  outline: none;
+}
+
+.message__send {
+  width: 2rem;
+  height: 2rem;
+  appearance: none;
+  border: 0;
+  background-color: transparent;
+  cursor: pointer;
+}

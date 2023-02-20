@@ -2,10 +2,17 @@ import axios, { AxiosError } from "axios";
 import { IAlert, IAxiosError, IFoodItem } from "types";
 import { Dispatch, SetStateAction } from "react";
 
+const request = Array.isArray(axios.defaults.transformRequest)
+  ? axios.defaults.transformRequest
+  : axios.defaults.transformRequest
+  ? [axios.defaults.transformRequest]
+  : [];
+
 // Create axios instance
 export const axiosInstance = axios.create({
   withCredentials: true,
   baseURL: "https://microhubbackend.microhubltd.com.au/api/v1",
+  transformRequest: request,
 });
 
 // Current year
@@ -15,25 +22,16 @@ export const currentYear = new Date().getFullYear();
 export const formatNumber = (number: number) => +number.toFixed(2);
 
 // Success alert
-export function showSuccessAlert(
-  message: string,
-  setAlerts: Dispatch<SetStateAction<IAlert[]>>
-) {
+export function showSuccessAlert(message: string, setAlerts: Dispatch<SetStateAction<IAlert[]>>) {
   setAlerts((currState) => [...currState, { message, type: "success" }]);
 }
 
 // Error alert
-export function showErrorAlert(
-  err: AxiosError<IAxiosError> | string,
-  setAlerts: Dispatch<SetStateAction<IAlert[]>>
-) {
+export function showErrorAlert(err: AxiosError<IAxiosError> | string, setAlerts: Dispatch<SetStateAction<IAlert[]>>) {
   setAlerts((currState) =>
     typeof err === "string"
       ? [...currState, { message: err, type: "failed" }]
-      : [
-          ...currState,
-          { message: err.response?.data.message as string, type: "failed" },
-        ]
+      : [...currState, { message: err.response?.data.message as string, type: "failed" }]
   );
 }
 

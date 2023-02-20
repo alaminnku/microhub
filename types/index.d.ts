@@ -23,6 +23,7 @@ export interface INutritionist {
   photo: string;
   linkToken: string;
   status: number;
+  room: string;
 }
 
 export interface IIngredient {
@@ -112,6 +113,7 @@ export interface IUser {
   email: string;
   first_name: string;
   last_name: string;
+  role: string;
   photo: string;
   createdAt: string;
   requested_nutritionists: INutritionist[];
@@ -192,6 +194,7 @@ export interface IConsumerDetails {
   activity_level: string;
   favorite_foods: string;
   least_favorite_foods: string;
+  room: string;
 }
 
 export interface IUserContext {
@@ -293,4 +296,16 @@ export interface IPreBuiltRecipeIngredient {
 export interface IWeightHistory {
   weight: number;
   createdAt: string;
+}
+
+export interface IMessage {
+  id: number;
+  message: string;
+  room_number: string;
+  send_side: string;
+  send_date: string;
+  createdAt: string;
+  updatedAt: string;
+  consumerId: number | null;
+  nutritionistId: number | null;
 }
