@@ -24,13 +24,19 @@ export default function MessagesPage() {
 
       <div className={styles["nutritionist__section"]}>
         {nutritionistList.length === 0 && !nutritionistLoading && (
-          <h3 className={styles["nutritionist__empty"]}>No nutritionist.</h3>
+          <h3 className={styles["nutritionist__empty"]}>
+            We're Sorry! Messaging is only available to clients who are working
+            with a Nutritionist on the MicroHUB Platform
+          </h3>
         )}
 
         {!isUserLoading && user && (
           <ul className={styles["nutritionist__list"]}>
             {nutritionistList.map((nutritionist) => (
-              <li key={nutritionist.id} className={styles["nutritionist__item"]}>
+              <li
+                key={nutritionist.id}
+                className={styles["nutritionist__item"]}
+              >
                 <Link href={`/messages/${nutritionist.room}`}>
                   <a className={styles["nutritionist__link"]}>
                     <h3>

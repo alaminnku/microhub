@@ -10,14 +10,13 @@
 .nutritionist__section {
   height: 100%;
   overflow-y: auto;
-
   display: flex;
 }
 
 .nutritionist__empty {
   align-self: center;
-  text-align: center;
-  width: 100%;
+  position: relative;
+  text-aligh: center;
 }
 
 .nutritionist__list {
