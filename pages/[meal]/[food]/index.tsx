@@ -44,15 +44,15 @@ export default function FoodItemPage() {
                   )
                 ),
                 // Return the ingredients of swapped items
-                // ...swappedIngredients
+                ...swappedIngredients.map((swappedIngredient) =>
+                  JSON.parse(swappedIngredient.ingredientInfo)
+                ),
               ]
             : originalIngredients
         );
       }
     }
   }, [isUserLoading, user, router.isReady]);
-
-  // console.log(JSON.parse(foodItem?.swapers[0].ingredientInfo));
 
   return (
     <main>

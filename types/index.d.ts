@@ -76,6 +76,7 @@ export interface IFoodItem {
     createdAt: string;
     foodItemId: number;
     id: number;
+    ingredientInfo: string;
     ingredientId: number;
     swapIngredientId: number;
   }[];
