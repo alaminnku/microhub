@@ -31,7 +31,8 @@
 .update_weight form button {
   border: none;
   font-size: 1rem;
-  padding: 0.75rem 2.5rem;
+  width: 8rem;
+  height: 3rem;
   border-radius: 0.25rem;
   color: var(--almost_white);
   background: var(--blue);

@@ -8,6 +8,8 @@ import { useAlert } from "@context/Alert";
 import { AxiosError } from "axios";
 import { IAxiosError, IWeightHistory } from "types";
 import BackButton from "@components/BackButton";
+import ButtonLoader from "@components/ButtonLoader";
+import { PuffLoader } from "react-spinners";
 
 export default function UpdateWeightPage() {
   // Initial state
@@ -20,6 +22,7 @@ export default function UpdateWeightPage() {
   const router = useRouter();
   const { setAlerts } = useAlert();
   const { user, setUser, isUserLoading } = useUser();
+  const [isSavingWeight, setIsSavingWeight] = useState(false);
   const [weightHistory, setWeightHistory] = useState<IWeightHistory[]>([]);
   const [consumerDetails, setConsumerDetails] = useState(initialState);
 
@@ -45,6 +48,9 @@ export default function UpdateWeightPage() {
     e.preventDefault();
 
     try {
+      // Show loader
+      setIsSavingWeight(true);
+
       // Make request to the backend
       const response = await axiosInstance.patch("/consumers", {
         weight: +weight,
@@ -72,9 +78,11 @@ export default function UpdateWeightPage() {
 
       setConsumerDetails(initialState);
     } catch (err) {
-      // Log error
-      console.log(err);
+      // Show alert
       showErrorAlert(err as AxiosError<IAxiosError>, setAlerts);
+    } finally {
+      // Remove loader
+      setIsSavingWeight(false);
     }
   }
 
@@ -109,7 +117,9 @@ export default function UpdateWeightPage() {
                   }))
                 }
               />
-              <button onClick={handleAddWeight}>Save</button>
+              <button onClick={handleAddWeight} disabled={isSavingWeight}>
+                {isSavingWeight ? <ButtonLoader /> : "Save"}
+              </button>
             </form>
 
             <div className={styles.weight_history}>
