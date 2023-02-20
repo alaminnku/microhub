@@ -1,11 +1,13 @@
 import Image from "next/image";
+import { AxiosError } from "axios";
 import { useUser } from "@context/User";
 import { useRouter } from "next/router";
 import logo from "@public/logo-white.svg";
-import { axiosInstance } from "@utils/index";
+import { useAlert } from "@context/Alert";
 import ButtonLoader from "@components/ButtonLoader";
 import styles from "@styles/Questionnaire.module.css";
-import { IFormData, IQuestionnaireData } from "types";
+import { axiosInstance, showErrorAlert } from "@utils/index";
+import { IAxiosError, IFormData, IQuestionnaireData } from "types";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 
 export default function QuestionnairePage() {
@@ -34,7 +36,9 @@ export default function QuestionnairePage() {
     lowest_height: 0,
   };
 
+  // Hooks
   const router = useRouter();
+  const { setAlerts } = useAlert();
   const { isUserLoading, user, setUser } = useUser();
   const [isLoading, setIsLoading] = useState(false);
   const [questionData, setQuestionsData] = useState<IQuestionnaireData>(
@@ -160,7 +164,8 @@ export default function QuestionnairePage() {
 
       router.push("/profile");
     } catch (err) {
-      console.log(err);
+      // Show alert
+      showErrorAlert(err as AxiosError<IAxiosError>, setAlerts);
     } finally {
       // Remove loader
       setIsLoading(false);
