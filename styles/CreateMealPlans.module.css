@@ -29,6 +29,7 @@
 
 .controller {
   padding: 1rem;
+  margin-bottom: 1rem;
   border-radius: 0.25rem;
   background: var(--border_color);
 }
@@ -36,7 +37,6 @@
 .controller_top {
   display: flex;
   align-items: center;
-  /* margin-bottom: 1rem; */
 }
 
 .controller_top input,

@@ -1,9 +1,9 @@
+import axios from "axios";
+import { useRouter } from "next/router";
 import { useUser } from "@context/User";
 import { axiosInstance } from "@utils/index";
-import { useRouter } from "next/router";
 import { ChangeEvent, useEffect, useState } from "react";
 import styles from "@styles/CreateMealPlans.module.css";
-import axios from "axios";
 
 export default function CreateMealPlansPage() {
   // Initial state
@@ -50,7 +50,6 @@ export default function CreateMealPlansPage() {
 
   // Get recipes
   useEffect(() => {
-    // Update state
     getRecipe();
   }, []);
 
@@ -140,9 +139,11 @@ export default function CreateMealPlansPage() {
 
   // Handle save program
   async function saveProgram() {
+    console.log(program);
+
     if (program.name.trim() != "") {
       try {
-        await axiosInstance.post("/consumers/program", program);
+        // await axiosInstance.post("/consumers/program", program);
       } catch (err) {
         console.log(err);
       }
