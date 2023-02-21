@@ -18,11 +18,12 @@ export default function CreateMealPlansPage() {
         day: "",
         food_items: [
           {
-            title: "",
             food: "",
             cals: 0,
             fats: 0,
             carbs: 0,
+            notes: "",
+            title: "",
             protein: 0,
             course: "",
             recipe: "",
@@ -79,7 +80,7 @@ export default function CreateMealPlansPage() {
 
     let foodItem = newProgram.meals[mealIndex].food_items[foodItemIndex];
 
-    if (targetId == "recipe") {
+    if (targetId === "recipe") {
       foodItem.food = targetValue;
       foodItem.recipe = JSON.parse(targetValue).id;
       foodItem.fats = +JSON.parse(targetValue).fat;
@@ -139,6 +140,7 @@ export default function CreateMealPlansPage() {
 
   // Handle save program
   async function saveProgram() {
+    // console.log(JSON.parse(program.meals[0].food_items[0].food));
     console.log(program);
 
     if (program.name.trim() != "") {
@@ -196,6 +198,7 @@ export default function CreateMealPlansPage() {
                 setProgram(newProgram);
               }}
             >
+              <option value="">--Select--</option>
               <option value="Sunday">Sunday</option>
               <option value="Monday">Monday</option>
               <option value="Tuesday">Tuesday</option>
@@ -214,8 +217,21 @@ export default function CreateMealPlansPage() {
           {meal.food_items.map((foodItem, foodIndex) => (
             <div key={foodIndex} className={styles.items}>
               <div className={styles.item}>
+                <p>Title</p>
+                <input
+                  type="text"
+                  id="title"
+                  placeholder="Title"
+                  value={foodItem.title}
+                  onChange={(e) => setFoodItem(e, mealIndex, foodIndex)}
+                />
+              </div>
+              <div className={styles.item}>
                 <p>Course</p>
-                <select id="course">
+                <select
+                  id="course"
+                  onChange={(e) => setFoodItem(e, mealIndex, foodIndex)}
+                >
                   <option value="">--Select--</option>
                   <option value="breakfast">Breakfast</option>
                   <option value="lunch">Lunch</option>
@@ -244,9 +260,9 @@ export default function CreateMealPlansPage() {
                 <p>Notes</p>
                 <input
                   type="text"
-                  id="title"
+                  id="notes"
                   placeholder="Notes"
-                  value={foodItem.title}
+                  value={foodItem.notes}
                   onChange={(e) => setFoodItem(e, mealIndex, foodIndex)}
                 />
               </div>
