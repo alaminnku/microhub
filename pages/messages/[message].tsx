@@ -49,7 +49,7 @@ export default function MessagePage() {
     socket?.emit("join", roomId);
 
     socket?.on("messages", (data) => {
-      if (process.env.NODE_ENV === "development") console.log(data);
+      console.log(data, "socket-data");
       if (data) setMessages(data);
     });
 
