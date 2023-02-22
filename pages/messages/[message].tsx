@@ -52,6 +52,10 @@ export default function MessagePage() {
       if (process.env.NODE_ENV === "development") console.log(data);
       if (data) setMessages(data);
     });
+
+    return () => {
+      socket?.off("messages");
+    };
   }, [isUserLoading, user, socket, roomId]);
 
   useEffect(() => {
