@@ -1,7 +1,7 @@
 import { useUser } from "@context/User";
 import { useRoomMessages } from "@utils/hooks";
 import { useRouter } from "next/router";
-import { useState, useEffect, FormEvent, useRef } from "react";
+import { useState, useEffect, FormEvent, useRef, useMemo } from "react";
 import { RiSendPlaneFill } from "react-icons/ri";
 import { io } from "socket.io-client";
 
@@ -9,10 +9,6 @@ import styles from "@styles/Message.module.css";
 import BackButton from "@components/BackButton";
 import clsx from "clsx";
 import { dateToRelative } from "@utils/helpers/date";
-
-const socket = io("https://microhubbackend.microhubltd.com.au/", {
-  transports: ["websocket", "polling", "flashsocket"],
-});
 
 export default function MessagePage() {
   const router = useRouter();
@@ -24,6 +20,13 @@ export default function MessagePage() {
   const { messages, sendMessage, setMessages } = useRoomMessages(roomId);
 
   const [message, setMessage] = useState("");
+
+  const socket = useMemo(() => {
+    if (router.isReady)
+      return io("https://microhubbackend.microhubltd.com.au/", {
+        transports: ["websocket", "polling", "flashsocket"],
+      });
+  }, [router.isReady]);
 
   const scrollRef = useRef<HTMLLIElement>(null);
 
@@ -43,14 +46,19 @@ export default function MessagePage() {
       router.push("/login");
     }
 
-    socket.emit("join", roomId);
+    console.log("socket trigger");
 
-    socket.on("messages", (data) => {
+    socket?.emit("join", roomId);
+
+    socket?.on("messages", (data) => {
+      console.log(data);
       if (data) setMessages(data);
     });
   }, [isUserLoading, user, socket, roomId]);
 
   useEffect(() => {
+    console.log("scroll");
+
     scrollToBottom();
   }, [messages]);
 
