@@ -14,13 +14,13 @@ export default function CreateMealPlansPage() {
     preference: "",
     meals: [
       {
-        week: "",
+        week: 0,
         day: "",
         food_items: [
           {
             food: "",
             cals: 0,
-            fats: 0,
+            fat: 0,
             carbs: 0,
             notes: "",
             title: "",
@@ -39,29 +39,42 @@ export default function CreateMealPlansPage() {
   const router = useRouter();
   const { user, isUserLoading } = useUser();
   const [recipes, setRecipes] = useState([]);
-  const [foodItems, setFoodItems] = useState();
   const [program, setProgram] = useState(initialState);
 
   // Check user status
   useEffect(() => {
     if (!isUserLoading && !user) {
       router.push("/login");
+    } else if (user) {
+      getRecipe();
+      getPrograms();
     }
-  }, [user, isUserLoading]);
+  }, [user, isUserLoading, router]);
 
-  // Get recipes
-  useEffect(() => {
-    getRecipe();
-  }, []);
+  // Get recipe
+  async function getPrograms() {
+    try {
+      const programs = await axiosInstance.get("/programs/self");
+
+      console.log(programs);
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
   // Get recipe
   async function getRecipe() {
     try {
       // make request to the backend
-      const response = await axios.get("/api/recipe/read");
+      const response = await axiosInstance.get("/recipes/self");
 
-      // Update state
-      setRecipes(response.data);
+      if (response.data.data.recipes.length > 0) {
+        // Update state
+        setRecipes(response.data.data.recipes);
+      } else {
+        // Push to the recipes page
+        router.push("/pre-built-recipes");
+      }
     } catch (err) {
       console.log(err);
     }
@@ -83,12 +96,15 @@ export default function CreateMealPlansPage() {
     if (targetId === "recipe") {
       foodItem.food = targetValue;
       foodItem.recipe = JSON.parse(targetValue).id;
-      foodItem.fats = +JSON.parse(targetValue).fat;
+      foodItem.fat = +JSON.parse(targetValue).fat;
       foodItem.cals = +JSON.parse(targetValue).calories;
       foodItem.protein = +JSON.parse(targetValue).protein;
       foodItem.carbs = +JSON.parse(targetValue).carbohydrates;
     } else {
-      foodItem = { ...foodItem, [targetId]: targetValue };
+      foodItem = {
+        ...foodItem,
+        [targetId]: targetId === "quantity" ? +targetValue : targetValue,
+      };
     }
 
     newProgram.meals[mealIndex].food_items[foodItemIndex] = foodItem;
@@ -140,12 +156,11 @@ export default function CreateMealPlansPage() {
 
   // Handle save program
   async function saveProgram() {
-    // console.log(JSON.parse(program.meals[0].food_items[0].food));
-    console.log(program);
-
     if (program.name.trim() != "") {
       try {
-        // await axiosInstance.post("/consumers/program", program);
+        const response = await axiosInstance.post("/programs", program);
+
+        console.log(response);
       } catch (err) {
         console.log(err);
       }
@@ -176,13 +191,13 @@ export default function CreateMealPlansPage() {
         <div key={mealIndex} className={styles.controller}>
           <div className={styles.controller_top}>
             <input
-              type="text"
+              type="number"
               placeholder="Week"
               value={program.meals[mealIndex].week}
               onChange={(e) => {
                 const newProgram = { ...program };
 
-                newProgram.meals[mealIndex].week = e.target.value;
+                newProgram.meals[mealIndex].week = +e.target.value;
 
                 setProgram(newProgram);
               }}
@@ -287,7 +302,7 @@ export default function CreateMealPlansPage() {
 
               <div className={styles.item}>
                 <p>Fat (g)</p>
-                <p>{foodItem.fats}</p>
+                <p>{foodItem.fat}</p>
               </div>
               <div className={styles.item}>
                 <p>Protein (g)</p>

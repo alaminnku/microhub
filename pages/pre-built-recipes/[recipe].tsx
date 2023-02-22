@@ -81,7 +81,6 @@ export default function PreBuiltRecipePage() {
         return rest;
       }),
       name: saveAbleRecipeName,
-      method: "This is a test method",
       fat: calculateTotal(ingredients, "fat"),
       protein: calculateTotal(ingredients, "protein"),
       calories: calculateTotal(ingredients, "cals"),
@@ -89,6 +88,9 @@ export default function PreBuiltRecipePage() {
       fatPercentage: calculateTotal(ingredients, "fatPercentage"),
       proteinPercentage: calculateTotal(ingredients, "proteinPercentage"),
       carbohydratesPercentage: calculateTotal(ingredients, "carbsPercentage"),
+      method: preBuiltRecipe?.analyzedInstructions[0].steps
+        .map((el) => el.step)
+        .join(" "),
     };
 
     try {

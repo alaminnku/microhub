@@ -261,6 +261,10 @@ export interface IPreBuiltRecipe {
   id: number;
   title: string;
   image: string;
+  analyzedInstructions: {
+    name: string;
+    steps: { number: number; step: string }[];
+  }[];
   nutrition: {
     ingredients: {
       id: number;
