@@ -30,7 +30,10 @@ export const useRoomMessages = (roomId: string | undefined) => {
         },
       } = await axiosInstance.get<{ data: { messages: IMessage[] } }>(`messages/${roomId}`);
 
-      setMessages(messages);
+      setMessages((oldMessages) => {
+        if (oldMessages.length === messages.length) return oldMessages;
+        return messages;
+      });
     } catch (error) {
       showErrorAlert(error as AxiosError<IAxiosError>, setAlerts);
     } finally {
@@ -58,7 +61,13 @@ export const useRoomMessages = (roomId: string | undefined) => {
   );
 
   useEffect(() => {
-    if (roomId) getMessages();
+    const interval = setInterval(() => {
+      if (roomId) getMessages();
+    }, 10000);
+
+    return () => {
+      clearInterval(interval);
+    };
   }, [getMessages, roomId]);
 
   return { messages: sortedMessages, getMessages, sendMessage, messagesLoading, sendingLoading, setMessages };
