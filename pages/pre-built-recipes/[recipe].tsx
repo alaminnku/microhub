@@ -1,13 +1,21 @@
+import { AxiosError } from "axios";
 import { useRouter } from "next/router";
 import { useData } from "@context/Data";
 import { useEffect, useState } from "react";
-import { axiosInstance } from "@utils/index";
+import { useAlert } from "@context/Alert";
 import styles from "@styles/PreBuiltRecipe.module.css";
-import { INutrient, IPreBuiltRecipe, IPreBuiltRecipeIngredient } from "types";
+import { axiosInstance, showSuccessAlert, showErrorAlert } from "@utils/index";
+import {
+  IAxiosError,
+  INutrient,
+  IPreBuiltRecipe,
+  IPreBuiltRecipeIngredient,
+} from "types";
 
 export default function PreBuiltRecipePage() {
   // Hooks
   const router = useRouter();
+  const { setAlerts } = useAlert();
   const { preBuiltRecipes } = useData();
   const [preBuiltRecipe, setPreBuiltRecipe] = useState<IPreBuiltRecipe>();
   const [ingredients, setIngredients] = useState<IPreBuiltRecipeIngredient[]>(
@@ -35,8 +43,8 @@ export default function PreBuiltRecipePage() {
             spoon_id: ingredient.id,
             name: ingredient.name,
             amount: ingredient.amount,
-            unit: ingredient.unit,
-            image: "",
+            unit: ingredient.unit || "No unit found",
+            image: "No image found",
             fat: findUnit(ingredient.nutrients, "Fat")!.amount,
             cals: findUnit(ingredient.nutrients, "Calories")!.amount,
             carbs: findUnit(ingredient.nutrients, "Carbohydrates")!.amount,
@@ -65,8 +73,13 @@ export default function PreBuiltRecipePage() {
 
     // Create saveable recipe
     const saveAbleRecipe = {
-      image: "",
-      ingredients,
+      image_url: preBuiltRecipe?.image,
+      ingredients: ingredients.map((ingredient) => {
+        const { fatPercentage, proteinPercentage, carbsPercentage, ...rest } =
+          ingredient;
+
+        return rest;
+      }),
       name: saveAbleRecipeName,
       method: "This is a test method",
       fat: calculateTotal(ingredients, "fat"),
@@ -78,16 +91,18 @@ export default function PreBuiltRecipePage() {
       carbohydratesPercentage: calculateTotal(ingredients, "carbsPercentage"),
     };
 
-    // Make request to the backend
     try {
-      const response = await axiosInstance.post(
-        "/consumers/programs",
-        saveAbleRecipe
-      );
+      // Make request to the backend
+      await axiosInstance.post("/recipes", saveAbleRecipe);
 
-      console.log(response);
+      // Show success alert
+      showSuccessAlert("Recipe saved successfully", setAlerts);
+
+      // Push to the recipes page
+      router.push("/pre-built-recipes");
     } catch (err) {
-      console.log(err);
+      // Show error alert
+      showErrorAlert(err as AxiosError<IAxiosError>, setAlerts);
     }
   }
 
