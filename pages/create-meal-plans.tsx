@@ -47,7 +47,7 @@ export default function CreateMealPlansPage() {
       router.push("/login");
     } else if (user) {
       getRecipe();
-      getPrograms();
+      // getPrograms();
     }
   }, [user, isUserLoading, router]);
 
@@ -156,6 +156,7 @@ export default function CreateMealPlansPage() {
 
   // Handle save program
   async function saveProgram() {
+    console.log(program);
     if (program.name.trim() != "") {
       try {
         const response = await axiosInstance.post("/programs", program);
