@@ -46,19 +46,15 @@ export default function MessagePage() {
       router.push("/login");
     }
 
-    console.log("socket trigger");
-
     socket?.emit("join", roomId);
 
     socket?.on("messages", (data) => {
-      console.log(data);
+      if (process.env.NODE_ENV === "development") console.log(data);
       if (data) setMessages(data);
     });
   }, [isUserLoading, user, socket, roomId]);
 
   useEffect(() => {
-    console.log("scroll");
-
     scrollToBottom();
   }, [messages]);
 
