@@ -46,14 +46,17 @@ export default function MessagePage() {
       router.push("/login");
     }
 
-    socket?.emit("join", roomId);
+    socket?.on("connection", () => {
+      socket?.emit("join", roomId);
 
-    socket?.on("messages", (data) => {
-      console.log(data, "socket-data");
-      if (data) setMessages(data);
+      socket?.on("messages", (data) => {
+        console.log(data, "socket-data");
+        if (data) setMessages(data);
+      });
     });
 
     return () => {
+      socket?.off("connection");
       socket?.off("messages");
     };
   }, [isUserLoading, user, socket, roomId]);

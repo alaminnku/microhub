@@ -61,6 +61,7 @@ export const useRoomMessages = (roomId: string | undefined) => {
   );
 
   useEffect(() => {
+    // if (roomId) getMessages();
     const interval = setInterval(() => {
       if (roomId) getMessages();
     }, 10000);
