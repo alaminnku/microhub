@@ -47,20 +47,8 @@ export default function CreateMealPlansPage() {
       router.push("/login");
     } else if (user) {
       getRecipe();
-      // getPrograms();
     }
   }, [user, isUserLoading, router]);
-
-  // Get recipe
-  async function getPrograms() {
-    try {
-      const programs = await axiosInstance.get("/programs/self");
-
-      console.log(programs);
-    } catch (err) {
-      console.log(err);
-    }
-  }
 
   // Get recipe
   async function getRecipe() {

@@ -219,6 +219,7 @@ export interface IAlertContext {
 
 export interface IDataContext {
   preBuiltRecipes: IPreBuiltRecipe[];
+  programs: { isLoading: boolean; data: any[] };
   setPreBuiltRecipes: Dispatch<SetStateAction<IPreBuiltRecipe[]>>;
 }
 

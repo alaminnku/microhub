@@ -16,12 +16,12 @@ Router.events.on("routeChangeError", () => NProgress.done());
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <AlertProvider>
-      <DataProvider>
-        <UserProvider>
+      <UserProvider>
+        <DataProvider>
           <Header />
           <Component {...pageProps} />
-        </UserProvider>
-      </DataProvider>
+        </DataProvider>
+      </UserProvider>
     </AlertProvider>
   );
 }

@@ -80,6 +80,14 @@ export default function MobileMenu({ isOpen, setIsOpen }: IMobileMenuProps) {
         </li>
 
         <li onClick={closeMobileMenu} className={!user ? styles.hide : ""}>
+          <Link href="/program-log">
+            <a>
+              <AiFillMessage /> Program log
+            </a>
+          </Link>
+        </li>
+
+        <li onClick={closeMobileMenu} className={!user ? styles.hide : ""}>
           <Link href="/create-meal-plans">
             <a>
               <IoCalendarSharp /> Create plans

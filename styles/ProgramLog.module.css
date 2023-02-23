@@ -1,0 +1,31 @@
+.program_log {
+  padding: var(--section_padding);
+}
+
+.programs h2 {
+  margin-bottom: 1rem;
+}
+
+.program {
+  display: flex;
+  margin-bottom: 1rem;
+  padding: 0.75rem 1rem;
+  border-radius: 2rem;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid var(--border_color);
+}
+
+.program p {
+  text-transform: capitalize;
+}
+
+.program button {
+  border: none;
+  cursor: pointer;
+  cursor: pointer;
+  border-radius: 2rem;
+  padding: 0.5rem 1rem;
+  background: var(--blue);
+  color: var(--almost_white);
+}
