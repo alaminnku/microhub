@@ -26,7 +26,7 @@ export default function CreateMealPlansPage() {
             title: "",
             protein: 0,
             course: "",
-            recipe: "",
+            recipe_id: "",
             serving: "",
             quantity: "",
           },
@@ -69,11 +69,7 @@ export default function CreateMealPlansPage() {
   }
 
   // Set food item
-  function setFoodItem(
-    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>,
-    mealIndex: number,
-    foodItemIndex: number
-  ) {
+  function setFoodItem(e: ChangeEvent<HTMLInputElement | HTMLSelectElement>, mealIndex: number, foodItemIndex: number) {
     const targetId = e.target.id;
     const targetValue = e.target.value;
 
@@ -83,7 +79,7 @@ export default function CreateMealPlansPage() {
 
     if (targetId === "recipe") {
       foodItem.food = targetValue;
-      foodItem.recipe = JSON.parse(targetValue).id;
+      foodItem.recipe_id = JSON.parse(targetValue).id;
       foodItem.fat = +JSON.parse(targetValue).fat;
       foodItem.cals = +JSON.parse(targetValue).calories;
       foodItem.protein = +JSON.parse(targetValue).protein;
@@ -124,9 +120,7 @@ export default function CreateMealPlansPage() {
   function addFoodItem(index: number) {
     let newProgram = { ...program };
 
-    newProgram.meals[index].food_items.push(
-      initialState.meals[0].food_items[0]
-    );
+    newProgram.meals[index].food_items.push(initialState.meals[0].food_items[0]);
 
     setProgram(newProgram);
   }
@@ -232,10 +226,7 @@ export default function CreateMealPlansPage() {
               </div>
               <div className={styles.item}>
                 <p>Course</p>
-                <select
-                  id="course"
-                  onChange={(e) => setFoodItem(e, mealIndex, foodIndex)}
-                >
+                <select id="course" onChange={(e) => setFoodItem(e, mealIndex, foodIndex)}>
                   <option value="">--Select--</option>
                   <option value="breakfast">Breakfast</option>
                   <option value="lunch">Lunch</option>
@@ -246,11 +237,7 @@ export default function CreateMealPlansPage() {
 
               <div className={styles.item}>
                 <p>Recipe</p>
-                <select
-                  id="recipe"
-                  value={foodItem.food}
-                  onChange={(e) => setFoodItem(e, mealIndex, foodIndex)}
-                >
+                <select id="recipe" value={foodItem.food} onChange={(e) => setFoodItem(e, mealIndex, foodIndex)}>
                   <option value="">--Select--</option>
                   {recipes.map((recipe: any, index) => (
                     <option key={index} value={JSON.stringify(recipe)}>
