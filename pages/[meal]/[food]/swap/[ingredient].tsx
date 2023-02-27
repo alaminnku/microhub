@@ -184,12 +184,16 @@ export default function SwapIngredientPage() {
             </div>
 
             <div className={styles.gap}>
-              <label htmlFor="gap">Select macro gap</label>
+              <label htmlFor="gap">Select macro % gap</label>
+              <p>
+                Testing Note. Some Foods wont return data from spoonacular
+                because they deem there to be no swaps available.
+              </p>
               <input
                 id="gap"
                 type="number"
                 value={gap}
-                placeholder="E.g 20"
+                placeholder="1-100"
                 onChange={(e) => setGap(e.target.value)}
               />
             </div>
