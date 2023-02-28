@@ -1,6 +1,7 @@
 .register {
   background: var(--blue);
   padding: var(--section_padding);
+  min-height: 100vh;
 }
 
 .register section {

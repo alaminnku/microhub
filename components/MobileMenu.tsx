@@ -10,6 +10,7 @@ import { IoCalendarSharp } from "react-icons/io5";
 import { currentYear, axiosInstance } from "@utils/index";
 import { AiFillMessage } from "react-icons/ai";
 import { GiMeal } from "react-icons/gi";
+import { HiDocumentReport, HiOutlineDocumentReport } from "react-icons/hi";
 
 export default function MobileMenu({ isOpen, setIsOpen }: IMobileMenuProps) {
   // Hooks
@@ -82,7 +83,7 @@ export default function MobileMenu({ isOpen, setIsOpen }: IMobileMenuProps) {
         <li onClick={closeMobileMenu} className={!user ? styles.hide : ""}>
           <Link href="/program-log">
             <a>
-              <AiFillMessage /> Program log
+              <HiDocumentReport /> Program log
             </a>
           </Link>
         </li>

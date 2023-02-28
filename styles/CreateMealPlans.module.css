@@ -9,12 +9,14 @@
 .save_program {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   margin-bottom: 1rem;
 }
 
 .save_program input {
   border-radius: 6px 0px 0px 6px;
   padding: 14px;
+  flex: 1;
   border: 1px solid var(--border_color);
 }
 
